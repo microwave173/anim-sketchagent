@@ -1,0 +1,70 @@
+<answer>
+<concept>two stick friends jumping high-five</concept>
+<strokes>
+    <s1>
+        <points>'x13y16', 'x16y17', 'x17y20', 'x16y23', 'x13y24', 'x10y23', 'x9y20', 'x10y17', 'x13y16'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>left_head</id>
+    </s1>
+    <s2>
+        <points>'x13y24', 'x15y35', 'x16y42'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>left_torso</id>
+    </s2>
+    <s3>
+        <points>'x15y30', 'x20y27', 'x23y24'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>left_front_arm</id>
+    </s3>
+    <s4>
+        <points>'x15y30', 'x10y33', 'x8y36'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>left_back_arm</id>
+    </s4>
+    <s5>
+        <points>'x16y42', 'x22y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>left_front_leg</id>
+    </s5>
+    <s6>
+        <points>'x16y42', 'x12y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>left_back_leg</id>
+    </s6>
+    <s7>
+        <points>'x37y16', 'x34y17', 'x33y20', 'x34y23', 'x37y24', 'x40y23', 'x41y20', 'x40y17', 'x37y16'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>right_head</id>
+    </s7>
+    <s8>
+        <points>'x37y24', 'x35y35', 'x34y42'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>right_torso</id>
+    </s8>
+    <s9>
+        <points>'x35y30', 'x30y27', 'x27y24'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>right_front_arm</id>
+    </s9>
+    <s10>
+        <points>'x35y30', 'x40y33', 'x42y36'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>right_back_arm</id>
+    </s10>
+    <s11>
+        <points>'x34y42', 'x28y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>right_front_leg</id>
+    </s11>
+    <s12>
+        <points>'x34y42', 'x38y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>right_back_leg</id>
+    </s12>
+    <s13>
+        <points>'x4y44', 'x46y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>ground</id>
+    </s13>
+</strokes>
+</answer>

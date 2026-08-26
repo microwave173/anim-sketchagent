@@ -1,0 +1,82 @@
+<answer><concept>two stick figures playing basketball</concept><strokes>
+    <s1>
+        <points>'x9y27', 'x12y26', 'x15y27', 'x15y30', 'x12y31', 'x9y30', 'x9y27'</points>
+        <t_values>0.000,0.167,0.333,0.500,0.667,0.833,1.000</t_values>
+        <id>attacker_head</id>
+    </s1>
+    <s2>
+        <points>'x12y31', 'x12y38'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_torso</id>
+    </s2>
+    <s3>
+        <points>'x12y33', 'x15y32'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_arm_left</id>
+    </s3>
+    <s4>
+        <points>'x12y33', 'x16y33'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_arm_right</id>
+    </s4>
+    <s5>
+        <points>'x12y38', 'x9y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_leg_left</id>
+    </s5>
+    <s6>
+        <points>'x12y38', 'x15y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_leg_right</id>
+    </s6>
+    <s7>
+        <points>'x25y24', 'x28y23', 'x31y24', 'x31y27', 'x28y28', 'x25y27', 'x25y24'</points>
+        <t_values>0.000,0.167,0.333,0.500,0.667,0.833,1.000</t_values>
+        <id>defender_head</id>
+    </s7>
+    <s8>
+        <points>'x28y28', 'x28y38'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>defender_torso</id>
+    </s8>
+    <s9>
+        <points>'x28y30', 'x23y26'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>defender_arm_left</id>
+    </s9>
+    <s10>
+        <points>'x28y30', 'x33y26'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>defender_arm_right</id>
+    </s10>
+    <s11>
+        <points>'x28y38', 'x25y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>defender_leg_left</id>
+    </s11>
+    <s12>
+        <points>'x28y38', 'x31y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>defender_leg_right</id>
+    </s12>
+    <s13>
+        <points>'x16y30', 'x18y30', 'x19y32', 'x18y33', 'x16y33', 'x15y32', 'x16y30'</points>
+        <t_values>0.000,0.167,0.333,0.500,0.667,0.833,1.000</t_values>
+        <id>ball</id>
+    </s13>
+    <s14>
+        <points>'x44y18', 'x44y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>hoop_pole</id>
+    </s14>
+    <s15>
+        <points>'x44y18', 'x38y18'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>hoop_rim</id>
+    </s15>
+    <s16>
+        <points>'x4y44', 'x46y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s16>
+</strokes></answer>

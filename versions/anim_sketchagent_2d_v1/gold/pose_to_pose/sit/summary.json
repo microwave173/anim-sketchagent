@@ -1,0 +1,138 @@
+{
+  "model": "glm-5.3",
+  "pipeline": "pose_to_pose_keys_plus_lerp",
+  "task_id": "anim_stick_sit_bench",
+  "n_keys": 3,
+  "n_frames": 12,
+  "gif_ms": 80,
+  "plan_seconds": 10.6,
+  "replay": null,
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "notes": "the hips travel the farthest in this interval, from standing height down to a hover above the seat, so it gets the most inbetweens",
+      "why": "sit-down fold"
+    },
+    {
+      "after": "lower",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "notes": "short settle from hover to full contact, fewer inbetweens but the same ease so the lowering speed does not flip",
+      "why": "settle onto the seat"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "start",
+      "valid": true,
+      "n_strokes": 10,
+      "seconds": 6.18,
+      "error": null
+    },
+    {
+      "name": "lower",
+      "valid": true,
+      "n_strokes": 10,
+      "seconds": 6.12,
+      "error": null
+    },
+    {
+      "name": "end",
+      "valid": true,
+      "n_strokes": 10,
+      "seconds": 6.6,
+      "error": null
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:start",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "is-l",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "is-l",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "is-l",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "is-l",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 6,
+      "kind": "key",
+      "label": "K:lower",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "il-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "il-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "il-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "il-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "il-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 12,
+      "kind": "key",
+      "label": "K:end",
+      "valid": true,
+      "error": null
+    }
+  ],
+  "ok": true,
+  "gif": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_sit_bench_20260825_020051/clip.gif",
+  "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_sit_bench_20260825_020051/contact_sheet.png"
+}

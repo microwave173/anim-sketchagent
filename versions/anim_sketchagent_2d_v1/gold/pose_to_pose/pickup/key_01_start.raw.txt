@@ -1,0 +1,45 @@
+<answer>
+<concept>stick person picking up a gift box</concept>
+<strokes>
+    <s1>
+        <points>'x20y12', 'x24y13', 'x25y17', 'x24y21', 'x20y22', 'x16y21', 'x15y17', 'x16y13', 'x20y12'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>person_head</id>
+    </s1>
+    <s2>
+        <points>'x20y22', 'x20y36'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>person_torso</id>
+    </s2>
+    <s3>
+        <points>'x20y26', 'x15y33'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>person_arm_left</id>
+    </s3>
+    <s4>
+        <points>'x20y26', 'x25y33'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>person_arm_right</id>
+    </s4>
+    <s5>
+        <points>'x20y36', 'x16y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>person_leg_left</id>
+    </s5>
+    <s6>
+        <points>'x20y36', 'x24y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>person_leg_right</id>
+    </s6>
+    <s7>
+        <points>'x29y44', 'x33y44', 'x33y48', 'x29y48', 'x29y44'</points>
+        <t_values>0.00,0.25,0.50,0.75,1.00</t_values>
+        <id>gift_box</id>
+    </s7>
+    <s8>
+        <points>'x5y48', 'x45y48'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>ground</id>
+    </s8>
+</strokes>
+</answer>

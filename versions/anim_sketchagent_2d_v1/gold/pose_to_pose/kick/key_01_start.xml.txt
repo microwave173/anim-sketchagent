@@ -1,0 +1,42 @@
+<strokes>
+    <s1>
+        <points>'x14y14', 'x18y15', 'x19y19', 'x18y23', 'x14y24', 'x10y23', 'x9y19', 'x10y15', 'x14y14'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>kicker_head</id>
+    </s1>
+    <s2>
+        <points>'x14y24', 'x15y34'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>kicker_torso</id>
+    </s2>
+    <s3>
+        <points>'x14y27', 'x8y31'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>kicker_plant_arm</id>
+    </s3>
+    <s4>
+        <points>'x14y27', 'x20y24'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>kicker_lead_arm</id>
+    </s4>
+    <s5>
+        <points>'x15y34', 'x13y40', 'x14y46'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>kicker_plant_leg</id>
+    </s5>
+    <s6>
+        <points>'x15y34', 'x9y38', 'x6y44'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>kicker_kick_leg</id>
+    </s6>
+    <s7>
+        <points>'x21y44', 'x23y45', 'x24y47', 'x23y49', 'x21y50', 'x19y49', 'x18y47', 'x19y45', 'x21y44'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>ball</id>
+    </s7>
+    <s8>
+        <points>'x4y46', 'x46y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>ground</id>
+    </s8>
+</strokes>

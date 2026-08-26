@@ -1,0 +1,608 @@
+{
+  "delete_stroke_ids": [],
+  "add_strokes": [
+    {
+      "id": "shooter_head",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            -0.3,
+            0.0,
+            0.42
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            -0.26,
+            0.0,
+            0.42
+          ],
+          "control_2": [
+            -0.26,
+            0.0,
+            0.46
+          ],
+          "end": [
+            -0.3,
+            0.0,
+            0.46
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            -0.34,
+            0.0,
+            0.46
+          ],
+          "control_2": [
+            -0.34,
+            0.0,
+            0.42
+          ],
+          "end": [
+            -0.3,
+            0.0,
+            0.42
+          ]
+        }
+      ],
+      "description": "Shooter head circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_torso",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            -0.3,
+            0.0,
+            0.4
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.3,
+            0.0,
+            0.22
+          ]
+        }
+      ],
+      "description": "Shooter torso upright with slight forward lean",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_legs",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            -0.3,
+            0.0,
+            0.22
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.36,
+            0.0,
+            0.11
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.36,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "command": "M",
+          "point": [
+            -0.3,
+            0.0,
+            0.22
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.24,
+            0.0,
+            0.11
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.24,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "description": "Shooter legs extended in follow-through stance",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_arms",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            -0.3,
+            0.0,
+            0.38
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.22,
+            0.0,
+            0.44
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.16,
+            0.0,
+            0.5
+          ]
+        },
+        {
+          "command": "M",
+          "point": [
+            -0.3,
+            0.0,
+            0.38
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.24,
+            0.0,
+            0.42
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.2,
+            0.0,
+            0.46
+          ]
+        }
+      ],
+      "description": "Shooter arms extended up and forward with wrist-down follow-through",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "defender_head",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.2,
+            0.1,
+            0.42
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            0.24,
+            0.1,
+            0.42
+          ],
+          "control_2": [
+            0.24,
+            0.1,
+            0.46
+          ],
+          "end": [
+            0.2,
+            0.1,
+            0.46
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            0.16,
+            0.1,
+            0.46
+          ],
+          "control_2": [
+            0.16,
+            0.1,
+            0.42
+          ],
+          "end": [
+            0.2,
+            0.1,
+            0.42
+          ]
+        }
+      ],
+      "description": "Defender head circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_torso",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.2,
+            0.1,
+            0.4
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.2,
+            0.1,
+            0.22
+          ]
+        }
+      ],
+      "description": "Defender torso upright in landing",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_legs",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.2,
+            0.1,
+            0.22
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.16,
+            0.1,
+            0.11
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.16,
+            0.1,
+            0.0
+          ]
+        },
+        {
+          "command": "M",
+          "point": [
+            0.2,
+            0.1,
+            0.22
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.24,
+            0.1,
+            0.11
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.24,
+            0.1,
+            0.0
+          ]
+        }
+      ],
+      "description": "Defender legs reaching down to ground in landing",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_arms",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.2,
+            0.1,
+            0.38
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.16,
+            0.1,
+            0.44
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.12,
+            0.1,
+            0.48
+          ]
+        },
+        {
+          "command": "M",
+          "point": [
+            0.2,
+            0.1,
+            0.38
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.24,
+            0.1,
+            0.32
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.26,
+            0.1,
+            0.28
+          ]
+        }
+      ],
+      "description": "Defender arms coming down from leap",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "ball",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.7,
+            0.1,
+            0.55
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            0.74,
+            0.1,
+            0.55
+          ],
+          "control_2": [
+            0.74,
+            0.1,
+            0.59
+          ],
+          "end": [
+            0.7,
+            0.1,
+            0.59
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            0.66,
+            0.1,
+            0.59
+          ],
+          "control_2": [
+            0.66,
+            0.1,
+            0.55
+          ],
+          "end": [
+            0.7,
+            0.1,
+            0.55
+          ]
+        }
+      ],
+      "description": "Ball at rim center",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ball"
+    },
+    {
+      "id": "hoop_pole",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.7,
+            0.1,
+            0.0
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.7,
+            0.1,
+            0.55
+          ]
+        }
+      ],
+      "description": "Hoop pole vertical",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_rim",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.66,
+            0.1,
+            0.55
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            0.66,
+            0.14,
+            0.55
+          ],
+          "control_2": [
+            0.74,
+            0.14,
+            0.55
+          ],
+          "end": [
+            0.74,
+            0.1,
+            0.55
+          ]
+        },
+        {
+          "command": "C3",
+          "control_1": [
+            0.74,
+            0.06,
+            0.55
+          ],
+          "control_2": [
+            0.66,
+            0.06,
+            0.55
+          ],
+          "end": [
+            0.66,
+            0.1,
+            0.55
+          ]
+        }
+      ],
+      "description": "Hoop rim horizontal circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_net",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            0.7,
+            0.1,
+            0.55
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.7,
+            0.1,
+            0.35
+          ]
+        }
+      ],
+      "description": "Hoop net vertical line",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "ground",
+      "commands": [
+        {
+          "command": "M",
+          "point": [
+            -0.8,
+            -0.5,
+            0.0
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.8,
+            -0.5,
+            0.0
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            0.8,
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.8,
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "command": "L",
+          "point": [
+            -0.8,
+            -0.5,
+            0.0
+          ]
+        }
+      ],
+      "description": "Ground court rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ground"
+    }
+  ],
+  "summary": "Completed key 3 'at_rim' with all 13 canonical parts. Ball is placed at rim center (0.7, 0.1, 0.55). Shooter is in follow-through with extended legs and arms reaching toward the hoop with wrist-down finish. Defender is landing with feet at ground level and arms lowered. Anchored geometry (hoop pole, rim, net, ground) and head sizes/proportions are preserved from key 1."
+}

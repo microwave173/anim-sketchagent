@@ -1,0 +1,12 @@
+[
+  {
+    "revision_id": "revision_000",
+    "parent_revision": null,
+    "round_index": 0,
+    "scene_path": "revisions/revision_000/scene.json",
+    "contact_sheet_path": "revisions/revision_000/views/contact_sheet.png",
+    "views_dir": "revisions/revision_000/views",
+    "patch_path": null,
+    "stroke_count": 0
+  }
+]

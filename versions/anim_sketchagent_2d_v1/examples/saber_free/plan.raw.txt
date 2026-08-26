@@ -1,0 +1,62 @@
+{
+  "concept": "small stick trooper firing a bolt that a stick jedi deflects with a saber",
+  "viewpoint": "side view, trooper left facing right, jedi right facing left",
+  "layout_notes": "trooper parked in the left fifth, jedi parked in the right fifth, both small; the bolt owns the wide empty middle; deflect happens right-center on the saber blade; rebound travels back left across the whole canvas",
+  "parts": [
+    {"id": "trooper_head", "name": "trooper_head", "how": "circle", "motion": "moving", "notes": "round circle head, equal width and height, same size every key"},
+    {"id": "trooper_torso", "name": "trooper_torso", "motion": "moving", "notes": "short torso line, leans back slightly on rebound"},
+    {"id": "trooper_arm_gun", "name": "trooper_gun_arm", "motion": "moving", "notes": "one arm extended right holding the gun"},
+    {"id": "trooper_leg_front", "name": "trooper_front_leg", "motion": "moving", "notes": "short leg, stance"},
+    {"id": "trooper_leg_back", "name": "trooper_back_leg", "motion": "moving", "notes": "short leg, stance"},
+    {"id": "blaster", "name": "blaster", "how": "short body rectangle plus barrel sticking out", "motion": "moving", "notes": "never one dash collinear with arm"},
+    {"id": "jedi_head", "name": "jedi_head", "how": "circle", "motion": "moving", "notes": "round circle head, same size every key"},
+    {"id": "jedi_torso", "name": "jedi_torso", "motion": "moving", "notes": "short torso line"},
+    {"id": "jedi_arm_saber", "name": "jedi_saber_arm", "motion": "moving", "notes": "swings from back position into diagonal block, then follow-through"},
+    {"id": "jedi_leg_front", "name": "jedi_front_leg", "motion": "moving", "notes": "short leg, stance"},
+    {"id": "jedi_leg_back", "name": "jedi_back_leg", "motion": "moving", "notes": "short leg, stance"},
+    {"id": "saber_grip", "name": "saber_grip", "motion": "moving", "notes": "short grip in the fist"},
+    {"id": "saber_blade", "name": "saber_blade", "motion": "moving", "notes": "long blade from grip, no crossguard; angle changes each key"},
+    {"id": "bolt", "name": "bolt", "how": "tiny short dash", "motion": "moving", "notes": "the star; just off muzzle, then touching blade, then flying back left and up"},
+    {"id": "ground", "name": "ground", "how": "one shared line", "motion": "anchored", "notes": "exact same points and t_values on every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "shot",
+      "trooper": "left fifth, aiming right, gun-arm level, bolt just off the muzzle a few cells ahead",
+      "jedi": "right fifth, saber held back and low, blade clearly off the bolt's path",
+      "bolt": "tiny dash just off the muzzle, already detached",
+      "notes": "start pose, bolt is the traveler"
+    },
+    {
+      "name": "deflect",
+      "beat": "contact",
+      "trooper": "left fifth, still aiming, slight recoil",
+      "jedi": "right fifth, saber swung up into a diagonal block, blade crossing the bolt's path in right-center",
+      "bolt": "tiny dash TOUCHING the saber blade",
+      "notes": "topology beat: saber meets bolt, interpolation cannot invent this"
+    },
+    {
+      "name": "rebound",
+      "beat": "rebound",
+      "trooper": "left fifth, leaning back a little, gun-arm still up",
+      "jedi": "right fifth, saber follow-through past the block, blade angled further",
+      "bolt": "tiny dash far back toward the left and a bit higher than the muzzle line",
+      "notes": "end pose, bolt has crossed most of the canvas back left"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "linear",
+      "why": "bolt travels the long middle from muzzle to saber; linear keeps inbound speed readable"
+    },
+    {
+      "after": "deflect",
+      "n_inbetween": 5,
+      "ease": "linear",
+      "why": "rebound is the farthest hop, back across the whole canvas; same ease as inbound so speed does not flip"
+    }
+  ]
+}

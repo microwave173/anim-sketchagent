@@ -1,0 +1,52 @@
+<answer><concept>stick person sitting down on a bench</concept><strokes>
+    <s1>
+        <points>'x15y15', 'x19y16', 'x20y20', 'x19y24', 'x15y25', 'x14y20', 'x15y15'</points>
+        <t_values>0.000,0.167,0.333,0.500,0.667,0.833,1.000</t_values>
+        <id>sit_head</id>
+    </s1>
+    <s2>
+        <points>'x17y25', 'x19y33'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sit_torso</id>
+    </s2>
+    <s3>
+        <points>'x17y27', 'x21y32'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sit_arm_upper</id>
+    </s3>
+    <s4>
+        <points>'x21y32', 'x21y36'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sit_arm_lower</id>
+    </s4>
+    <s5>
+        <points>'x19y33', 'x24y36'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sit_leg_thigh</id>
+    </s5>
+    <s6>
+        <points>'x24y36', 'x24y45'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sit_leg_shin</id>
+    </s6>
+    <s7>
+        <points>'x24y45', 'x27y45'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sit_foot</id>
+    </s7>
+    <s8>
+        <points>'x22y36', 'x34y36'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>bench_seat</id>
+    </s8>
+    <s9>
+        <points>'x28y36', 'x28y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>bench_leg</id>
+    </s9>
+    <s10>
+        <points>'x6y46', 'x44y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s10>
+</strokes></answer>

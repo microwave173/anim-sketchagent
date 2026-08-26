@@ -1,0 +1,52 @@
+<strokes>
+    <s1>
+        <points>'x14y12', 'x18y13', 'x19y17', 'x18y21', 'x14y22', 'x13y17', 'x14y12'</points>
+        <t_values>0.00,0.17,0.33,0.50,0.67,0.83,1.00</t_values>
+        <id>sit_head</id>
+    </s1>
+    <s2>
+        <points>'x16y22', 'x16y36'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sit_torso</id>
+    </s2>
+    <s3>
+        <points>'x16y26', 'x11y32'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sit_arm_upper</id>
+    </s3>
+    <s4>
+        <points>'x11y32', 'x11y38'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sit_arm_lower</id>
+    </s4>
+    <s5>
+        <points>'x16y36', 'x16y43'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sit_leg_thigh</id>
+    </s5>
+    <s6>
+        <points>'x16y43', 'x16y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sit_leg_shin</id>
+    </s6>
+    <s7>
+        <points>'x16y46', 'x19y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sit_foot</id>
+    </s7>
+    <s8>
+        <points>'x22y36', 'x34y36'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>bench_seat</id>
+    </s8>
+    <s9>
+        <points>'x28y36', 'x28y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>bench_leg</id>
+    </s9>
+    <s10>
+        <points>'x6y46', 'x44y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>ground</id>
+    </s10>
+</strokes>

@@ -1,0 +1,55 @@
+<answer>
+<concept>stick person leaping a small creek</concept>
+<strokes>
+    <s1>
+        <points>'x24y18', 'x28y19', 'x29y23', 'x28y27', 'x24y28', 'x20y27', 'x19y23', 'x20y19', 'x24y18'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>jumper_head</id>
+    </s1>
+    <s2>
+        <points>'x24y28', 'x22y36'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>jumper_torso</id>
+    </s2>
+    <s3>
+        <points>'x23y31', 'x30y27'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>jumper_left_arm</id>
+    </s3>
+    <s4>
+        <points>'x23y31', 'x31y31'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>jumper_right_arm</id>
+    </s4>
+    <s5>
+        <points>'x22y36', 'x16y33', 'x18y38'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>jumper_left_leg</id>
+    </s5>
+    <s6>
+        <points>'x22y36', 'x17y36', 'x20y40'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>jumper_right_leg</id>
+    </s6>
+    <s7>
+        <points>'x4y49', 'x16y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>left_ground</id>
+    </s7>
+    <s8>
+        <points>'x34y49', 'x46y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>right_ground</id>
+    </s8>
+    <s9>
+        <points>'x21y49', 'x24y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>water_surface</id>
+    </s9>
+    <s10>
+        <points>'x27y49', 'x30y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>water_surface</id>
+    </s10>
+</strokes>
+</answer>

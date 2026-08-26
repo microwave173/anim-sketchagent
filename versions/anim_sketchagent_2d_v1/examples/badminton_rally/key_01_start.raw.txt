@@ -1,0 +1,70 @@
+<answer>
+<concept>two small stick people rallying a shuttlecock</concept>
+<strokes>
+    <s1>
+        <points>'x8y18', 'x11y19', 'x12y21', 'x11y23', 'x8y24', 'x5y23', 'x4y21', 'x5y19', 'x8y18'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>left_head</id>
+    </s1>
+    <s2>
+        <points>'x8y24', 'x8y34'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>left_torso</id>
+    </s2>
+    <s3>
+        <points>'x5y40', 'x8y34', 'x11y40'</points>
+        <t_values>0.00,0.50,1.00</t_values>
+        <id>left_legs</id>
+    </s3>
+    <s4>
+        <points>'x8y27', 'x13y23'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>left_arm</id>
+    </s4>
+    <s5>
+        <points>'x13y23', 'x15y21', 'x15y19', 'x17y18', 'x18y20', 'x17y22', 'x15y21'</points>
+        <t_values>0.00,0.20,0.35,0.50,0.65,0.80,1.00</t_values>
+        <id>left_racket</id>
+    </s5>
+    <s6>
+        <points>'x40y18', 'x43y19', 'x44y21', 'x43y23', 'x40y24', 'x37y23', 'x36y21', 'x37y19', 'x40y18'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>right_head</id>
+    </s6>
+    <s7>
+        <points>'x40y24', 'x40y34'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>right_torso</id>
+    </s7>
+    <s8>
+        <points>'x37y40', 'x40y34', 'x43y40'</points>
+        <t_values>0.00,0.50,1.00</t_values>
+        <id>right_legs</id>
+    </s8>
+    <s9>
+        <points>'x40y27', 'x45y22'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>right_arm</id>
+    </s9>
+    <s10>
+        <points>'x45y22', 'x47y20', 'x47y18', 'x49y17', 'x50y19', 'x49y21', 'x47y20'</points>
+        <t_values>0.00,0.20,0.35,0.50,0.65,0.80,1.00</t_values>
+        <id>right_racket</id>
+    </s10>
+    <s11>
+        <points>'x19y20', 'x20y19', 'x21y20', 'x20y21', 'x19y20'</points>
+        <t_values>0.00,0.25,0.50,0.75,1.00</t_values>
+        <id>shuttle</id>
+    </s11>
+    <s12>
+        <points>'x20y32', 'x30y32', 'x25y32', 'x25y40'</points>
+        <t_values>0.00,0.40,0.40,1.00</t_values>
+        <id>net</id>
+    </s12>
+    <s13>
+        <points>'x3y40', 'x47y40'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>ground</id>
+    </s13>
+</strokes>
+</answer>

@@ -1,0 +1,26 @@
+{
+  "decision": "continue",
+  "assessment": {
+    "strengths": [
+      "The overall layout is correct: shooter left, defender right, hoop far right, all within the unit cube.",
+      "The ground plane and hoop assembly are present and readable in all views."
+    ],
+    "problems": [
+      "The ball is missing from the scene, which is critical for this beat.",
+      "The defender's raised arm is not clearly visible; the contest pose is not legible.",
+      "The shooter's crouch is not distinct enough; the legs appear straight rather than bent."
+    ]
+  },
+  "instruction": {
+    "objective": "Refine the current pose to clearly depict beat 1: shooter crouched with ball at chest, defender contesting with one arm raised.",
+    "priority": "Ensure the ball is visible at the shooter's chest and the defender's raised arm is clearly readable in all views.",
+    "success_criteria": [
+      "Ball is clearly visible at the shooter's chest height.",
+      "Defender's raised arm is distinctly visible above head height.",
+      "Shooter's crouch is legible with bent knees in at least two views."
+    ],
+    "scope": "Focus on the poses of the two figures and the ball placement; keep the hoop and ground as they are."
+  },
+  "rollback_revision": null,
+  "reason": "The scene is structurally sound but missing the ball and lacks clarity in the key poses. Continuing with a focus on these elements will improve readability."
+}

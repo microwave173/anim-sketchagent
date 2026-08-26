@@ -1,0 +1,21 @@
+{
+  "decision": "continue",
+  "assessment": {
+    "strengths": [],
+    "problems": [
+      "All four views are empty; no geometry has been drawn yet."
+    ]
+  },
+  "instruction": {
+    "objective": "Draw beat 1 of the basketball shot sequence: shooter crouched with ball at chest, defender planted with one arm raised to contest, hoop assembly fixed at the far right, all as a clean 3D line sketch.",
+    "priority": "Establish the full scene with all thirteen named parts present exactly once, ensuring the crouch and contest poses are clearly readable.",
+    "success_criteria": [
+      "Shooter's legs visibly bent, torso leaning slightly forward, ball at chest height in front of the shooter.",
+      "Defender upright with one arm clearly raised above head height toward the shooter/hoop.",
+      "Hoop pole, rim, and net fixed at the far right with rim above both figures' heads; scene fits in the unit cube."
+    ],
+    "scope": "Draw the complete scene for beat 1, ensuring consistent anatomy and spatial layout across all four views."
+  },
+  "rollback_revision": null,
+  "reason": "The scene is completely empty; the Editor must generate the initial geometry for this key pose."
+}

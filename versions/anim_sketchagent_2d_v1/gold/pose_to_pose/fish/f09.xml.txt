@@ -1,0 +1,57 @@
+<answer><concept>stick person fishing as a tiny fish leaps off the line</concept><strokes>
+    <s1>
+        <points>'x10y14', 'x14y15', 'x15y19', 'x14y23', 'x10y24', 'x9y19', 'x9y15', 'x10y14'</points>
+        <t_values>0.000,0.143,0.286,0.429,0.571,0.714,0.857,1.000</t_values>
+        <id>fisher_head</id>
+    </s1>
+    <s2>
+        <points>'x11y24', 'x14y36'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>fisher_torso</id>
+    </s2>
+    <s3>
+        <points>'x12y28', 'x16y24', 'x20y22'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>fisher_front_arm</id>
+    </s3>
+    <s4>
+        <points>'x12y28', 'x7y24'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>fisher_rear_arm</id>
+    </s4>
+    <s5>
+        <points>'x14y36', 'x10y47'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>fisher_left_leg</id>
+    </s5>
+    <s6>
+        <points>'x14y36', 'x18y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>fisher_right_leg</id>
+    </s6>
+    <s7>
+        <points>'x20y22', 'x25y17', 'x31y13', 'x37y11'</points>
+        <t_values>0.000,0.333,0.667,1.000</t_values>
+        <id>rod</id>
+    </s7>
+    <s8>
+        <points>'x37y11', 'x38y16', 'x38y21', 'x39y27'</points>
+        <t_values>0.000,0.333,0.667,1.000</t_values>
+        <id>fishing_line</id>
+    </s8>
+    <s9>
+        <points>'x42y28', 'x44y27', 'x45y28', 'x45y30', 'x43y29', 'x42y29', 'x42y28'</points>
+        <t_values>0.000,0.167,0.333,0.500,0.667,0.833,1.000</t_values>
+        <id>fish</id>
+    </s9>
+    <s10>
+        <points>'x4y47', 'x20y47'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s10>
+    <s11>
+        <points>'x30y40', 'x48y40'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>water_line</id>
+    </s11>
+</strokes></answer>

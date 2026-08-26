@@ -1,0 +1,61 @@
+{
+  "concept": "two stick friends jumping high-five",
+  "viewpoint": "side view, two people facing inward",
+  "layout_notes": "action lives in the middle of the frame; both start near the outer thirds on the ground, converge and rise to the top-middle for the clap, then land slightly wider than start; one shared ground line across the bottom",
+  "parts": [
+    {"id": "p1", "name": "left_head", "how": "circle", "motion": "moving", "notes": "same size on every key, faces right"},
+    {"id": "p2", "name": "left_torso", "how": "line", "motion": "moving", "notes": "leans into the jump on clap key"},
+    {"id": "p3", "name": "left_front_arm", "how": "line", "motion": "moving", "notes": "reaches up and inward for the clap"},
+    {"id": "p4", "name": "left_back_arm", "how": "line", "motion": "moving", "notes": "trails for balance"},
+    {"id": "p5", "name": "left_front_leg", "how": "line", "motion": "moving", "notes": "running step then tucks in air"},
+    {"id": "p6", "name": "left_back_leg", "how": "line", "motion": "moving", "notes": "pushes off, extends for landing"},
+    {"id": "p7", "name": "right_head", "how": "circle", "motion": "moving", "notes": "same size as left_head, faces left"},
+    {"id": "p8", "name": "right_torso", "how": "line", "motion": "moving", "notes": "leans into the jump on clap key"},
+    {"id": "p9", "name": "right_front_arm", "how": "line", "motion": "moving", "notes": "reaches up and inward, palm meets left palm at contact"},
+    {"id": "p10", "name": "right_back_arm", "how": "line", "motion": "moving", "notes": "trails for balance"},
+    {"id": "p11", "name": "right_front_leg", "how": "line", "motion": "moving", "notes": "running step then tucks in air"},
+    {"id": "p12", "name": "right_back_leg", "how": "line", "motion": "moving", "notes": "pushes off, extends for landing"},
+    {"id": "p13", "name": "ground", "how": "line", "motion": "anchored", "notes": "one shared ground line, identical points on every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "approach",
+      "left": "on ground, mid running step toward center, front arm swinging up, hand still low and apart",
+      "right": "mirror of left, mid running step toward center, front arm swinging up, hand apart",
+      "hands": "apart",
+      "notes": "both planted on the shared ground, bodies leaning inward, ready to push off"
+    },
+    {
+      "name": "clap",
+      "beat": "airborne contact",
+      "left": "fully airborne at peak of jump, both feet off ground, front arm fully extended up and inward, palm at center-top",
+      "right": "mirror of left, airborne at same height, front arm extended up and inward, palm meeting left palm",
+      "hands": "palms together",
+      "notes": "topology change: palms touch at center-top; heads and torsos clearly above the ground line; legs tucked"
+    },
+    {
+      "name": "end",
+      "beat": "land",
+      "left": "landed on ground, slightly farther left than start, arms settling down, knees bent from impact",
+      "right": "mirror of left, landed slightly farther right than start, arms settling, knees bent",
+      "hands": "apart again",
+      "notes": "both feet back on the shared ground, wider stance than start, contact broken"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "long travel: push-off, full jump arc and arm raise up to the clap; smooth ease keeps the rise readable"
+    },
+    {
+      "after": "clap",
+      "n_inbetween": 5,
+      "why_note_placeholder": "",
+      "ease": "smooth",
+      "why": "longest travel: falling from peak plus drifting apart to a wider landing; same smooth ease as the rise so speed into and out of the clap matches"
+    }
+  ]
+}

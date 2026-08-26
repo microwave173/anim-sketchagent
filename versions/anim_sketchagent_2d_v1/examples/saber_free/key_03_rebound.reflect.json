@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "issues": [
+    {
+      "part": "trooper_head",
+      "problem": "head is a wide oval, not a circle",
+      "fix": "rebuild as a round circle with equal width and height"
+    },
+    {
+      "part": "jedi_head",
+      "problem": "head is a wide oval, not a circle",
+      "fix": "rebuild as a round circle with equal width and height"
+    }
+  ],
+  "vision_backend": "deepseek-v4-flash-vision-exp",
+  "geometric": [],
+  "redraw_valid": true,
+  "redraw_error": null,
+  "leftover": [],
+  "raw": "{\"ok\":false,\"issues\":[{\"part\":\"trooper_head\",\"problem\":\"head is a wide oval, not a circle\",\"fix\":\"rebuild as a round circle with equal width and height\"},{\"part\":\"jedi_head\",\"problem\":\"head is a wide oval, not a circle\",\"fix\":\"rebuild as a round circle with equal width and height\"}]}"
+}

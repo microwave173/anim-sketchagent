@@ -1,0 +1,77 @@
+<answer><concept>stick person cutting another stick person away with a sword</concept><strokes>
+    <s1>
+        <points>'x17y17', 'x20y18', 'x21y21', 'x20y24', 'x17y25', 'x14y24', 'x13y21', 'x14y18', 'x17y17'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>attacker_head</id>
+    </s1>
+    <s2>
+        <points>'x17y25', 'x19y35'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_torso</id>
+    </s2>
+    <s3>
+        <points>'x19y35', 'x24y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_front_leg</id>
+    </s3>
+    <s4>
+        <points>'x19y35', 'x11y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_back_leg</id>
+    </s4>
+    <s5>
+        <points>'x18y28', 'x20y28'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_sword_arm</id>
+    </s5>
+    <s6>
+        <points>'x18y28', 'x16y32'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>attacker_off_arm</id>
+    </s6>
+    <s7>
+        <points>'x19y27', 'x21y29'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sword_grip</id>
+    </s7>
+    <s8>
+        <points>'x18y30', 'x23y27'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sword_guard</id>
+    </s8>
+    <s9>
+        <points>'x21y29', 'x23y24'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>sword_blade</id>
+    </s9>
+    <s10>
+        <points>'x36y15', 'x39y16', 'x40y19', 'x39y22', 'x36y23', 'x33y22', 'x32y19', 'x33y16', 'x36y15'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>victim_head</id>
+    </s10>
+    <s11>
+        <points>'x35y23', 'x33y33'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>victim_torso</id>
+    </s11>
+    <s12>
+        <points>'x33y33', 'x29y43'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>victim_front_leg</id>
+    </s12>
+    <s13>
+        <points>'x33y33', 'x38y42'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>victim_back_leg</id>
+    </s13>
+    <s14>
+        <points>'x34y26', 'x36y24'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>victim_arm</id>
+    </s14>
+    <s15>
+        <points>'x4y44', 'x46y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s15>
+</strokes></answer>

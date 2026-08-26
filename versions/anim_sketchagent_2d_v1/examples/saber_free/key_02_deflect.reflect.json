@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "issues": [
+    {
+      "part": "trooper_head",
+      "problem": "head is a wide oval, not a circle",
+      "fix": "make head a round circle with equal width and height"
+    },
+    {
+      "part": "jedi_head",
+      "problem": "head is a wide oval, not a circle",
+      "fix": "make head a round circle with equal width and height"
+    },
+    {
+      "part": "blaster",
+      "problem": "blaster is drawn as a single dash continuing the arm",
+      "fix": "draw a small gun with a short body and a separate barrel"
+    }
+  ],
+  "vision_backend": "deepseek-v4-flash-vision-exp",
+  "geometric": [],
+  "redraw_valid": true,
+  "redraw_error": null,
+  "leftover": [],
+  "raw": "{\"ok\":false,\"issues\":[{\"part\":\"trooper_head\",\"problem\":\"head is a wide oval, not a circle\",\"fix\":\"make head a round circle with equal width and height\"},{\"part\":\"jedi_head\",\"problem\":\"head is a wide oval, not a circle\",\"fix\":\"make head a round circle with equal width and height\"},{\"part\":\"blaster\",\"problem\":\"blaster is drawn as a single dash continuing the arm\",\"fix\":\"draw a small gun with a short body and a separate barrel\"}]}"
+}

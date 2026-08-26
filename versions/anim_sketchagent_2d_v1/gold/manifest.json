@@ -1,0 +1,81 @@
+{
+  "title": "Gold pose-to-pose clips frozen 2026-08-25",
+  "model": "glm-5.3",
+  "pipeline": "pose_to_pose_keys_plus_lerp",
+  "n_frames": 12,
+  "gif_ms": 80,
+  "clips": [
+    {
+      "alias": "kick",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_penalty_kick_20260825_015841",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/kick",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/kick/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/kick/contact_sheet.png"
+    },
+    {
+      "alias": "throw",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_snowball_throw_20260825_015912",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/throw",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/throw/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/throw/contact_sheet.png"
+    },
+    {
+      "alias": "jump",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_creek_jump_20260825_015940",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/jump",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/jump/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/jump/contact_sheet.png"
+    },
+    {
+      "alias": "highfive",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_jumping_highfive_20260825_020010",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/highfive",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/highfive/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/highfive/contact_sheet.png"
+    },
+    {
+      "alias": "sit",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_sit_bench_20260825_020051",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/sit",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/sit/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/sit/contact_sheet.png"
+    },
+    {
+      "alias": "archery",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_archery_20260825_020121",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/archery",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/archery/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/archery/contact_sheet.png"
+    },
+    {
+      "alias": "pickup",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_pickup_gift_20260825_020159",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/pickup",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/pickup/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/pickup/contact_sheet.png"
+    },
+    {
+      "alias": "fish",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_lucky_catch_20260825_020227",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/fish",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/fish/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/fish/contact_sheet.png"
+    },
+    {
+      "alias": "sword",
+      "method": "pose_to_pose_keys_plus_lerp",
+      "source": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_sword_cut_20260825_015226",
+      "gold": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/sword",
+      "clip": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/sword/clip.gif",
+      "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/gold/pose_to_pose/sword/contact_sheet.png"
+    }
+  ]
+}

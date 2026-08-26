@@ -1,0 +1,54 @@
+{
+  "concept": "stick person fishing as a tiny fish leaps off the line",
+  "viewpoint": "side view facing right",
+  "layout_notes": "fisher stands on the left bank, rod tip extends right over the water; fish starts low right in the water, ends high right in the air; action lives along the diagonal from lower right to upper right",
+  "parts": [
+    {"id": "s1", "name": "fisher_head", "how": "circle", "motion": "moving", "notes": "same size on every key; leans back on yank, tips up surprised at end"},
+    {"id": "s2", "name": "fisher_torso", "how": "line", "motion": "moving", "notes": "upright at start, leaning back on yank, more lean at end"},
+    {"id": "s3", "name": "fisher_front_arm", "how": "line", "motion": "moving", "notes": "holds rod; raises sharply on yank"},
+    {"id": "s4", "name": "fisher_rear_arm", "how": "line", "motion": "moving", "notes": "bracing arm, swings back with the lean"},
+    {"id": "s5", "name": "fisher_legs", "how": "two lines", "motion": "moving", "notes": "planted on bank, slight bend on yank"},
+    {"id": "s6", "name": "rod", "how": "long line", "motion": "moving", "notes": "held in front fist, tip points right over water; bends up on yank"},
+    {"id": "s7", "name": "fishing_line", "how": "thin line", "motion": "moving", "notes": "runs from rod tip down to fish; slack at start, taut on yank, dangling free at end"},
+    {"id": "s8", "name": "fish", "how": "small oval with tail tick", "motion": "moving", "notes": "tiny fish; in water, then at water surface on hook, then airborne up-right detached"},
+    {"id": "s9", "name": "ground", "how": "line", "motion": "anchored", "notes": "left bank, exact same points every key"},
+    {"id": "s10", "name": "water_line", "how": "line", "motion": "anchored", "notes": "short horizontal line on the right, exact same points every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "waiting",
+      "fisher": "waiting, rod out over water, line slack down to fish",
+      "fish": "in the water on the line, low right",
+      "notes": "calm pose, fish just below water line, hook attached"
+    },
+    {
+      "name": "yank",
+      "beat": "fish leaves water",
+      "fisher": "yanking back, torso leaning back, rod tip snapped up, line taut",
+      "fish": "just leaving the water at the surface, still on the hook",
+      "notes": "contact key: line taut, fish at water surface, rod bent up"
+    },
+    {
+      "name": "end",
+      "beat": "fish flies off",
+      "fisher": "surprised lean, arms up, line dangling loose from rod tip",
+      "fish": "flying up-right, detached from hook, well above water",
+      "notes": "detach key: fish free of line, hook empty, fisher startled"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "short pull: fisher winds and lifts rod, fish rises only to the surface"
+    },
+    {
+      "after": "yank",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "longest travel: fish flies far up-right off the hook; same ease as the pull so speed does not flip"
+    }
+  ]
+}

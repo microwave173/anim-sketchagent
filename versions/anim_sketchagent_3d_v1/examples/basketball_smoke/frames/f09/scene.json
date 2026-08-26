@@ -1,0 +1,129 @@
+{
+  "prompt": "Inbetween pose between release and at_rim: ball mid-arc, shooter following through, defender descending",
+  "strokes": [
+    {
+      "id": "shooter_head",
+      "path": "M -0.3 0 0.44 C3 -0.26 0 0.44 -0.26 0 0.48 -0.3 0 0.48 C3 -0.34 0 0.48 -0.34 0 0.44 -0.3 0 0.44",
+      "description": "Shooter head circle",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_torso",
+      "path": "M -0.3 0 0.42 L -0.3 0 0.24",
+      "description": "Shooter torso lowering into follow-through",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_legs",
+      "path": "M -0.3 0 0.24 L -0.35 0 0.12 L -0.35 0 0 M -0.3 0 0.24 L -0.25 0 0.12 L -0.25 0 0",
+      "description": "Shooter legs settling into landing stance",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_arms",
+      "path": "M -0.3 0 0.4 L -0.33 0 0.49 L -0.34 0 0.51 M -0.3 0 0.4 L -0.27 0 0.49 L -0.26 0 0.51",
+      "description": "Shooter arms still raised, wrists beginning to relax down",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "shooter"
+    },
+    {
+      "id": "defender_head",
+      "path": "M 0.2 0.1 0.46 C3 0.24 0.1 0.46 0.24 0.1 0.5 0.2 0.1 0.5 C3 0.16 0.1 0.5 0.16 0.1 0.46 0.2 0.1 0.46",
+      "description": "Defender head circle",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "defender"
+    },
+    {
+      "id": "defender_torso",
+      "path": "M 0.2 0.1 0.44 L 0.2 0.1 0.26",
+      "description": "Defender torso descending from leap",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "defender"
+    },
+    {
+      "id": "defender_legs",
+      "path": "M 0.2 0.1 0.26 L 0.16 0.1 0.17 L 0.15 0 0.08 M 0.2 0.1 0.26 L 0.24 0.1 0.17 L 0.25 0 0.08",
+      "description": "Defender legs extending down toward landing",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "defender"
+    },
+    {
+      "id": "defender_arms",
+      "path": "M 0.2 0.1 0.42 L 0.16 0.1 0.43 L 0.12 0.1 0.44 M 0.2 0.1 0.42 L 0.24 0.1 0.36 L 0.26 0.1 0.32",
+      "description": "Defender contest arm lowering, other arm down",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "defender"
+    },
+    {
+      "id": "ball",
+      "path": "M 0.2 0.05 0.7 C3 0.24 0.05 0.7 0.24 0.05 0.74 0.2 0.05 0.74 C3 0.16 0.05 0.74 0.16 0.05 0.7 0.2 0.05 0.7",
+      "description": "Ball at arc apex mid-flight toward rim",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "ball"
+    },
+    {
+      "id": "hoop_pole",
+      "path": "M 0.7 0.1 0 L 0.7 0.1 0.55",
+      "description": "Hoop pole vertical",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_rim",
+      "path": "M 0.66 0.1 0.55 C3 0.66 0.14 0.55 0.74 0.14 0.55 0.74 0.1 0.55 C3 0.74 0.06 0.55 0.66 0.06 0.55 0.66 0.1 0.55",
+      "description": "Hoop rim horizontal circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_net",
+      "path": "M 0.7 0.1 0.55 L 0.7 0.1 0.35",
+      "description": "Hoop net vertical line",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "ground",
+      "path": "M -0.8 -0.5 0 L 0.8 -0.5 0 L 0.8 0.5 0 L -0.8 0.5 0 L -0.8 -0.5 0",
+      "description": "Ground court rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ground"
+    }
+  ],
+  "metadata": {
+    "frame": "inbetween",
+    "t": 0.5,
+    "from": "release",
+    "to": "at_rim",
+    "animation_anchors_pinned_from": "first_key"
+  }
+}

@@ -1,0 +1,42 @@
+<strokes>
+    <s1>
+        <points>'x20y15', 'x24y16', 'x25y20', 'x24y24', 'x20y25', 'x16y24', 'x15y20', 'x16y16', 'x20y15'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>thrower_head</id>
+    </s1>
+    <s2>
+        <points>'x20y25', 'x21y28', 'x22y31', 'x23y34'</points>
+        <t_values>0.000,0.330,0.660,1.000</t_values>
+        <id>thrower_torso</id>
+    </s2>
+    <s3>
+        <points>'x23y34', 'x25y40', 'x27y46'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_front_leg</id>
+    </s3>
+    <s4>
+        <points>'x23y34', 'x19y40', 'x16y44'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_back_leg</id>
+    </s4>
+    <s5>
+        <points>'x20y27', 'x26y31', 'x30y37'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_throwing_arm</id>
+    </s5>
+    <s6>
+        <points>'x20y27', 'x24y32', 'x26y37'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_off_arm</id>
+    </s6>
+    <s7>
+        <points>'x44y7', 'x45y6', 'x46y7', 'x45y8', 'x44y7'</points>
+        <t_values>0.000,0.250,0.500,0.750,1.000</t_values>
+        <id>snowball</id>
+    </s7>
+    <s8>
+        <points>'x5y46', 'x45y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s8>
+</strokes>

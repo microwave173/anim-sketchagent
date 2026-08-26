@@ -1,0 +1,54 @@
+{
+  "concept": "stick archer loosing an arrow",
+  "viewpoint": "side view facing right",
+  "layout_notes": "archer stands in the left third, bow raised at chest height, arrow flies across the middle and right of the frame; ground line runs along the bottom of the whole frame",
+  "parts": [
+    {"id": "p1", "name": "archer_head", "how": "circle", "motion": "moving", "notes": "same size on every key"},
+    {"id": "p2", "name": "archer_torso", "how": "line from neck to hips, slight lean", "motion": "moving", "notes": "leans into draw, relaxes after loose"},
+    {"id": "p3", "name": "archer_front_leg", "how": "line hip to ground, braced forward", "motion": "moving", "notes": "stance widens slightly on loose"},
+    {"id": "p4", "name": "archer_back_leg", "how": "line hip to ground, braced back", "motion": "moving", "notes": "bears draw weight"},
+    {"id": "p5", "name": "bow_arm", "how": "line shoulder to bow grip, extended left-to-right", "motion": "moving", "notes": "holds bow out front"},
+    {"id": "p6", "name": "draw_arm", "how": "line shoulder to string hand", "motion": "moving", "notes": "pulled back at full draw, snaps open after loose"},
+    {"id": "p7", "name": "bow_curve", "how": "open C-curve facing left", "motion": "moving", "notes": "deeply bent at full draw, springs nearly straight after loose"},
+    {"id": "p8", "name": "bow_string", "how": "line connecting bow tips", "motion": "moving", "notes": "pulled back to draw hand at start, straight after loose"},
+    {"id": "p9", "name": "arrow", "how": "long thin line with small tip", "motion": "moving", "notes": "nocked on string at start, detaches at loose, flies far right"},
+    {"id": "p10", "name": "ground", "how": "single horizontal line across the frame", "motion": "anchored", "notes": "exact same points every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "full draw",
+      "archer": "full draw, draw hand at cheek, torso leaning back slightly, bow deeply bent",
+      "arrow": "nocked, tail on string, tip pointing right",
+      "notes": "draw"
+    },
+    {
+      "name": "loose",
+      "beat": "release",
+      "archer": "fingers open, draw arm starting back, bow springing straight",
+      "arrow": "just off the string, tip a short way right of the bow",
+      "notes": "loose — detach key, arrow leaves string"
+    },
+    {
+      "name": "end",
+      "beat": "follow-through",
+      "archer": "relaxed follow-through, draw arm swung back and down, bow nearly straight",
+      "arrow": "far right edge of frame, high of bow height",
+      "notes": "fly"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 3,
+      "ease": "smooth",
+      "why": "short travel: fingers release and arrow barely clears the bow, quick snap"
+    },
+    {
+      "after": "loose",
+      "n_inbetween": 6,
+      "ease": "smooth",
+      "why": "longest travel: arrow crosses most of the frame while archer settles slightly; same ease as first half so speed does not flip"
+    }
+  ]
+}

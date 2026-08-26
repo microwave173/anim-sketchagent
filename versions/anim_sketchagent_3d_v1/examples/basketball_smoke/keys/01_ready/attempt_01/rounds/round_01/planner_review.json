@@ -1,0 +1,21 @@
+{
+  "decision": "continue",
+  "assessment": {
+    "strengths": [],
+    "problems": [
+      "All four views are empty; no geometry has been drawn yet."
+    ]
+  },
+  "instruction": {
+    "objective": "Draw the complete Beat 1 pose: shooter crouched with ball at chest, defender contesting with one arm raised, and the anchored hoop assembly, all on a ground plane, visible in all four views.",
+    "priority": "Establish the full scene geometry with all 13 named parts present exactly once, correctly posed and positioned.",
+    "success_criteria": [
+      "Shooter reads as crouched with knees bent and ball held at chest height (z≈0.25).",
+      "Defender is upright with one arm raised to contest (hand near z≈0.45).",
+      "Hoop pole, rim, and net are fixed at x≈0.7 with rim above head height; all parts visible in front, side, top, and perspective views."
+    ],
+    "scope": "Full scene"
+  },
+  "rollback_revision": null,
+  "reason": "The scene is empty; the first revision must be created from scratch."
+}

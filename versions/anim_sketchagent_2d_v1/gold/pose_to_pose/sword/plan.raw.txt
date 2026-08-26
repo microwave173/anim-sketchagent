@@ -1,0 +1,76 @@
+{
+  "concept": "stick person cutting another stick person away with a sword",
+  "viewpoint": "side view, attacker on the left facing right",
+  "layout_notes": "action lives in the right two-thirds of the frame; attacker starts near the left third, lunges to center; victim starts at right third and flies up-right toward the top-right corner; one shared ground line across the bottom",
+  "parts": [
+    {"id": "s1", "name": "attacker_head", "how": "circle", "motion": "moving", "notes": "same size every key; back over rear foot on start, lunged forward on hit, drops slightly on follow-through"},
+    {"id": "s2", "name": "attacker_torso", "how": "line from neck to hips", "motion": "moving", "notes": "leans back on ready, leans forward into lunge on hit"},
+    {"id": "s3", "name": "attacker_front_leg", "how": "line hip to front foot", "motion": "moving", "notes": "steps far forward on the lunge"},
+    {"id": "s4", "name": "attacker_back_leg", "how": "line hip to back foot", "motion": "moving", "notes": "back foot stays planted, leg extends on lunge"},
+    {"id": "s5", "name": "attacker_sword_arm", "how": "line shoulder to sword hand", "motion": "moving", "notes": "raised up-back on ready, swings down and forward through hit"},
+    {"id": "s6", "name": "attacker_off_arm", "how": "line shoulder to free hand", "motion": "moving", "notes": "counterbalance, swings opposite the sword arm"},
+    {"id": "s7", "name": "sword_grip", "how": "short line in the fist", "motion": "moving", "notes": "short stroke held in the sword hand"},
+    {"id": "s8", "name": "sword_guard", "how": "short line perpendicular to blade at the grip/blade join", "motion": "moving", "notes": "readable T cross, never collinear with blade"},
+    {"id": "s9", "name": "sword_blade", "how": "longer line from guard to tip", "motion": "moving", "notes": "longer than grip, points up-back on ready, down-forward through victim on hit"},
+    {"id": "s10", "name": "victim_head", "how": "circle", "motion": "moving", "notes": "same size as attacker head; upright on start, tipped back when flying"},
+    {"id": "s11", "name": "victim_torso", "how": "line from neck to hips", "motion": "moving", "notes": "vertical on start, tilts back in flight"},
+    {"id": "s12", "name": "victim_front_leg", "how": "line hip to foot", "motion": "moving", "notes": "planted on start, kicks forward when airborne"},
+    {"id": "s13", "name": "victim_back_leg", "how": "line hip to foot", "motion": "moving", "notes": "planted on start, trails behind in flight"},
+    {"id": "s14", "name": "victim_arm", "how": "line shoulder to hand", "motion": "moving", "notes": "hangs on start, flung up in flight"},
+    {"id": "s15", "name": "ground", "how": "single horizontal line across the bottom", "motion": "anchored", "notes": "identical points and length on every key, shared by both figures"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "ready",
+      "attacker": "standing near left third, weight on back foot, head over the back foot, torso leaning slightly back, sword arm raised up and back, sword pointing up-back over the shoulder",
+      "victim": "standing upright on the ground at the right third, arms down, facing the attacker",
+      "sword": "grip in the raised fist, guard a clear cross at the grip/blade join, blade pointing up and back away from the victim",
+      "notes": "ready"
+    },
+    {
+      "name": "hit",
+      "beat": "hit",
+      "attacker": "deep lunge, front foot far forward near center, head and torso shifted well right toward the victim, sword arm swung down and forward",
+      "victim": "still on the ground but beginning to crumple, torso bent, head tipped back where the blade lands",
+      "sword": "grip in the fist, guard visible as a T, blade angled down-forward contacting the victim's torso",
+      "notes": "hit — contact key, interpolation cannot invent this"
+    },
+    {
+      "name": "fly",
+      "beat": "fly",
+      "attacker": "follow-through, lunge settling, sword arm continues past the victim, head drops slightly below the hit key",
+      "victim": "airborne, detached from the ground, body tilted back, translated up and to the right of the standing spot",
+      "sword": "grip in the fist, guard still a readable cross, blade swung low past where the victim was",
+      "notes": "fly — detach key, victim off the ground"
+    },
+    {
+      "name": "end",
+      "beat": "end",
+      "attacker": "settled in the finished lunge, head low over the front leg, sword arm at rest low in front",
+      "victim": "much farther up and right, near the top-right of the frame, limbs sprawled, still airborne",
+      "sword": "grip in the fist, guard visible, blade pointing down-forward at rest",
+      "notes": "end"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 2,
+      "ease": "ease_out",
+      "why": "wind-up into the lunge, short travel, anticipation then accelerating swing"
+    },
+    {
+      "after": "hit",
+      "n_inbetween": 3,
+      "ease": "smooth",
+      "why": "victim detaches and lifts off, moderate travel up-right plus attacker follow-through"
+    },
+    {
+      "after": "fly",
+      "n_inbetween": 3,
+      "ease": "linear",
+      "why": "victim travels farthest across the frame toward the top-right, needs the most inbetweens"
+    }
+  ]
+}

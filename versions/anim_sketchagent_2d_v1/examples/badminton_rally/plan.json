@@ -1,0 +1,142 @@
+{
+  "concept": "two small stick people rallying a shuttlecock",
+  "viewpoint": "side view, left player facing right, right player facing left",
+  "action": "Two small stick figures, about 8-12 cells tall, stand parked in the left fifth and right fifth of the canvas, rallying one shuttle over a low anchored net at center. The left player has just hit: the shuttle is already off the left racket and flying toward the right, still in the left-center, while the right player waits with racket drawn back. The shuttle crosses the long empty middle and the right player swings into a contact key where the shuttle touches the right racket in the right-center — this contact is a key because interpolation cannot invent it. After contact, the shuttle flies back toward the left, slightly higher, while the right player follows through and the left player lifts the racket to receive. Both players stay planted; only arms, rackets, and the shuttle move. The shuttle is the star: a tiny diamond or short dash that makes the long travel while the people stay small at the edges. One shared anchored ground line, one anchored net, no third person, no court lines.",
+  "layout_notes": "left player in the left fifth, right player in the right fifth, net anchored at center with one low post and short horizontal tape, shuttle travels the long empty middle; ground line shared across the bottom third",
+  "parts": [
+    {
+      "id": "left_head",
+      "name": "left player head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "round circle head, same size every key, faces right"
+    },
+    {
+      "id": "left_torso",
+      "name": "left player torso",
+      "how": "line",
+      "motion": "moving",
+      "notes": "short vertical line, stays planted in left fifth"
+    },
+    {
+      "id": "left_legs",
+      "name": "left player legs",
+      "how": "two lines",
+      "motion": "moving",
+      "notes": "two short legs touching ground, planted"
+    },
+    {
+      "id": "left_arm",
+      "name": "left racket arm",
+      "how": "line",
+      "motion": "moving",
+      "notes": "arm lifts from follow-through to ready receive"
+    },
+    {
+      "id": "left_racket",
+      "name": "left racket",
+      "how": "short grip plus small oval head",
+      "motion": "moving",
+      "notes": "grip in fist, small oval face, not a sword, angle changes with arm"
+    },
+    {
+      "id": "right_head",
+      "name": "right player head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "round circle head, same size every key, faces left"
+    },
+    {
+      "id": "right_torso",
+      "name": "right player torso",
+      "how": "line",
+      "motion": "moving",
+      "notes": "short vertical line, stays planted in right fifth"
+    },
+    {
+      "id": "right_legs",
+      "name": "right player legs",
+      "how": "two lines",
+      "motion": "moving",
+      "notes": "two short legs touching ground, planted"
+    },
+    {
+      "id": "right_arm",
+      "name": "right racket arm",
+      "how": "line",
+      "motion": "moving",
+      "notes": "swings from back position into contact, then follow-through"
+    },
+    {
+      "id": "right_racket",
+      "name": "right racket",
+      "how": "short grip plus small oval head",
+      "motion": "moving",
+      "notes": "grip in fist, small oval face, angle must change start to contact to follow-through"
+    },
+    {
+      "id": "shuttle",
+      "name": "shuttlecock",
+      "how": "tiny diamond or short dash",
+      "motion": "moving",
+      "notes": "the star; tiny, never a second head; long travel across the middle"
+    },
+    {
+      "id": "net",
+      "name": "net",
+      "how": "one low post plus short horizontal tape",
+      "motion": "anchored",
+      "notes": "center, copied exactly on every key"
+    },
+    {
+      "id": "ground",
+      "name": "ground",
+      "how": "one shared horizontal line",
+      "motion": "anchored",
+      "notes": "shared by both players, exact same points every key"
+    }
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "left just hit",
+      "left": "left fifth, planted, arm in follow-through after the hit, racket angled up-right",
+      "right": "right fifth, planted, racket drawn back and up, ready, not yet on the shuttle path",
+      "shuttle": "just off the left racket, in the left-center, flying right",
+      "notes": "clear"
+    },
+    {
+      "name": "contact",
+      "beat": "right racket meets shuttle",
+      "left": "left fifth, planted, arm settling from follow-through, racket easing to neutral",
+      "right": "right fifth, planted, swung into the hit, racket meeting the shuttle in the right-center",
+      "shuttle": "touching the right racket face in the right-center",
+      "notes": "contact key, interpolation cannot invent this"
+    },
+    {
+      "name": "return",
+      "beat": "shuttle back toward left",
+      "left": "left fifth, planted, racket lifted to receive, arm raised",
+      "right": "right fifth, planted, follow-through, racket swung across after the hit",
+      "shuttle": "flying back left and a bit higher, in the left-center heading toward the left player",
+      "notes": "return"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "shuttle travels the long middle from left-center to the right racket; right arm swings in during the same interval"
+    },
+    {
+      "after": "contact",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "shuttle returns the same long distance and slightly higher arc, similar speed, same ease as the inbound half"
+    }
+  ],
+  "n_frames": 12,
+  "task_id": "anim_stick_badminton_rally",
+  "planner": "glm-5.3-pose-to-pose"
+}

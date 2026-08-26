@@ -1,0 +1,26 @@
+{
+  "decision": "continue",
+  "assessment": {
+    "strengths": [
+      "The scene layout and part IDs are correctly defined in the plan.",
+      "The target beat is clearly specified with ball at rim and follow-through poses."
+    ],
+    "problems": [
+      "The contact sheet is empty; no geometry has been rendered.",
+      "The required 3D structure and poses are not visible in any view.",
+      "The scene does not yet satisfy the cross-key identity contract."
+    ]
+  },
+  "instruction": {
+    "objective": "Render the full 3D scene for the 'at_rim' beat with all 13 parts visible in all four views.",
+    "priority": "Draw the complete scene with the ball at the rim center, the shooter in a wrist-down follow-through, and the defender landing.",
+    "success_criteria": [
+      "All 13 canonical part IDs are present and visible in the render.",
+      "The ball is positioned at the rim center (x≈0.7, z≈0.55).",
+      "The shooter and defender poses match the beat description."
+    ],
+    "scope": "High-level: ensure the scene is fully drawn and matches the target beat."
+  },
+  "rollback_revision": null,
+  "reason": "The current revision is empty and needs to be populated with the scene geometry."
+}

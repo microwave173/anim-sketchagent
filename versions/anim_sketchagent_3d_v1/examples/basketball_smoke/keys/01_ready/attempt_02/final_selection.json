@@ -1,0 +1,11 @@
+{
+  "status": "max_rounds",
+  "best_revision": "revision_001",
+  "reason": "Revision 001 provides a clear, readable 3D sketch that successfully captures the core elements of beat 1. The front view clearly shows the shooter crouched with the ball at chest level and the defender with an arm raised to contest. The spatial layout is correct with the shooter left-center, defender right-center, and the hoop assembly on the far right. The four views are consistent, showing the same 3D structure. The figures are appropriately sized relative to the scene, and the hoop pole, rim, and net are clearly defined. This revision establishes a solid foundation for the animation sequence.",
+  "active_revision_at_stop": "revision_001",
+  "final_artifact": {
+    "scene": "final/scene.json",
+    "views": "final/views",
+    "preview": "final/views/contact_sheet.png"
+  }
+}

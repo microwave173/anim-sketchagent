@@ -1,0 +1,272 @@
+{
+  "ok": true,
+  "pipeline": "plan_keys_incremental_inbetweens_oneshot",
+  "models": {
+    "plan_and_oneshot": "glm-5.3",
+    "incremental_visual_review_and_edit": "deepseek-v4-flash-vision-exp"
+  },
+  "reflection": false,
+  "fixed_world_framing": true,
+  "anchored_part_ids": [
+    "hoop_pole",
+    "hoop_rim",
+    "hoop_net",
+    "ground"
+  ],
+  "canonical_stroke_ids": [
+    "ball",
+    "defender_arms",
+    "defender_head",
+    "defender_legs",
+    "defender_torso",
+    "ground",
+    "hoop_net",
+    "hoop_pole",
+    "hoop_rim",
+    "shooter_arms",
+    "shooter_head",
+    "shooter_legs",
+    "shooter_torso"
+  ],
+  "task_id": "anim3d_basketball",
+  "n_keys": 3,
+  "n_frames": 12,
+  "gif_ms": 80,
+  "action": "Two stick figures on a court in the unit cube. The shooter stands left-center (x about -0.3), the defender faces him right-center (x about +0.2), with the hoop on a pole at the far right (x about +0.7, rim above head height). Beat 1: shooter crouches holding the ball at chest, defender raises one arm to contest. Beat 2: shooter extends arms up and releases the ball; defender leaps with arm stretched. Beat 3: the ball travels in an arc and reaches the rim as the shooter follows through with wrist down and the defender lands. Head sizes, body builds, limb lengths, the hoop pole, rim, and net never change; only poses and the ball position change.",
+  "gaps": [
+    {
+      "after": "ready",
+      "n_inbetween": 4,
+      "ease": "ease_out",
+      "why": "continuous extension and leap-up motion, ball stays in hands until release"
+    },
+    {
+      "after": "release",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "ball arc flight and defender descent need several beats to read as travel"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "ready",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 2,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "error": "ValueError: invalid planner decision: ''",
+      "seconds": 308.52
+    },
+    {
+      "name": "release",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 2,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "error": "ValueError: invalid planner decision: ''",
+      "seconds": 192.74
+    },
+    {
+      "name": "at_rim",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 2,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "error": "ValueError: planner decision continue requires instruction",
+      "seconds": 194.29
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:ready",
+      "strokes": 13,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "ir-r",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "ir-r",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "ir-r",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "ir-r",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 6,
+      "kind": "key",
+      "label": "K:release",
+      "strokes": 13,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "ir-a",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "ir-a",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "ir-a",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "ir-a",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "ir-a",
+      "strokes": 13,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 12,
+      "kind": "key",
+      "label": "K:at_rim",
+      "strokes": 13,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 13,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    }
+  ],
+  "gif": "outputs/anim3d_basketball_v1/clip.gif",
+  "contact_sheet": "outputs/anim3d_basketball_v1/contact_sheet.png"
+}

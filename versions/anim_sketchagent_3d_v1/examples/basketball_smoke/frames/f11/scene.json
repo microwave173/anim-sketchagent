@@ -1,0 +1,128 @@
+{
+  "prompt": "Inbetween pose (t=0.833) between release and at_rim: ball descending toward rim, shooter in follow-through, defender landing",
+  "strokes": [
+    {
+      "id": "shooter_head",
+      "path": "M -0.3 0 0.427 C3 -0.26 0 0.427 -0.26 0 0.467 -0.3 0 0.467 C3 -0.34 0 0.467 -0.34 0 0.427 -0.3 0 0.427",
+      "description": "Shooter head circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_torso",
+      "path": "M -0.3 0 0.403 L -0.3 0 0.223",
+      "description": "Shooter torso settling upright",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_legs",
+      "path": "M -0.3 0 0.223 L -0.355 0 0.11 L -0.355 0 0 M -0.3 0 0.223 L -0.245 0 0.11 L -0.245 0 0",
+      "description": "Shooter legs widening into landing stance",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_arms",
+      "path": "M -0.3 0 0.383 L -0.335 0 0.46 L -0.35 0 0.447 M -0.3 0 0.383 L -0.265 0 0.46 L -0.25 0 0.447",
+      "description": "Shooter arms up, wrists rolling into follow-through",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "defender_head",
+      "path": "M 0.2 0.1 0.427 C3 0.24 0.1 0.427 0.24 0.1 0.467 0.2 0.1 0.467 C3 0.16 0.1 0.467 0.16 0.1 0.427 0.2 0.1 0.427",
+      "description": "Defender head circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_torso",
+      "path": "M 0.2 0.1 0.403 L 0.2 0.1 0.223",
+      "description": "Defender torso descending to landing",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_legs",
+      "path": "M 0.2 0.1 0.223 L 0.163 0.1 0.11 L 0.163 0.1 0 M 0.2 0.1 0.223 L 0.237 0.1 0.11 L 0.237 0.1 0",
+      "description": "Defender legs extending toward ground",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_arms",
+      "path": "M 0.2 0.1 0.383 L 0.163 0.1 0.327 L 0.123 0.1 0.293 M 0.2 0.1 0.383 L 0.237 0.1 0.327 L 0.257 0.1 0.293",
+      "description": "Defender arms lowering from leap",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "ball",
+      "path": "M 0.53 0.083 0.615 C3 0.57 0.083 0.615 0.57 0.083 0.655 0.53 0.083 0.655 C3 0.49 0.083 0.655 0.49 0.083 0.615 0.53 0.083 0.615",
+      "description": "Ball descending on arc, just above and left of rim",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ball"
+    },
+    {
+      "id": "hoop_pole",
+      "path": "M 0.7 0.1 0 L 0.7 0.1 0.55",
+      "description": "Hoop pole vertical",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_rim",
+      "path": "M 0.66 0.1 0.55 C3 0.66 0.14 0.55 0.74 0.14 0.55 0.74 0.1 0.55 C3 0.74 0.06 0.55 0.66 0.06 0.55 0.66 0.1 0.55",
+      "description": "Hoop rim horizontal circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_net",
+      "path": "M 0.7 0.1 0.55 L 0.7 0.1 0.35",
+      "description": "Hoop net vertical line",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "ground",
+      "path": "M -0.8 -0.5 0 L 0.8 -0.5 0 L 0.8 0.5 0 L -0.8 0.5 0 L -0.8 -0.5 0",
+      "description": "Ground court rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ground"
+    }
+  ],
+  "metadata": {
+    "frame": "inbetween_release_to_at_rim",
+    "t": 0.833,
+    "ease": "smooth",
+    "animation_anchors_pinned_from": "first_key"
+  }
+}

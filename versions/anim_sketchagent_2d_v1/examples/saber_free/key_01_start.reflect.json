@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "issues": [
+    {
+      "part": "trooper_head",
+      "problem": "head is a wide oval, not a circle",
+      "fix": "rebuild as 8-compass circle, same center, width=height"
+    },
+    {
+      "part": "jedi_head",
+      "problem": "head is a wide oval, not a circle",
+      "fix": "rebuild as 8-compass circle, same center, width=height"
+    },
+    {
+      "part": "blaster_barrel",
+      "problem": "gun is one dash, collinear with the arm",
+      "fix": "short body (small L or 4-point rectangle) plus a barrel sticking forward"
+    }
+  ],
+  "vision_backend": "deepseek-v4-flash-vision-exp",
+  "geometric": [
+    {
+      "part": "blaster_barrel",
+      "problem": "gun is one dash, collinear with the arm",
+      "fix": "short body (small L or 4-point rectangle) plus a barrel sticking forward"
+    }
+  ],
+  "redraw_valid": true,
+  "redraw_error": null,
+  "leftover": [],
+  "raw": "{\"ok\":false,\"issues\":[{\"part\":\"trooper_head\",\"problem\":\"head is a wide oval, not a circle\",\"fix\":\"rebuild as 8-compass circle, same center, width=height\"},{\"part\":\"jedi_head\",\"problem\":\"head is a wide oval, not a circle\",\"fix\":\"rebuild as 8-compass circle, same center, width=height\"}]}"
+}

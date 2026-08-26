@@ -1,0 +1,129 @@
+{
+  "prompt": "Inbetween pose at t=0.800 ease_out between ready and release: shooter nearly fully extended, defender almost at peak leap, ball just below release point",
+  "strokes": [
+    {
+      "id": "shooter_head",
+      "path": "M -0.3 0 0.458 C3 -0.26 0 0.458 -0.26 0 0.498 -0.3 0 0.498 C3 -0.34 0 0.498 -0.34 0 0.458 -0.3 0 0.458",
+      "description": "Shooter head circle, raised near full extension",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_torso",
+      "path": "M -0.3 0 0.438 L -0.3 0 0.258",
+      "description": "Shooter torso nearly fully extended",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_legs",
+      "path": "M -0.3 0 0.258 L -0.341 0 0.13 L -0.341 0 0 M -0.3 0 0.258 L -0.259 0 0.13 L -0.259 0 0",
+      "description": "Shooter legs extending out of crouch",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "shooter_arms",
+      "path": "M -0.3 0 0.418 L -0.321 0 0.511 L -0.321 0 0.568 M -0.3 0 0.418 L -0.279 0 0.511 L -0.279 0 0.568",
+      "description": "Shooter arms almost fully extended upward",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shooter"
+    },
+    {
+      "id": "defender_head",
+      "path": "M 0.2 0.1 0.497 C3 0.24 0.1 0.497 0.24 0.1 0.533 0.2 0.1 0.533 C3 0.16 0.1 0.533 0.16 0.1 0.497 0.2 0.1 0.497",
+      "description": "Defender head circle, high in leap",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_torso",
+      "path": "M 0.2 0.1 0.474 L 0.2 0.1 0.297",
+      "description": "Defender torso stretched in leap",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_legs",
+      "path": "M 0.2 0.1 0.297 L 0.16 0.1 0.211 L 0.142 0.1 0.154 M 0.2 0.1 0.297 L 0.24 0.1 0.211 L 0.258 0.1 0.154",
+      "description": "Defender legs tucking for leap",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "defender_arms",
+      "path": "M 0.2 0.1 0.453 L 0.16 0.1 0.536 L 0.12 0.1 0.592 M 0.2 0.1 0.453 L 0.24 0.1 0.392 L 0.26 0.1 0.352",
+      "description": "Defender contest arm nearly stretched, other lower",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "defender"
+    },
+    {
+      "id": "ball",
+      "path": "M -0.3 0 0.586 C3 -0.26 0 0.586 -0.26 0 0.626 -0.3 0 0.626 C3 -0.34 0 0.626 -0.34 0 0.586 -0.3 0 0.586",
+      "description": "Ball just below release point above shooter",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ball"
+    },
+    {
+      "id": "hoop_pole",
+      "path": "M 0.7 0.1 0 L 0.7 0.1 0.55",
+      "description": "Hoop pole vertical",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_rim",
+      "path": "M 0.66 0.1 0.55 C3 0.66 0.14 0.55 0.74 0.14 0.55 0.74 0.1 0.55 C3 0.74 0.06 0.55 0.66 0.06 0.55 0.66 0.1 0.55",
+      "description": "Hoop rim horizontal circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "hoop_net",
+      "path": "M 0.7 0.1 0.55 L 0.7 0.1 0.35",
+      "description": "Hoop net vertical line",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "hoop"
+    },
+    {
+      "id": "ground",
+      "path": "M -0.8 -0.5 0 L 0.8 -0.5 0 L 0.8 0.5 0 L -0.8 0.5 0 L -0.8 -0.5 0",
+      "description": "Ground court rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "ground"
+    }
+  ],
+  "metadata": {
+    "t": 0.8,
+    "ease": "ease_out",
+    "from": "ready",
+    "to": "release",
+    "animation_anchors_pinned_from": "first_key"
+  }
+}

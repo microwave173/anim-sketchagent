@@ -1,0 +1,26 @@
+{
+  "decision": "continue",
+  "assessment": {
+    "strengths": [
+      "All 13 canonical part IDs are present exactly once.",
+      "The overall scene layout with two figures and the hoop is recognizable in the perspective view."
+    ],
+    "problems": [
+      "The ball is not clearly at the rim center; it appears to be at the pole's base in the front view and is not visually interacting with the rim in the perspective view.",
+      "The shooter's follow-through and the defender's landing poses are not clearly distinct; the figures appear too similar to a neutral standing pose.",
+      "The side view is extremely cluttered, making it difficult to distinguish the individual figures and the ball's position relative to the rim."
+    ]
+  },
+  "instruction": {
+    "objective": "Refine the poses and ball placement to clearly depict the climax beat: the ball arriving at the rim, the shooter in a follow-through, and the defender landing.",
+    "priority": "Ensure the ball is positioned at the rim center (x≈0.7, z≈0.55) and is visually distinct from the pole. Adjust the shooter's arms to show a downward follow-through and the defender's legs to show a landing stance.",
+    "success_criteria": [
+      "The ball is clearly at the rim center in all views.",
+      "The shooter's arms are extended with a downward wrist follow-through.",
+      "The defender's feet are near the ground with knees bent in a landing pose."
+    ],
+    "scope": "Adjust the positions of the ball, shooter_arms, and defender_legs to match the beat description."
+  },
+  "rollback_revision": null,
+  "reason": "The current sketch has the correct structure but lacks the specific pose details and ball placement required for this beat."
+}

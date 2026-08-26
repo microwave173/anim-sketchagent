@@ -1,0 +1,102 @@
+{
+  "concept": "stick person taking a penalty kick",
+  "viewpoint": "side view facing right",
+  "layout_notes": "kicker stands in the left third, ball starts on the ground just ahead of the planted foot; ball ends in the upper-right area of the frame, well past the kicker; one shared ground line across the whole frame",
+  "parts": [
+    {
+      "id": "s1",
+      "name": "kicker_head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "same size on every key; leans with the body"
+    },
+    {
+      "id": "s2",
+      "name": "kicker_torso",
+      "how": "line from neck to hip",
+      "motion": "moving",
+      "notes": "coils back at start, leans forward into the kick"
+    },
+    {
+      "id": "s3",
+      "name": "kicker_plant_arm",
+      "how": "line from shoulder, swung back for balance",
+      "motion": "moving",
+      "notes": "opposite arm swings back during kick"
+    },
+    {
+      "id": "s4",
+      "name": "kicker_lead_arm",
+      "how": "line from shoulder, swung forward",
+      "motion": "moving",
+      "notes": "balances the follow-through"
+    },
+    {
+      "id": "s5",
+      "name": "kicker_plant_leg",
+      "how": "two-segment leg, foot on ground",
+      "motion": "moving",
+      "notes": "anchored to ground by contact, bends as body coils"
+    },
+    {
+      "id": "s6",
+      "name": "kicker_kick_leg",
+      "how": "two-segment leg, the striking limb",
+      "motion": "moving",
+      "notes": "drawn back in coil, whips through to meet the ball, high follow-through"
+    },
+    {
+      "id": "s7",
+      "name": "ball",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "same size on every key; on ground at start, at foot on hit, far up-right at end"
+    },
+    {
+      "id": "s8",
+      "name": "ground",
+      "how": "single horizontal line across the frame",
+      "motion": "anchored",
+      "notes": "exact same points and t_values on every key"
+    }
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "coil",
+      "kicker": "coiled, kick leg drawn far back, plant leg bent, torso leaning back over the plant foot",
+      "ball": "on the ground at the foot, resting on the ground line",
+      "notes": "plant: weight loaded on the plant leg, ball still grounded"
+    },
+    {
+      "name": "hit",
+      "beat": "contact",
+      "kicker": "kick leg swung through, foot meeting the ball, torso leaning forward over the plant leg",
+      "ball": "at the foot, touching the kicking foot, just leaving the ground",
+      "notes": "hit: foot-ball contact is explicit; ball begins to detach"
+    },
+    {
+      "name": "end",
+      "beat": "fly",
+      "kicker": "follow-through in place, kick leg high and forward, torso upright again, plant leg still grounded",
+      "ball": "far up-right, high above the ground and well past the kicker",
+      "notes": "fly: ball clearly detached and far along its up-right path"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 3,
+      "ease": "smooth",
+      "why": "short plant into the kick"
+    },
+    {
+      "after": "hit",
+      "n_inbetween": 6,
+      "ease": "smooth",
+      "why": "ball flies farther; keep swing/follow speed similar"
+    }
+  ],
+  "task_id": "anim_stick_penalty_kick",
+  "planner": "glm-5.3-pose-to-pose"
+}

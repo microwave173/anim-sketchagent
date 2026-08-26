@@ -1,0 +1,51 @@
+{
+  "concept": "two stick figures playing basketball",
+  "viewpoint": "side view",
+  "action": "Side view of a half-court scene. The attacker stands in the left third of the canvas with the basketball held at chest level; the defender stands in the middle third between the attacker and the hoop, arms raised. The attacker takes one step forward, rises onto his toes, and releases a jump shot over the defender's outstretched arm — the release is a contact beat interpolation cannot invent. The ball then arcs high across the middle lane and drops through the hoop mounted on a pole at the right edge, above head height. The defender stays grounded, only shifting weight and turning slightly. Head sizes, builds, and limb lengths stay identical on every key; only poses and the ball's position change.",
+  "layout_notes": "attacker in left third, defender in middle third, hoop and pole at right edge with rim above head height; ball's flight lane is the open space above and between the two figures; shared ground line across the bottom quarter; figures about one quarter of the canvas tall",
+  "parts": [
+    {"id": "a_head", "name": "attacker_head", "how": "circle", "motion": "moving", "notes": "same size circle on every key; rises with the jump"},
+    {"id": "a_torso", "name": "attacker_torso", "how": "line", "motion": "moving", "notes": "same length; leans slightly into the shot then straightens"},
+    {"id": "a_arms", "name": "attacker_arms", "how": "two lines", "motion": "moving", "notes": "chest hold, then both arms extend up and forward for the release"},
+    {"id": "a_legs", "name": "attacker_legs", "how": "two lines", "motion": "moving", "notes": "step then bent knees extending into a jump"},
+    {"id": "d_head", "name": "defender_head", "how": "circle", "motion": "moving", "notes": "same size circle, unchanging size; tilts up to watch the ball"},
+    {"id": "d_torso", "name": "defender_torso", "how": "line", "motion": "moving", "notes": "same length; slight weight shift only, stays grounded"},
+    {"id": "d_arms", "name": "defender_arms", "how": "two lines", "motion": "moving", "notes": "raise from sides to straight up contesting the shot"},
+    {"id": "d_legs", "name": "defender_legs", "how": "two lines", "motion": "moving", "notes": "planted feet, slight bend for the weight shift"},
+    {"id": "ball", "name": "basketball", "how": "circle", "motion": "moving", "notes": "small circle smaller than a head; travels from hands to hoop"},
+    {"id": "hoop", "name": "hoop_and_pole", "how": "vertical pole line plus short rim line", "motion": "anchored", "notes": "exact same points every key; rim above head height at right edge"},
+    {"id": "ground", "name": "ground", "how": "horizontal line", "motion": "anchored", "notes": "one shared ground line across the bottom, identical every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "setup",
+      "notes": "attacker in left third holding ball at chest, knees slightly bent facing right; defender in middle third facing left with arms half raised; hoop at right edge"
+    },
+    {
+      "name": "release",
+      "beat": "contact",
+      "notes": "attacker up on toes, both arms extended up and forward, ball just leaving fingertips at top of reach; defender fully extended arms straight up, head tilted to ball"
+    },
+    {
+      "name": "score",
+      "beat": "ball through hoop",
+      "notes": "ball dropping through the rim at the right edge; attacker landed, arms following through wrists down; defender turned watching, weight settled back"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "notes_gap": null,
+      "why": "step-up and lift into the release; moderate travel of arms and body, smooth rise"
+    },
+    {
+      "after": "release",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "longest travel: the ball arcs across the middle lane to the hoop, plus the attacker's follow-through and landing; same ease as the rise so speed does not flip"
+    }
+  ]
+}

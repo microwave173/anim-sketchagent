@@ -1,0 +1,21 @@
+{
+  "revision_id": "revision_001",
+  "parent_revision": "revision_000",
+  "round_index": 1,
+  "retired_ids": [],
+  "stroke_ids": [
+    "shooter_head",
+    "shooter_torso",
+    "shooter_legs",
+    "shooter_arms",
+    "defender_head",
+    "defender_torso",
+    "defender_legs",
+    "defender_arms",
+    "ball",
+    "hoop_pole",
+    "hoop_rim",
+    "hoop_net",
+    "ground"
+  ]
+}

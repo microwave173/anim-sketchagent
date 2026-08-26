@@ -1,0 +1,11 @@
+{
+  "status": "max_rounds",
+  "best_revision": "revision_001",
+  "reason": "The revision correctly places the ball at the rim center and shows the shooter in a follow-through pose with the defender landing. The anchored hoop and ground are consistent with the target, and the four views maintain the required 3D structure.",
+  "active_revision_at_stop": "revision_001",
+  "final_artifact": {
+    "scene": "final/scene.json",
+    "views": "final/views",
+    "preview": "final/views/contact_sheet.png"
+  }
+}

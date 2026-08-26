@@ -1,0 +1,52 @@
+{
+  "concept": "stick person picking up a gift box",
+  "viewpoint": "side view facing right",
+  "layout_notes": "person stands at left-center, box rests on the ground slightly ahead of the feet; the bend reaches down and right, the lift rises back to the same standing spot; all action stays in the middle of the frame",
+  "parts": [
+    {"id": "p_head", "name": "person_head", "how": "circle", "motion": "moving", "notes": "same size on every key"},
+    {"id": "p_torso", "name": "person_torso", "how": "line from neck to hips", "motion": "moving", "notes": "bends forward at the hips on grasp"},
+    {"id": "p_arm_l", "name": "person_arm_left", "how": "line from shoulder to hand", "motion": "moving", "notes": "reaches down to the box"},
+    {"id": "p_arm_r", "name": "person_arm_right", "how": "line from shoulder to hand", "motion": "moving", "notes": "reaches down to the box"},
+    {"id": "p_leg_l", "name": "person_leg_left", "how": "line from hip to foot", "motion": "moving", "notes": "slight knee bend on grasp, feet stay near same spot"},
+    {"id": "p_leg_r", "name": "person_leg_right", "how": "line from hip to foot", "motion": "moving", "notes": "slight knee bend on grasp, feet stay near same spot"},
+    {"id": "box", "name": "gift_box", "how": "small square of two short lines", "motion": "moving", "notes": "on the ground until grasp, then parents to the hands and rises with the body"},
+    {"id": "ground", "name": "ground", "how": "single horizontal line across the frame", "motion": "anchored", "notes": "exact same points and t_values on every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "standing, box on ground",
+      "body": "stand upright, arms hanging at sides, hands empty",
+      "box": "on the ground ahead of the feet",
+      "notes": "calm ready pose, weight even"
+    },
+    {
+      "name": "grasp",
+      "beat": "hands meet box",
+      "body": "bent over at the hips, knees slightly bent, both hands down on the box",
+      "box": "in both hands, still resting on the ground",
+      "notes": "contact key: hands touch the box; box does not move yet"
+    },
+    {
+      "name": "end",
+      "beat": "hug to chest",
+      "body": "upright again, box hugged to the torso with both arms",
+      "box": "pressed against the chest",
+      "notes": "lift complete, box parents to the hands through the rise"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "long travel of torso, head, and arms bending all the way down to the floor"
+    },
+    {
+      "after": "grasp",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "body rises the same distance plus the box travels up to the chest, so slightly more inbetweens keeps the same speed"
+    }
+  ]
+}

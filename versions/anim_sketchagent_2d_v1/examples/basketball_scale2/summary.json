@@ -1,0 +1,145 @@
+{
+  "model": "glm-5.3",
+  "pipeline": "pose_to_pose_keys_plus_lerp_reflect",
+  "task_id": "anim_stick_basketball",
+  "n_keys": 3,
+  "n_frames": 12,
+  "suggested_frames": 12,
+  "pin_frames": null,
+  "action": "Side view of a half-court scene. The attacker stands in the left third of the canvas with the basketball held at chest level; the defender stands in the middle third between the attacker and the hoop, arms raised. The attacker takes one step forward, rises onto his toes, and releases a jump shot over the defender's outstretched arm — the release is a contact beat interpolation cannot invent. The ball then arcs high across the middle lane and drops through the hoop mounted on a pole at the right edge, above head height. The defender stays grounded, only shifting weight and turning slightly. Head sizes, builds, and limb lengths stay identical on every key; only poses and the ball's position change.",
+  "gif_ms": 80,
+  "plan_seconds": 13.48,
+  "replay": null,
+  "reflect": false,
+  "vision": null,
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "notes_gap": null,
+      "why": "step-up and lift into the release; moderate travel of arms and body, smooth rise"
+    },
+    {
+      "after": "release",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "longest travel: the ball arcs across the middle lane to the hoop, plus the attacker's follow-through and landing; same ease as the rise so speed does not flip"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "start",
+      "valid": true,
+      "n_strokes": 16,
+      "seconds": 14.24,
+      "error": null,
+      "reflect": false
+    },
+    {
+      "name": "release",
+      "valid": true,
+      "n_strokes": 16,
+      "seconds": 9.04,
+      "error": null,
+      "reflect": false
+    },
+    {
+      "name": "score",
+      "valid": true,
+      "n_strokes": 16,
+      "seconds": 9.34,
+      "error": null,
+      "reflect": false
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:start",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 6,
+      "kind": "key",
+      "label": "K:release",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "ir-s",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "ir-s",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "ir-s",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "ir-s",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "ir-s",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 12,
+      "kind": "key",
+      "label": "K:score",
+      "valid": true,
+      "error": null
+    }
+  ],
+  "ok": true,
+  "gif": "outputs/glm53_keys_basketball_scale2/clip.gif",
+  "contact_sheet": "outputs/glm53_keys_basketball_scale2/contact_sheet.png"
+}

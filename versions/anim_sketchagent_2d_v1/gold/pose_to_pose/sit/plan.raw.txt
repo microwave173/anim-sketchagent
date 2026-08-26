@@ -1,0 +1,54 @@
+{
+  "concept": "stick person sitting down on a bench",
+  "viewpoint": "side view facing right",
+  "layout_notes": "bench sits in the lower half of the frame, seat about a quarter up from the ground; person stands to the left of the bench, lowers over it, and settles with hips on the seat and knees pointing right toward the near third of the frame",
+  "parts": [
+    {"id": "p1", "name": "sit_head", "how": "circle", "motion": "moving", "notes": "same size on every key; drops slightly lower relative to torso in the seated key"},
+    {"id": "p2", "name": "sit_torso", "how": "line from neck to hips", "motion": "moving", "notes": "tilts forward slightly while lowering, more slumped when seated"},
+    {"id": "p3", "name": "sit_arm_upper", "how": "line from shoulder", "motion": "moving", "notes": "hangs at side when standing, reaches back for the bench while lowering, rests on lap when seated"},
+    {"id": "p4", "name": "sit_arm_lower", "how": "line from elbow to hand", "motion": "moving", "notes": "follows the upper arm; hand may touch the seat edge in the lower key"},
+    {"id": "p5", "name": "sit_leg_thigh", "how": "line from hips to knee", "motion": "moving", "notes": "vertical when standing, bends to horizontal when seated"},
+    {"id": "p6", "name": "sit_leg_shin", "how": "line from knee to ankle", "motion": "moving", "notes": "vertical when standing, stays near vertical when seated so knees point forward"},
+    {"id": "p7", "name": "sit_foot", "how": "short line at the ankle", "motion": "moving", "notes": "flat on the ground in start and seated keys"},
+    {"id": "p8", "name": "bench_seat", "how": "horizontal line", "motion": "anchored", "notes": "exact same points and length on every key"},
+    {"id": "p9", "name": "bench_leg", "how": "short vertical line under the seat", "motion": "anchored", "notes": "exact same points on every key"},
+    {"id": "p10", "name": "ground", "how": "one long horizontal line", "motion": "anchored", "notes": "shared ground under bench and feet, identical on every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "standing by bench",
+      "body": "standing",
+      "bench": "unchanged",
+      "notes": "person stands just left of the bench, legs straight, arms hanging, torso upright, feet flat on the shared ground"
+    },
+    {
+      "name": "lower",
+      "beat": "hovering, hips dropping",
+      "body": "lowering",
+      "bench": "unchanged",
+      "notes": "knees bent deeply, hips a hand-width above the seat, torso tilted forward, one hand reaching back to the seat edge — contact of hand with bench happens here"
+    },
+    {
+      "name": "end",
+      "beat": "fully seated",
+      "body": "seated",
+      "bench": "unchanged",
+      "notes": "hips resting on the seat, thighs horizontal, knees forward, shins near vertical, feet flat on the ground, head dropped a little, torso slumped with tired posture"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "notes": "the hips travel the farthest in this interval, from standing height down to a hover above the seat, so it gets the most inbetweens"
+    },
+    {
+      "after": "lower",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "notes": "short settle from hover to full contact, fewer inbetweens but the same ease so the lowering speed does not flip"
+    }
+  ]
+}

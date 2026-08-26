@@ -1,0 +1,53 @@
+{
+  "concept": "stick person leaping a small creek",
+  "viewpoint": "side view facing right",
+  "layout_notes": "left_ground pad occupies the left third, right_ground pad the right third, empty water gap in the middle. Action arcs from left pad up over the gap and down onto the right pad, peak roughly at the middle of the frame.",
+  "parts": [
+    {"id": "p1", "name": "jumper_head", "how": "circle", "motion": "moving", "notes": "same size on every key, travels with the body"},
+    {"id": "p2", "name": "jumper_torso", "how": "line from neck to hips", "motion": "moving", "notes": "short and crouched at start, tucked diagonal in air, upright at land"},
+    {"id": "p3", "name": "jumper_left_arm", "how": "line from shoulder", "motion": "moving", "notes": "swings back in crouch, raised forward in air, forward at landing"},
+    {"id": "p4", "name": "jumper_right_arm", "how": "line from shoulder", "motion": "moving", "notes": "mirrors left arm, pumps up during flight"},
+    {"id": "p5", "name": "jumper_left_leg", "how": "line from hip", "motion": "moving", "notes": "deeply bent in crouch, tucked knee-up in air, extended on landing"},
+    {"id": "p6", "name": "jumper_right_leg", "how": "line from hip", "motion": "moving", "notes": "deeply bent in crouch, tucked under in air, extended on landing"},
+    {"id": "p7", "name": "left_ground", "how": "short horizontal line", "motion": "anchored", "notes": "left bank pad, identical points every key"},
+    {"id": "p8", "name": "right_ground", "how": "short horizontal line", "motion": "anchored", "notes": "right bank pad, identical points every key"},
+    {"id": "p9", "name": "water_surface", "how": "two or three short dashes in the gap", "motion": "anchored", "notes": "marks the creek between pads, never moves"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "crouch on left bank",
+      "body": "crouched on left",
+      "feet": "on left_ground",
+      "notes": "deep crouch, knees bent, arms swung back behind hips, head low over left_ground, weight loaded for launch"
+    },
+    {
+      "name": "air",
+      "beat": "tucked over the gap",
+      "body": "tucked over the gap",
+      "feet": "in the air",
+      "notes": "topology key: feet fully off both pads, body at peak of arc above the water dashes, knees tucked up, arms reaching forward, head high and midway between the two pads"
+    },
+    {
+      "name": "end",
+      "beat": "land on right bank",
+      "body": "landed on right",
+      "feet": "on right_ground",
+      "notes": "topology key: feet contact right_ground, slight landing crouch to absorb impact, arms forward for balance, head above right pad"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "takeoff half: body travels from left pad up to the peak of the arc, the longest vertical plus horizontal travel, so it gets the larger share"
+    },
+    {
+      "after": "air",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "landing half: descent from peak down to right pad, slightly shorter travel than the climb, same smooth ease so speed does not flip"
+    }
+  ]
+}

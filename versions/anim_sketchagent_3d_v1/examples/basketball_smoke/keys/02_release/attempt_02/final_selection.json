@@ -1,0 +1,11 @@
+{
+  "status": "max_rounds",
+  "best_revision": "revision_001",
+  "reason": "The revision correctly poses the release beat: the shooter is fully extended with arms up and the ball just above the fingertips, while the defender is airborne with legs tucked and an arm reaching toward the ball. The hoop assembly and ground remain anchored and consistent with the key-1 identity, and the four views show a coherent 3D structure.",
+  "active_revision_at_stop": "revision_001",
+  "final_artifact": {
+    "scene": "final/scene.json",
+    "views": "final/views",
+    "preview": "final/views/contact_sheet.png"
+  }
+}

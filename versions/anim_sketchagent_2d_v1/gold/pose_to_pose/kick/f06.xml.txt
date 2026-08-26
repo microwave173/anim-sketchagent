@@ -1,0 +1,42 @@
+<answer><concept>stick person taking a penalty kick</concept><strokes>
+    <s1>
+        <points>'x18y13', 'x22y14', 'x23y18', 'x22y22', 'x18y23', 'x14y22', 'x13y18', 'x14y14', 'x18y13'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>kicker_head</id>
+    </s1>
+    <s2>
+        <points>'x18y23', 'x17y33'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>kicker_torso</id>
+    </s2>
+    <s3>
+        <points>'x18y26', 'x24y22'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>kicker_plant_arm</id>
+    </s3>
+    <s4>
+        <points>'x18y26', 'x12y30'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>kicker_lead_arm</id>
+    </s4>
+    <s5>
+        <points>'x17y33', 'x14y40', 'x15y46'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>kicker_plant_leg</id>
+    </s5>
+    <s6>
+        <points>'x17y33', 'x23y38', 'x27y42'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>kicker_kick_leg</id>
+    </s6>
+    <s7>
+        <points>'x28y38', 'x30y39', 'x31y41', 'x30y43', 'x28y44', 'x26y43', 'x25y41', 'x26y39', 'x28y38'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>ball</id>
+    </s7>
+    <s8>
+        <points>'x4y46', 'x46y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s8>
+</strokes></answer>

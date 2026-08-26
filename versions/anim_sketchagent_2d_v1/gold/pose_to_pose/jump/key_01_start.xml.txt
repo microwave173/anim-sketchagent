@@ -1,0 +1,52 @@
+<strokes>
+    <s1>
+        <points>'x12y30', 'x16y31', 'x17y35', 'x16y39', 'x12y40', 'x8y39', 'x7y35', 'x8y31', 'x12y30'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>jumper_head</id>
+    </s1>
+    <s2>
+        <points>'x12y40', 'x14y46'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>jumper_torso</id>
+    </s2>
+    <s3>
+        <points>'x13y42', 'x7y45'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>jumper_left_arm</id>
+    </s3>
+    <s4>
+        <points>'x13y42', 'x8y48'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>jumper_right_arm</id>
+    </s4>
+    <s5>
+        <points>'x14y46', 'x9y44', 'x9y49'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>jumper_left_leg</id>
+    </s5>
+    <s6>
+        <points>'x14y46', 'x11y43', 'x11y49'</points>
+        <t_values>0.00,0.5,1.00</t_values>
+        <id>jumper_right_leg</id>
+    </s6>
+    <s7>
+        <points>'x4y49', 'x16y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>left_ground</id>
+    </s7>
+    <s8>
+        <points>'x34y49', 'x46y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>right_ground</id>
+    </s8>
+    <s9>
+        <points>'x21y49', 'x24y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>water_surface</id>
+    </s9>
+    <s10>
+        <points>'x27y49', 'x30y49'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>water_surface</id>
+    </s10>
+</strokes>

@@ -1,0 +1,82 @@
+<strokes>
+    <s1>
+        <points>'x8y20', 'x11y21', 'x12y24', 'x11y26', 'x8y28', 'x5y26', 'x4y24', 'x5y21', 'x8y20'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>trooper_head</id>
+    </s1>
+    <s2>
+        <points>'x8y28', 'x8y36'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>trooper_torso</id>
+    </s2>
+    <s3>
+        <points>'x8y31', 'x14y30'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>trooper_gun_arm</id>
+    </s3>
+    <s4>
+        <points>'x8y36', 'x5y43'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>trooper_front_leg</id>
+    </s4>
+    <s5>
+        <points>'x8y36', 'x11y43'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>trooper_back_leg</id>
+    </s5>
+    <s6>
+        <points>'x14y29', 'x14y32', 'x18y32', 'x18y29', 'x14y29'</points>
+        <t_values>0.000,0.250,0.500,0.750,1.000</t_values>
+        <id>blaster</id>
+    </s6>
+    <s7>
+        <points>'x18y29', 'x18y31', 'x20y31', 'x20y30', 'x22y30'</points>
+        <t_values>0.000,0.250,0.500,0.750,1.000</t_values>
+        <id>blaster_barrel</id>
+    </s7>
+    <s8>
+        <points>'x24y30', 'x27y30'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>bolt</id>
+    </s8>
+    <s9>
+        <points>'x42y20', 'x45y21', 'x46y24', 'x45y26', 'x42y28', 'x39y26', 'x38y24', 'x39y21', 'x42y20'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>jedi_head</id>
+    </s9>
+    <s10>
+        <points>'x42y28', 'x42y36'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>jedi_torso</id>
+    </s10>
+    <s11>
+        <points>'x42y31', 'x47y35'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>jedi_saber_arm</id>
+    </s11>
+    <s12>
+        <points>'x42y36', 'x38y43'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>jedi_front_leg</id>
+    </s12>
+    <s13>
+        <points>'x42y36', 'x45y43'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>jedi_back_leg</id>
+    </s13>
+    <s14>
+        <points>'x47y35', 'x45y37'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>saber_grip</id>
+    </s14>
+    <s15>
+        <points>'x45y37', 'x39y44'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>saber_blade</id>
+    </s15>
+    <s16>
+        <points>'x2y45', 'x48y45'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s16>
+</strokes>

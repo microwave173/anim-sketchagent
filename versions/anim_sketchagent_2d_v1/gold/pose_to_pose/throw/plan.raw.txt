@@ -1,0 +1,52 @@
+{
+  "concept": "stick person throwing a snowball",
+  "viewpoint": "side view facing right",
+  "layout_notes": "person stands in the left third of the frame; snowball flight arcs from the hand up through the middle of the frame to the far upper right corner; ground line runs along the bottom of the whole frame",
+  "parts": [
+    {"id": "s1", "name": "thrower_head", "how": "circle", "motion": "moving", "notes": "same size on every key; leans back on windup, forward on release"},
+    {"id": "s2", "name": "thrower_torso", "how": "line from neck to hip", "motion": "moving", "notes": "leans back when cocked, arcs forward on release"},
+    {"id": "s3", "name": "thrower_front_leg", "how": "line hip to ground", "motion": "moving", "notes": "steps forward on release"},
+    {"id": "s4", "name": "thrower_back_leg", "how": "line hip to ground", "motion": "moving", "notes": "pushes off, heel lifts on follow-through"},
+    {"id": "s5", "name": "thrower_throwing_arm", "how": "two-segment line shoulder to elbow to wrist", "motion": "moving", "notes": "cocked back behind head, snaps forward past ear, ends low in front"},
+    {"id": "s6", "name": "thrower_off_arm", "how": "two-segment line shoulder to elbow to hand", "motion": "moving", "notes": "reaches forward for balance, swings down on follow-through"},
+    {"id": "s7", "name": "snowball", "how": "small filled circle", "motion": "moving", "notes": "in the fist at start, just off the fingers at release, far up-right at end"},
+    {"id": "s8", "name": "ground", "how": "long horizontal line", "motion": "anchored", "notes": "one shared ground line, identical points on every key"}
+  ],
+  "keys": [
+    {
+      "name": "start",
+      "beat": "windup",
+      "thrower": "cocked",
+      "snowball": "in the hand",
+      "notes": "weight on back leg, throwing arm bent up behind the head, snowball held at the fist, torso leaning back"
+    },
+    {
+      "name": "release",
+      "beat": "release",
+      "thrower": "snapping",
+      "snowball": "just off the fingers",
+      "notes": "arm fully extended forward and up, wrist at release point, snowball a finger-width ahead of the hand, front leg planted, torso lunged forward"
+    },
+    {
+      "name": "end",
+      "beat": "fly",
+      "thrower": "follow-through",
+      "snowball": "far up-right",
+      "notes": "throwing arm swept down and across the body, torso bent forward, snowball high in the far upper right of the frame"
+    }
+  ],
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 3,
+      "ease": "smooth",
+      "notes": "short wind-up travel of the arm and body, fewer inbetweens"
+    },
+    {
+      "after": "release",
+      "n_inbetween": 6,
+      "ease": "smooth",
+      "notes": "snowball travels the farthest distance across the frame while the body settles into follow-through; same ease as the first half so speed does not flip"
+    }
+  ]
+}

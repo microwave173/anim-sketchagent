@@ -1,0 +1,30 @@
+{
+  "concept": "two stick figures playing basketball",
+  "viewpoint": "3D wireframe, four views (front/side/top/perspective)",
+  "action": "Two stick figures on a court in the unit cube. The shooter stands left-center (x about -0.3), the defender faces him right-center (x about +0.2), with the hoop on a pole at the far right (x about +0.7, rim above head height). Beat 1: shooter crouches holding the ball at chest, defender raises one arm to contest. Beat 2: shooter extends arms up and releases the ball; defender leaps with arm stretched. Beat 3: the ball travels in an arc and reaches the rim as the shooter follows through with wrist down and the defender lands. Head sizes, body builds, limb lengths, the hoop pole, rim, and net never change; only poses and the ball position change.",
+  "layout_notes": "Ground plane at z=0. Shooter around x=-0.3, y=0; defender x=+0.2, y=0.1; hoop pole x=+0.7, y=0.1, rim at z=0.55, net one vertical line down to z=0.35. Figures about 0.5 tall (z 0 to 0.5). Ball smaller than a head, radius ~0.04. +x right, +y depth, +z up.",
+  "parts": [
+    {"id": "shooter_head", "name": "shooter_head", "how": "circle in 3D at top of shooter body", "motion": "moving", "notes": "same size every key"},
+    {"id": "shooter_torso", "name": "shooter_torso", "how": "vertical line from neck to hips", "motion": "moving", "notes": "leans and straightens with the shot"},
+    {"id": "shooter_legs", "name": "shooter_legs", "how": "two lines from hips to ground", "motion": "moving", "notes": "crouch in key1, extended in key2, landing stance key3"},
+    {"id": "shooter_arms", "name": "shooter_arms", "how": "two lines from shoulders to hands", "motion": "moving", "notes": "chest-hold, then extended up, then follow-through"},
+    {"id": "defender_head", "name": "defender_head", "how": "circle in 3D at top of defender body", "motion": "moving", "notes": "same size every key"},
+    {"id": "defender_torso", "name": "defender_torso", "how": "vertical line from neck to hips", "motion": "moving", "notes": "upright, then stretched in leap"},
+    {"id": "defender_legs", "name": "defender_legs", "how": "two lines from hips to ground", "motion": "moving", "notes": "planted key1, tucked in leap key2, landing key3"},
+    {"id": "defender_arms", "name": "defender_arms", "how": "two lines from shoulders to hands", "motion": "moving", "notes": "one arm raised to contest, stretched at leap peak"},
+    {"id": "ball", "name": "ball", "how": "small circle in 3D", "motion": "moving", "notes": "smaller than a head; travels chest -> above shooter -> rim"},
+    {"id": "hoop_pole", "name": "hoop_pole", "how": "vertical line from ground to rim height", "motion": "anchored", "notes": "fixed at x=0.7"},
+    {"id": "hoop_rim", "name": "hoop_rim", "how": "horizontal circle at rim height", "motion": "anchored", "notes": "above head height"},
+    {"id": "hoop_net", "name": "hoop_net", "how": "one vertical line from rim down to chest height", "motion": "anchored", "notes": "unchanging"},
+    {"id": "ground", "name": "ground", "how": "rectangle outline at z=0", "motion": "anchored", "notes": "court floor"}
+  ],
+  "keys": [
+    {"name": "ready", "beat": "shooter crouched with ball at chest, defender contesting", "notes": "shooter knees bent, ball held at chest z=0.25; defender one arm up at z=0.45"},
+    {"name": "release", "beat": "ball leaves shooter's hands at top of extension", "notes": "shooter arms fully extended up, ball just above fingertips z=0.6; defender leaping, arm stretched toward ball"},
+    {"name": "at_rim", "beat": "ball reaches the rim, shooter follow-through, defender landing", "notes": "ball at rim center x=0.7 z=0.55; shooter wrist-down follow-through; defender feet near ground"}
+  ],
+  "gaps": [
+    {"after": "ready", "n_inbetween": 4, "ease": "ease_out", "why": "continuous extension and leap-up motion, ball stays in hands until release"},
+    {"after": "release", "n_inbetween": 5, "ease": "smooth", "why": "ball arc flight and defender descent need several beats to read as travel"}
+  ]
+}

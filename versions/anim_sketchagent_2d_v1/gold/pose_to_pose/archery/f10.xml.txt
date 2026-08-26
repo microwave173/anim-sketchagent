@@ -1,0 +1,52 @@
+<answer><concept>stick archer loosing an arrow</concept><strokes>
+    <s1>
+        <points>'x14y11', 'x17y12', 'x18y14', 'x17y17', 'x14y18', 'x11y17', 'x10y14', 'x11y12', 'x14y11'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>archer_head</id>
+    </s1>
+    <s2>
+        <points>'x14y18', 'x15y30'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>archer_torso</id>
+    </s2>
+    <s3>
+        <points>'x15y30', 'x22y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>archer_front_leg</id>
+    </s3>
+    <s4>
+        <points>'x15y30', 'x8y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>archer_back_leg</id>
+    </s4>
+    <s5>
+        <points>'x14y20', 'x28y20'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>bow_arm</id>
+    </s5>
+    <s6>
+        <points>'x14y20', 'x8y26'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>draw_arm</id>
+    </s6>
+    <s7>
+        <points>'x28y14', 'x30y17', 'x30y20', 'x30y23', 'x28y26'</points>
+        <t_values>0.000,0.250,0.500,0.750,1.000</t_values>
+        <id>bow_curve</id>
+    </s7>
+    <s8>
+        <points>'x28y14', 'x28y26'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>bow_string</id>
+    </s8>
+    <s9>
+        <points>'x39y17', 'x42y17', 'x46y16', 'x47y16'</points>
+        <t_values>0.000,0.333,0.667,1.000</t_values>
+        <id>arrow</id>
+    </s9>
+    <s10>
+        <points>'x4y46', 'x46y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s10>
+</strokes></answer>

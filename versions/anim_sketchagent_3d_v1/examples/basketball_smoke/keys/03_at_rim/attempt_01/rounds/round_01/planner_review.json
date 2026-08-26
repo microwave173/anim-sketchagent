@@ -1,0 +1,25 @@
+{
+  "decision": "continue",
+  "assessment": {
+    "strengths": [
+      "The scene structure and part list are well-defined from the previous key."
+    ],
+    "problems": [
+      "The contact sheet is completely blank; no geometry was rendered in any view.",
+      "The scene file appears to contain no strokes, so the key pose is entirely missing.",
+      "Without visible geometry, the beat's poses and ball placement cannot be evaluated."
+    ]
+  },
+  "instruction": {
+    "objective": "Render the full 3D scene for key 3 'at_rim' with all 13 canonical parts, showing the ball at the rim, shooter follow-through, and defender landing.",
+    "priority": "Ensure all strokes are present and visible in the four views, with the ball at (0.7, 0.1, 0.55) and the figures posed per the beat.",
+    "success_criteria": [
+      "All 13 canonical part ids appear exactly once in the scene and are visible in the contact sheet.",
+      "The ball is clearly at the rim center, and the shooter/defender poses match the beat description.",
+      "The scene stays within the unit cube and preserves the proportions and anchored geometry from key 1."
+    ],
+    "scope": "Rebuild the entire scene geometry for this key, ensuring all parts are drawn and rendered."
+  },
+  "rollback_revision": null,
+  "reason": "The current revision has no visible geometry, so the key cannot be validated. A full rebuild is required."
+}

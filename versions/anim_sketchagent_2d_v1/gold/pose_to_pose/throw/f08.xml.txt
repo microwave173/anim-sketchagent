@@ -1,0 +1,42 @@
+<answer><concept>stick person throwing a snowball</concept><strokes>
+    <s1>
+        <points>'x19y14', 'x23y15', 'x24y19', 'x23y23', 'x19y24', 'x15y23', 'x14y19', 'x15y15', 'x19y14'</points>
+        <t_values>0.000,0.125,0.250,0.375,0.500,0.625,0.750,0.875,1.000</t_values>
+        <id>thrower_head</id>
+    </s1>
+    <s2>
+        <points>'x19y24', 'x20y27', 'x21y30', 'x22y34'</points>
+        <t_values>0.000,0.333,0.667,1.000</t_values>
+        <id>thrower_torso</id>
+    </s2>
+    <s3>
+        <points>'x22y34', 'x24y40', 'x26y46'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_front_leg</id>
+    </s3>
+    <s4>
+        <points>'x22y34', 'x18y40', 'x15y45'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_back_leg</id>
+    </s4>
+    <s5>
+        <points>'x19y26', 'x25y26', 'x31y25'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_throwing_arm</id>
+    </s5>
+    <s6>
+        <points>'x19y26', 'x24y31', 'x27y36'</points>
+        <t_values>0.000,0.500,1.000</t_values>
+        <id>thrower_off_arm</id>
+    </s6>
+    <s7>
+        <points>'x37y12', 'x38y11', 'x39y12', 'x38y13', 'x37y12'</points>
+        <t_values>0.000,0.250,0.500,0.750,1.000</t_values>
+        <id>snowball</id>
+    </s7>
+    <s8>
+        <points>'x5y46', 'x45y46'</points>
+        <t_values>0.000,1.000</t_values>
+        <id>ground</id>
+    </s8>
+</strokes></answer>

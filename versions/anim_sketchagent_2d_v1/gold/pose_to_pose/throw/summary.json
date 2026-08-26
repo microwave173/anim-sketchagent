@@ -1,0 +1,138 @@
+{
+  "model": "glm-5.3",
+  "pipeline": "pose_to_pose_keys_plus_lerp",
+  "task_id": "anim_stick_snowball_throw",
+  "n_keys": 3,
+  "n_frames": 12,
+  "gif_ms": 80,
+  "plan_seconds": 9.44,
+  "replay": null,
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 3,
+      "ease": "smooth",
+      "notes": "short wind-up travel of the arm and body, fewer inbetweens",
+      "why": "short wind-up"
+    },
+    {
+      "after": "release",
+      "n_inbetween": 6,
+      "ease": "smooth",
+      "notes": "snowball travels the farthest distance across the frame while the body settles into follow-through; same ease as the first half so speed does not flip",
+      "why": "snowball flies farther"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "start",
+      "valid": true,
+      "n_strokes": 8,
+      "seconds": 6.17,
+      "error": null
+    },
+    {
+      "name": "release",
+      "valid": true,
+      "n_strokes": 8,
+      "seconds": 6.11,
+      "error": null
+    },
+    {
+      "name": "end",
+      "valid": true,
+      "n_strokes": 8,
+      "seconds": 5.9,
+      "error": null
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:start",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "is-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 5,
+      "kind": "key",
+      "label": "K:release",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 6,
+      "kind": "inbetween",
+      "label": "ir-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "ir-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "ir-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "ir-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "ir-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "ir-e",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 12,
+      "kind": "key",
+      "label": "K:end",
+      "valid": true,
+      "error": null
+    }
+  ],
+  "ok": true,
+  "gif": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_snowball_throw_20260825_015912/clip.gif",
+  "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/grpo_sa_pilot/outputs/glm53_keys_anim_stick_snowball_throw_20260825_015912/contact_sheet.png"
+}

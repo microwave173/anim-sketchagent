@@ -1,0 +1,144 @@
+{
+  "model": "glm-5.3",
+  "pipeline": "pose_to_pose_keys_plus_lerp_reflect",
+  "task_id": "anim_stick_badminton_rally",
+  "n_keys": 3,
+  "n_frames": 12,
+  "suggested_frames": 12,
+  "pin_frames": null,
+  "action": "Two small stick figures, about 8-12 cells tall, stand parked in the left fifth and right fifth of the canvas, rallying one shuttle over a low anchored net at center. The left player has just hit: the shuttle is already off the left racket and flying toward the right, still in the left-center, while the right player waits with racket drawn back. The shuttle crosses the long empty middle and the right player swings into a contact key where the shuttle touches the right racket in the right-center — this contact is a key because interpolation cannot invent it. After contact, the shuttle flies back toward the left, slightly higher, while the right player follows through and the left player lifts the racket to receive. Both players stay planted; only arms, rackets, and the shuttle move. The shuttle is the star: a tiny diamond or short dash that makes the long travel while the people stay small at the edges. One shared anchored ground line, one anchored net, no third person, no court lines.",
+  "gif_ms": 80,
+  "plan_seconds": 13.92,
+  "replay": null,
+  "reflect": false,
+  "vision": null,
+  "gaps": [
+    {
+      "after": "start",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "shuttle travels the long middle from left-center to the right racket; right arm swings in during the same interval"
+    },
+    {
+      "after": "contact",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "shuttle returns the same long distance and slightly higher arc, similar speed, same ease as the inbound half"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "start",
+      "valid": true,
+      "n_strokes": 13,
+      "seconds": 22.33,
+      "error": null,
+      "reflect": false
+    },
+    {
+      "name": "contact",
+      "valid": true,
+      "n_strokes": 13,
+      "seconds": 8.97,
+      "error": null,
+      "reflect": false
+    },
+    {
+      "name": "return",
+      "valid": true,
+      "n_strokes": 13,
+      "seconds": 9.47,
+      "error": null,
+      "reflect": false
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:start",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "is-c",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "is-c",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "is-c",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "is-c",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 6,
+      "kind": "key",
+      "label": "K:contact",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "ic-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "ic-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "ic-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "ic-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "ic-r",
+      "valid": true,
+      "error": null
+    },
+    {
+      "i": 12,
+      "kind": "key",
+      "label": "K:return",
+      "valid": true,
+      "error": null
+    }
+  ],
+  "ok": true,
+  "gif": "outputs/glm53_keys_badminton_rally/clip.gif",
+  "contact_sheet": "outputs/glm53_keys_badminton_rally/contact_sheet.png"
+}

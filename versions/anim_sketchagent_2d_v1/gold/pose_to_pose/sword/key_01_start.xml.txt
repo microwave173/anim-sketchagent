@@ -1,0 +1,77 @@
+<strokes>
+    <s1>
+        <points>'x12y16', 'x15y17', 'x16y20', 'x15y23', 'x12y24', 'x9y23', 'x8y20', 'x9y17', 'x12y16'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>attacker_head</id>
+    </s1>
+    <s2>
+        <points>'x12y24', 'x14y34'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>attacker_torso</id>
+    </s2>
+    <s3>
+        <points>'x14y34', 'x18y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>attacker_front_leg</id>
+    </s3>
+    <s4>
+        <points>'x14y34', 'x8y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>attacker_back_leg</id>
+    </s4>
+    <s5>
+        <points>'x13y27', 'x8y22'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>attacker_sword_arm</id>
+    </s5>
+    <s6>
+        <points>'x13y27', 'x18y31'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>attacker_off_arm</id>
+    </s6>
+    <s7>
+        <points>'x7y21', 'x9y23'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sword_grip</id>
+    </s7>
+    <s8>
+        <points>'x7y24', 'x11y22'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sword_guard</id>
+    </s8>
+    <s9>
+        <points>'x9y23', 'x4y16'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>sword_blade</id>
+    </s9>
+    <s10>
+        <points>'x35y16', 'x38y17', 'x39y20', 'x38y23', 'x35y24', 'x32y23', 'x31y20', 'x32y17', 'x35y16'</points>
+        <t_values>0.00,0.125,0.25,0.375,0.50,0.625,0.75,0.875,1.00</t_values>
+        <id>victim_head</id>
+    </s10>
+    <s11>
+        <points>'x35y24', 'x35y34'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>victim_torso</id>
+    </s11>
+    <s12>
+        <points>'x35y34', 'x31y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>victim_front_leg</id>
+    </s12>
+    <s13>
+        <points>'x35y34', 'x39y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>victim_back_leg</id>
+    </s13>
+    <s14>
+        <points>'x35y27', 'x31y32'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>victim_arm</id>
+    </s14>
+    <s15>
+        <points>'x4y44', 'x46y44'</points>
+        <t_values>0.00,1.00</t_values>
+        <id>ground</id>
+    </s15>
+</strokes>
