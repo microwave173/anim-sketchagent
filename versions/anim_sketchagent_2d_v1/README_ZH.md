@@ -68,4 +68,4 @@ python3 glm_anim_keys.py --task saber --no-reflect
 
 ## 3D 续作
 
-同结构的 3D 版在 `experiments/anim_3d/`：key 用逐步 Path3D incremental（无批量反思），中间帧用单次 Path3D one-shot。
+同结构的 3D 版在 `versions/anim_sketchagent_3d_v1/`：key 用逐步 Path3D incremental（无批量反思），中间帧用单次 Path3D one-shot。

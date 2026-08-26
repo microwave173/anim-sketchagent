@@ -1,0 +1,284 @@
+{
+  "ok": true,
+  "pipeline": "plan_keys_incremental_inbetweens_oneshot",
+  "models": {
+    "plan_and_oneshot_inbetween": "glm-5.3",
+    "incremental_key_visual_review_and_edit": "deepseek-v4-flash-vision-exp"
+  },
+  "reflection": false,
+  "fixed_world_framing": true,
+  "anchored_part_ids": [
+    "net",
+    "court"
+  ],
+  "canonical_stroke_ids": [
+    "court",
+    "left_head",
+    "left_legs",
+    "left_racket_arm",
+    "left_torso",
+    "net",
+    "right_head",
+    "right_legs",
+    "right_racket_arm",
+    "right_torso",
+    "shuttle"
+  ],
+  "task_id": "anim3d_badminton",
+  "n_keys": 3,
+  "n_frames": 13,
+  "gif_ms": 80,
+  "action": "Two stick figures, left player near x=-0.6 and right player near x=+0.6, rally a shuttlecock over a net anchored at x=0. Beat order: left player contacts the shuttle with racket arm fully forward and opposite leg stepping in; the shuttle arcs high over the net while both players take recovery strides; right player contacts and returns it leftward. The shuttle travels left-to-right then right-to-left, always smaller than a head. Head sizes, body builds, limb lengths, net, and court lines never change; only poses and the shuttle position change. Both players show real strides with legs split, never static T-poses.",
+  "gaps": [
+    {
+      "after": "left_contact",
+      "n_inbetween": 5,
+      "ease": "ease_out",
+      "why": "shuttle decelerating on its rise over the net while players transition to recovery strides"
+    },
+    {
+      "after": "shuttle_over_net",
+      "n_inbetween": 5,
+      "ease": "linear",
+      "why": "shuttle accelerates downward toward right racket while right player steps into the swing"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "left_contact",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "prior_attempt_error": null,
+      "seconds": 198.81
+    },
+    {
+      "name": "shuttle_over_net",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "prior_attempt_error": null,
+      "seconds": 146.23
+    },
+    {
+      "name": "right_contact",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "prior_attempt_error": null,
+      "seconds": 134.76
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:left_contact",
+      "strokes": 11,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "il-s",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "il-s",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "il-s",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "il-s",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 6,
+      "kind": "inbetween",
+      "label": "il-s",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 7,
+      "kind": "key",
+      "label": "K:shuttle_over_net",
+      "strokes": 11,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "is-r",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "is-r",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "is-r",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "is-r",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 12,
+      "kind": "inbetween",
+      "label": "is-r",
+      "strokes": 11,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 13,
+      "kind": "key",
+      "label": "K:right_contact",
+      "strokes": 11,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    }
+  ],
+  "gif": "examples/badminton/clip.gif",
+  "contact_sheet": "examples/badminton/contact_sheet.png",
+  "wall_seconds": 617.73,
+  "wall_seconds_source": "/usr/bin/time -p real"
+}

@@ -31,13 +31,34 @@ sys.path.insert(0, str(HERE))
 from drawer_v14.three_d.patch import PlannerReview  # noqa: E402
 from path3d_json_agents.common import image_url  # noqa: E402
 from path3d_json_agents.incremental import (  # noqa: E402
-    STRUCTURED_EDITOR_SYSTEM_PROMPT,
-    STRUCTURED_PLANNER_SYSTEM_PROMPT,
+    STRUCTURED_EDITOR_SYSTEM_PROMPT as BASE_EDITOR_SYSTEM_PROMPT,
+    STRUCTURED_PLANNER_SYSTEM_PROMPT as BASE_PLANNER_SYSTEM_PROMPT,
     StructuredPatchParseError,
     StructuredPlannerRole,
 )
 from path3d_json_agents.structured_patch import StructuredPath3DPatch  # noqa: E402
 from terra_client import call_deepseek, call_glm, data_url, parse_json_obj  # noqa: E402
+
+# Still-sketch Editor prompt says delete old ids and add *new* ids. Animation forbids that.
+ANIM_PLANNER_SYSTEM_PROMPT = BASE_PLANNER_SYSTEM_PROMPT.replace(
+    "The Editor decides how to draw and may preserve, replace, or rebuild any geometry.",
+    "The Editor decides geometry, but must keep stroke ids. Do not ask for a rebuild that invents new names.",
+)
+ANIM_EDITOR_SYSTEM_PROMPT = BASE_EDITOR_SYSTEM_PROMPT.replace(
+    "4. Existing strokes are replaced by deleting their IDs and adding new IDs in the same patch.",
+    "4. Existing strokes are replaced by deleting their IDs and adding strokes that REUSE those exact same IDs. "
+    "Never rename. Forbidden suffixes: _new, _emerge, _2, _b, _v2.",
+).replace(
+    '"id":"new_unique_id"',
+    '"id":"existing_id"',
+) + """
+
+Animation identity (hard):
+- Every plan part id (e.g. walker_head, pillar) must exist as an exact stroke id. Helpers only: "<part_id>_...".
+- Changing pose is the same id with new commands, not walker_head_new.
+- Do not replace a required part with only helpers (shaft_box_front is not shaft_box).
+- First-key ids are frozen for later keys: include each of them exactly once.
+"""
 
 
 def _chat_content(content: str | list[dict[str, Any]]) -> str | list[dict[str, Any]]:
@@ -113,7 +134,7 @@ def _call_json(*, system: str, content: str | list[dict[str, Any]], vision: bool
 class GlmDsPlanner(StructuredPlannerRole):
     def create_plan(self, *, prompt: str) -> dict[str, Any]:
         value, _ = _call_json(
-            system=STRUCTURED_PLANNER_SYSTEM_PROMPT,
+            system=ANIM_PLANNER_SYSTEM_PROMPT,
             content=(
                 f"Target: {prompt}\n"
                 'Return {"overall_goal":"...","priorities":["..."],"completion_criteria":["..."]}. '
@@ -150,7 +171,7 @@ class GlmDsPlanner(StructuredPlannerRole):
         last_error: Exception | None = None
         for attempt in range(2):
             value, _ = _call_json(
-                system=STRUCTURED_PLANNER_SYSTEM_PROMPT,
+                system=ANIM_PLANNER_SYSTEM_PROMPT,
                 content=content,
                 vision=True,
                 max_tokens=2600,
@@ -213,7 +234,7 @@ class GlmDsPlanner(StructuredPlannerRole):
                 ]
             )
         value, _ = _call_json(
-            system=STRUCTURED_PLANNER_SYSTEM_PROMPT, content=content, vision=True, max_tokens=900
+            system=ANIM_PLANNER_SYSTEM_PROMPT, content=content, vision=True, max_tokens=900
         )
         selected = str(value.get("best_revision", ""))
         if selected not in valid:
@@ -237,7 +258,7 @@ The contact sheet is front, side, top, perspective. Interpret the target and dec
             {"type": "input_image", "image_url": image_url(Path(kwargs["current_contact_sheet"]))},
         ]
         value, raw = _call_json(
-            system=STRUCTURED_EDITOR_SYSTEM_PROMPT, content=content, vision=True, max_tokens=8000
+            system=ANIM_EDITOR_SYSTEM_PROMPT, content=content, vision=True, max_tokens=8000
         )
         try:
             return StructuredPath3DPatch.from_dict(value), raw

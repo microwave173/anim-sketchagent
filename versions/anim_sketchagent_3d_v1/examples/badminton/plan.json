@@ -1,0 +1,119 @@
+{
+  "concept": "two stick figures rallying badminton over a net",
+  "viewpoint": "3D wireframe, four views (front/side/top/perspective)",
+  "action": "Two stick figures, left player near x=-0.6 and right player near x=+0.6, rally a shuttlecock over a net anchored at x=0. Beat order: left player contacts the shuttle with racket arm fully forward and opposite leg stepping in; the shuttle arcs high over the net while both players take recovery strides; right player contacts and returns it leftward. The shuttle travels left-to-right then right-to-left, always smaller than a head. Head sizes, body builds, limb lengths, net, and court lines never change; only poses and the shuttle position change. Both players show real strides with legs split, never static T-poses.",
+  "layout_notes": "Court ground at z=0 spanning x[-1,1], y[-0.6,0.6]. Net at x=0, from ground to z=0.55, one vertical line with top line. Players about 1/3 scene height (heads near z=0.85). Shuttle arcs peak near z=0.9 over net. Left player faces +x, right player faces -x.",
+  "parts": [
+    {
+      "id": "left_head",
+      "name": "left_head",
+      "how": "circle in 3D",
+      "motion": "moving",
+      "notes": "same size every key"
+    },
+    {
+      "id": "left_torso",
+      "name": "left_torso",
+      "how": "line from neck to hips",
+      "motion": "moving",
+      "notes": "leans into shot at contact"
+    },
+    {
+      "id": "left_legs",
+      "name": "left_legs",
+      "how": "two lines hip to feet",
+      "motion": "moving",
+      "notes": "real stride: opposite leg forward at contact"
+    },
+    {
+      "id": "left_racket_arm",
+      "name": "left_racket_arm",
+      "how": "arm line plus racket oval at end",
+      "motion": "moving",
+      "notes": "fully forward at contact, down in ready"
+    },
+    {
+      "id": "right_head",
+      "name": "right_head",
+      "how": "circle in 3D",
+      "motion": "moving",
+      "notes": "same size every key"
+    },
+    {
+      "id": "right_torso",
+      "name": "right_torso",
+      "how": "line from neck to hips",
+      "motion": "moving",
+      "notes": "leans into return at contact"
+    },
+    {
+      "id": "right_legs",
+      "name": "right_legs",
+      "how": "two lines hip to feet",
+      "motion": "moving",
+      "notes": "planted opposite leg at contact"
+    },
+    {
+      "id": "right_racket_arm",
+      "name": "right_racket_arm",
+      "how": "arm line plus racket oval at end",
+      "motion": "moving",
+      "notes": "forward at contact, down in ready"
+    },
+    {
+      "id": "shuttle",
+      "name": "shuttle",
+      "how": "small cone/teardrop of 2-3 lines",
+      "motion": "moving",
+      "notes": "smaller than a head; travels over net"
+    },
+    {
+      "id": "net",
+      "name": "net",
+      "how": "vertical line at x=0 plus top bar and mesh lines",
+      "motion": "anchored",
+      "notes": "unchanging"
+    },
+    {
+      "id": "court",
+      "name": "court",
+      "how": "ground rectangle and center line",
+      "motion": "anchored",
+      "notes": "ground lines at z=0"
+    }
+  ],
+  "keys": [
+    {
+      "name": "left_contact",
+      "beat": "left player hits shuttle over net",
+      "notes": "Left player at x=-0.6, torso leaning +x, racket arm fully extended forward/up, right leg stepping into shot, left leg back. Shuttle just leaving racket at (-0.35, 0, 0.7). Right player at x=+0.6 in ready stride, knees bent, racket low."
+    },
+    {
+      "name": "shuttle_over_net",
+      "beat": "shuttle arcs high over net, both recover",
+      "notes": "Shuttle at apex (0, 0.1, 0.9) above net top. Left player recovering: weight shifting back toward center, racket arm lowering, feet mid-stride. Right player moving toward contact spot x=+0.5, split stride, racket arm rising in backswing."
+    },
+    {
+      "name": "right_contact",
+      "beat": "right player returns shuttle leftward",
+      "notes": "Right player at x=+0.55, torso leaning -x, racket arm fully extended toward -x, left leg planted forward, right leg back. Shuttle just leaving racket at (+0.3, 0, 0.7) heading left. Left player back at x=-0.6 in ready stride, racket low, knees bent."
+    }
+  ],
+  "gaps": [
+    {
+      "after": "left_contact",
+      "n_inbetween": 5,
+      "ease": "ease_out",
+      "why": "shuttle decelerating on its rise over the net while players transition to recovery strides"
+    },
+    {
+      "after": "shuttle_over_net",
+      "n_inbetween": 5,
+      "ease": "linear",
+      "why": "shuttle accelerates downward toward right racket while right player steps into the swing"
+    }
+  ],
+  "n_frames": 13,
+  "task_id": "anim3d_badminton",
+  "planner": "glm-5.3-pose-to-pose-3d"
+}

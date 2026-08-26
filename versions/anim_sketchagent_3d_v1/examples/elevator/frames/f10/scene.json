@@ -1,0 +1,100 @@
+{
+  "prompt": "3D inbetween at t=0.800: person mostly inside cabin mid-stride, doors nearly closed behind them",
+  "strokes": [
+    {
+      "id": "door_left",
+      "path": "M -0.59 0.3 0 L -0.29 0.3 0 L -0.29 0.3 0.8 L -0.59 0.3 0.8 Z",
+      "description": "Left door leaf sliding back toward closed",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "door"
+    },
+    {
+      "id": "door_right",
+      "path": "M 0.29 0.3 0 L 0.59 0.3 0 L 0.59 0.3 0.8 L 0.29 0.3 0.8 Z",
+      "description": "Right door leaf sliding back toward closed",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "door"
+    },
+    {
+      "id": "person_head",
+      "path": "M 0.09 0.54 0.41 C3 0.09 0.63 0.5 -0.09 0.63 0.5 -0.09 0.54 0.41 C3 -0.09 0.45 0.32 0.09 0.45 0.32 0.09 0.54 0.41",
+      "description": "Person head circle, same size",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_torso",
+      "path": "M 0 0.54 0.32 L 0 0.54 0.14",
+      "description": "Person torso line",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_arm_l",
+      "path": "M 0 0.54 0.3 L -0.08 0.48 0.22 L -0.08 0.43 0.12",
+      "description": "Left arm swinging back",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_arm_r",
+      "path": "M 0 0.54 0.3 L 0.08 0.6 0.22 L 0.08 0.64 0.12",
+      "description": "Right arm swinging forward",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_leg_l",
+      "path": "M 0 0.54 0.14 L -0.06 0.64 0.07 L -0.06 0.69 0",
+      "description": "Left leg forward stride inside cabin",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_leg_r",
+      "path": "M 0 0.54 0.14 L 0.06 0.44 0.07 L 0.06 0.39 0",
+      "description": "Right leg trailing stride",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "cabin_box",
+      "path": "M -0.5 0.3 0 L 0.5 0.3 0 L 0.5 1 0 L -0.5 1 0 Z M -0.5 0.3 0.9 L 0.5 0.3 0.9 L 0.5 1 0.9 L -0.5 1 0.9 Z M -0.5 0.3 0 L -0.5 0.3 0.9 M 0.5 0.3 0 L 0.5 0.3 0.9 M -0.5 1 0 L -0.5 1 0.9 M 0.5 1 0 L 0.5 1 0.9",
+      "description": "Elevator cabin wireframe box",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cabin"
+    },
+    {
+      "id": "lobby_floor",
+      "path": "M -0.8 -1 0 L 0.8 -1 0 L 0.8 0.3 0 L -0.8 0.3 0 Z",
+      "description": "Lobby floor rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "floor"
+    }
+  ],
+  "metadata": {
+    "t": 0.8,
+    "ease": "smooth",
+    "animation_anchors_pinned_from": "first_key"
+  }
+}

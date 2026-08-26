@@ -1,0 +1,107 @@
+{
+  "prompt": "3D inbetween pose at t=0.333 ease_out: shuttle rising mid-arc, left player recovering, right player preparing backswing",
+  "strokes": [
+    {
+      "id": "left_head",
+      "path": "M -0.6 0 0.85 C3 -0.55 0 0.9 -0.5 0 0.85 -0.55 0 0.8 C3 -0.6 0 0.75 -0.65 0 0.8 -0.6 0 0.85",
+      "description": "Left player head",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "left_torso",
+      "path": "M -0.6 0 0.8 L -0.53 0 0.45",
+      "description": "Left torso easing upright after contact",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "left_legs",
+      "path": "M -0.53 0 0.45 L -0.41 0 0 M -0.53 0 0.45 L -0.67 0 0",
+      "description": "Left legs mid-stride, front foot pulling back",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "left_racket_arm",
+      "path": "M -0.6 0 0.8 L -0.44 0 0.61 M -0.44 0 0.61 C3 -0.39 0 0.66 -0.39 0 0.56 -0.44 0 0.61",
+      "description": "Left racket arm lowering from follow-through",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "right_head",
+      "path": "M 0.6 0 0.85 C3 0.65 0 0.9 0.7 0 0.85 0.65 0 0.8 C3 0.6 0 0.75 0.55 0 0.8 0.6 0 0.85",
+      "description": "Right player head",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "right_torso",
+      "path": "M 0.6 0 0.8 L 0.57 0 0.45",
+      "description": "Right torso beginning to lean into return",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "right_legs",
+      "path": "M 0.57 0 0.45 L 0.72 0 0 M 0.57 0 0.45 L 0.42 0 0",
+      "description": "Right legs widening into split stride",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "right_racket_arm",
+      "path": "M 0.6 0 0.8 L 0.5 0 0.59 M 0.5 0 0.59 C3 0.45 0 0.64 0.45 0 0.54 0.5 0 0.59",
+      "description": "Right racket arm rising into backswing",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "shuttle",
+      "path": "M -0.16 0.06 0.82 L -0.14 0.06 0.84 L -0.16 0.06 0.86",
+      "description": "Shuttle rising on arc toward net apex",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "shuttle"
+    },
+    {
+      "id": "court",
+      "path": "M -1 -0.6 0 L 1 -0.6 0 L 1 0.6 0 L -1 0.6 0 L -1 -0.6 0 M 0 -0.6 0 L 0 0.6 0",
+      "description": "Court ground rectangle and center line",
+      "stroke": "#111111",
+      "stroke_width": 2.0,
+      "opacity": 1.0,
+      "group": "court"
+    },
+    {
+      "id": "net",
+      "path": "M 0 0 0 L 0 0 0.55 M 0 -0.6 0.55 L 0 0.6 0.55 M 0 -0.6 0 L 0 -0.6 0.55 M 0 0.6 0 L 0 0.6 0.55 M 0 -0.6 0.18 L 0 0.6 0.18 M 0 -0.6 0.36 L 0 0.6 0.36",
+      "description": "Net vertical line, top bar, and mesh lines",
+      "stroke": "#111111",
+      "stroke_width": 2.0,
+      "opacity": 1.0,
+      "group": "net"
+    }
+  ],
+  "metadata": {
+    "animation_anchors_pinned_from": "first_key"
+  }
+}

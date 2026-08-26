@@ -24,9 +24,9 @@ Around 12 frames is a default length, not a quota. Real length is keys + all n_i
 
 World: +x right, +y deeper, +z up. Coordinates roughly [-1,1]. People about 1/4–1/3 of the scene height. Props follow the person (ball smaller than a head; hoop rim above head height on a pole; net is one vertical line to chest/head).
 
-Identity vs motion: head size/shape, body build, limb length, who is who are UNCHANGING. Moving parts SHOULD change pose: a weight shift, a swinging arm, a traveling ball. One clear action, not a busy mix.
+Identity vs motion: head size/shape, body build, limb length, who is who are UNCHANGING. Moving parts SHOULD change pose: a weight shift, a swinging arm, a traveling ball. If a person walks, keys must show a real stride — one leg forward and the other back, then they swap; never ice-skate with both feet planted while the body slides. One clear action, not a busy mix.
 
-Mark each part "motion": "moving" or "anchored". Ground, hoop pole, hoop rim, net are anchored.
+Mark each part "motion": "moving" or "anchored". Ground, pillars, walls, doorframes, elevator shafts, platforms, and crane bases are anchored. Sliding doors, people, balls, hooks, and crates are moving.
 Every parts[].id is a cross-frame contract. Each key scene must contain that exact id once.
 If a part needs helper strokes, prefix them with "<part_id>_". Do not rename people or parts between keys.
 Keep all geometry inside the shared world box [-1,1] on x/y/z; final animation uses one fixed camera and no per-frame recentering.
@@ -68,8 +68,10 @@ def key_plan_user(
             f"- Around {suggested_frames} frames is the default, not a quota. "
             f"Stay in {MIN_FRAMES}–{MAX_FRAMES}.\n"
         )
+    staging = str(task.get("staging") or "").strip()
+    staging_block = f"\nStaging that must be visible in four views:\n{staging}\n" if staging else ""
     return f"""User request: {task['prompt']}
-
+{staging_block}
 {pick}
 
 Return JSON:
@@ -117,6 +119,98 @@ TASKS = {
         "gif_ms": 80,
         "n_subjects": 1,
     },
+    "pillar_peek": {
+        "task_id": "anim3d_pillar_peek",
+        "concept": "a stick figure peeking around a square pillar",
+        "prompt": "A stick figure peeks from behind a square pillar, then steps fully out to the other side.",
+        "staging": (
+            "One square pillar at the origin, tall and anchored. One stick person only. "
+            "Key A: person on the LEFT of the pillar, fully visible in front view. "
+            "Key B: person has walked AROUND the pillar in +y (deeper); front view the body is hidden "
+            "behind the pillar, top view shows them on the far side of the square. "
+            "Key C: person emerges on the RIGHT of the pillar, fully visible again. "
+            "Do not slide left-right in a flat plane. The path is an arc around the pillar. "
+            "Front/side/top must disagree in a 3D way: front occludes, top shows the go-around."
+        ),
+        "part_range": (8, 14),
+        "target_frames": 12,
+        "gif_ms": 80,
+        "n_subjects": 1,
+    },
+    "ball_door": {
+        "task_id": "anim3d_ball_door",
+        "concept": "a ball rolling through a doorway into the next room",
+        "prompt": "A ball rolls across the floor and disappears through an open doorway, then reappears in the room behind.",
+        "staging": (
+            "Two rooms stacked in depth (+y), split by an anchored wall with a rectangular open doorway. "
+            "No people. One ball on the floor. "
+            "Key A: ball in the FRONT room, fully visible through the doorway from the front camera. "
+            "Key B: ball IN the doorway threshold (half in each room); front view the ball sits in the opening. "
+            "Key C: ball in the BACK room; from the front camera it is mostly gone or tiny in the doorway, "
+            "but top view shows it clearly behind the wall. "
+            "Wall and doorframe stay put. The ball must travel in +y, not just +x across the same room."
+        ),
+        "part_range": (7, 14),
+        "target_frames": 12,
+        "gif_ms": 80,
+        "n_subjects": 0,
+    },
+    "elevator": {
+        "task_id": "anim3d_elevator",
+        "concept": "a stick figure walking into an elevator as the doors close",
+        "prompt": "Elevator doors open; a stick figure walks in with swinging legs; doors close.",
+        "staging": (
+            "An elevator shaft/cabin as an anchored box with a floor, at the back of a short lobby. "
+            "Two sliding door leaves are moving parts (not anchored). One stick person. "
+            "Key A: doors CLOSED; person stands in the lobby, both feet planted. "
+            "Key B: doors OPEN; person MID-STRIDE crossing the threshold (one leg forward into the cabin, "
+            "the other still in the lobby, opposite arm forward). "
+            "Key C: person INSIDE the cabin (deeper +y) on the elevator floor; doors closing or closed; "
+            "the walk has finished or is on the opposite stride from Key B. "
+            "Side view must show the person crossing the threshold. Walking is stepping, not sliding: "
+            "legs and arms swing in opposition. Do not keep the person frozen in the lobby while only doors move."
+        ),
+        "part_range": (8, 16),
+        "target_frames": 12,
+        "gif_ms": 80,
+        "n_subjects": 1,
+    },
+    "badminton": {
+        "task_id": "anim3d_badminton",
+        "concept": "two stick figures rallying badminton over a net",
+        "prompt": "Two stick figures play badminton: one hits a shuttle over the net, the other returns it.",
+        "staging": (
+            "A net (anchored) splits the court in x: left player and right player, both stick figures with simple racket lines. "
+            "One shuttlecock, smaller than a head. Ground/court lines anchored. "
+            "Key A: left player at contact — racket arm fully forward, opposite leg stepping into the shot, shuttle just leaving the racket. "
+            "Key B: shuttle high over the net (detach); both players in recovery/ready strides, not T-poses. "
+            "Key C: right player at contact — racket arm forward, opposite leg planted, shuttle just leaving that racket toward the left. "
+            "Front view: shuttle crosses the net. Top view: shuttle travels left to right then right to left. "
+            "Hits are swings, not sliding statues. Unique id prefixes for the two people (left_*, right_*)."
+        ),
+        "part_range": (10, 16),
+        "target_frames": 12,
+        "gif_ms": 80,
+        "n_subjects": 2,
+    },
+    "crane_gap": {
+        "task_id": "anim3d_crane_gap",
+        "concept": "a crane swinging a crate over a gap onto the far platform",
+        "prompt": "A crane boom swings a crate over a gap and sets it on the far platform.",
+        "staging": (
+            "Two blocky platforms with a visible GAP between them (near platform toward camera, far platform deeper +y or to +x). "
+            "A simple crane: vertical mast + one boom + hook. Large separated masses, no tiny hinges. "
+            "Crate starts sitting on the NEAR platform. "
+            "Key A: crate on near platform, hook attached or just lifting. "
+            "Key B: crate hanging over the GAP, boom swung; top view the crate is between platforms, not over land. "
+            "Key C: crate set down on the FAR platform, hook still above it. "
+            "Platforms and mast stay anchored. Boom/hook/crate move. No people."
+        ),
+        "part_range": (8, 16),
+        "target_frames": 12,
+        "gif_ms": 80,
+        "n_subjects": 0,
+    },
 }
 
 
@@ -128,7 +222,9 @@ def key_draw_prompt(plan: dict, key: dict, key_i: int, n_keys: int) -> str:
         f"Staging: {plan.get('layout_notes') or ''}",
         "Draw this ONE pose as a Path3D spatial line sketch. Same named parts on every key.",
         "Include every listed part using its EXACT id once. Helper strokes must use '<part_id>_...' ids.",
+        "Do not rename parts between keys or between edit rounds (no walker_head_new / _emerge / _2).",
         "Head size/shape and build stay unchanging. Moving parts must pose this beat.",
+        "If this beat is walking or stepping, show a stride: one leg forward, the other back; arms counter-swing.",
         "People about 1/4–1/3 of scene height. Four views must show the same 3D structure.",
         "Keep the whole scene inside x/y/z [-1,1]. The animation camera is fixed and will not recenter this key.",
         "",
@@ -161,15 +257,31 @@ def _scene_brief(scene: dict) -> str:
 
 
 def inbetween_prompt(plan: dict, slot: dict, from_scene: dict, to_scene: dict) -> str:
-    return f"""Redraw the SAME 3D wireframe as one complete Path3D scene for an inbetween pose.
+    parts = plan.get("parts") or []
+    part_lines = "\n".join(
+        f"- {p.get('id')} {p.get('name')} ({p.get('how')}, {p.get('motion')}). {p.get('notes') or ''}"
+        for p in parts
+    )
+    t = float(slot.get("t", 0.5))
+    return f"""3D INBETWEEN between keys '{slot.get('from')}' and '{slot.get('to')}' at t={t:.3f} ease={slot.get('ease')}.
+This is the SAME task as drawing a key: incremental Path3D spatial line sketch, four views.
 
 Shot: {plan.get('action') or ''}
-This frame is between keys '{slot.get('from')}' and '{slot.get('to')}' at t={float(slot.get('t', 0.5)):.3f} ease={slot.get('ease')}.
-Keep identical stroke ids and identity (head size, build, hoop/ground). Only pose and traveling props change.
-Include every plan part id exactly once; helper strokes may only use '<part_id>_...' ids.
-Keep the whole scene inside the same x/y/z [-1,1] world box. Do not recenter or rescale the composition.
-Anchored parts will be replaced by the first key after generation, so preserve their ids.
-Do not invent extra people. Return one full scene JSON (the whole object), not a patch.
+Staging: {plan.get('layout_notes') or ''}
+
+Draw ONE pose interpolated along the action (not a copy of FROM or TO).
+t=0 would match FROM, t=1 would match TO; you are at t={t:.3f}.
+
+Parts (exact ids required):
+{part_lines}
+
+Identity (hard):
+- Include every plan part id exactly once. Helpers only: '<part_id>_...'.
+- Do not rename (no _new, _emerge, _2, _b). Changing pose keeps the same ids.
+- Head size/shape and build stay unchanging. Anchored scenery stays put.
+- People about 1/4–1/3 of scene height. Keep the scene inside x/y/z [-1,1].
+- Do not invent extra people.
+- Walk gait: if the person is traveling, pose a step (one foot ahead, the other behind, opposite arm forward). Alternate which foot leads as t increases. Do not slide a T-pose along the floor.
 
 FROM key scene:
 {_scene_brief(from_scene)}
@@ -177,3 +289,15 @@ FROM key scene:
 TO key scene:
 {_scene_brief(to_scene)}
 """
+
+
+def inbetween_oneshot_prompt(plan: dict, slot: dict, from_scene: dict, to_scene: dict) -> str:
+    return (
+        inbetween_prompt(plan, slot, from_scene, to_scene)
+        .replace(
+            "This is the SAME task as drawing a key: incremental Path3D spatial line sketch, four views.",
+            "Draw this ONE pose as a complete Path3D scene in a single reply. No patches, no extra people.",
+        )
+        + "\nReturn JSON only: {\"prompt\":\"...\",\"strokes\":[{\"id\":\"...\",\"path\":\"M ...\",\"description\":\"...\",\"group\":\"...\"}]}.\n"
+        "Reuse exact ids from FROM. Path commands only (M/L/C3/Q3/Z). Coordinates in [-1,1].\n"
+    )

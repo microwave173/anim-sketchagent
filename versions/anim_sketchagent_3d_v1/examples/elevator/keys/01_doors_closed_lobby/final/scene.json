@@ -1,0 +1,99 @@
+{
+  "prompt": "3D KEY 1/3 named 'doors_closed_lobby' (beat: doors shut, person waiting in lobby).\nShot: An anchored elevator shaft/cabin box sits at the back of a small lobby, with its floor visible and the cabin interior deeper in +y. Two sliding door leaves on the cabin front face start closed, then slide apart along x, then slide shut again. One stick person stands in the lobby at front, feet planted, facing the elevator. When the doors open, the person walks forward in +y with opposing arm and leg swings, crossing the threshold mid-stride (one leg inside the cabin, one still in lobby, opposite arm forward). The person finishes inside the cabin on the elevator floor, deeper in +y, on the opposite stride from the mid-stride key. The doors close behind them. Head size, body build, limb lengths, and the cabin geometry never change; only the door leaves and the person's limbs and position move.\nStaging: Cabin box occupies roughly x [-0.5,0.5], y [0.3,1.0], z [0,0.9]; lobby floor extends y [-1,0.3]. Door leaves slide along x at the cabin front plane y=0.3, spanning z [0,0.8]. Person about 0.5 tall (z 0 to 0.5), starts at y=-0.5, ends at y=0.6 inside cabin. Side view must clearly show threshold crossing at y=0.3.\nDraw this ONE pose as a Path3D spatial line sketch. Same named parts on every key.\nInclude every listed part using its EXACT id once. Helper strokes must use '<part_id>_...' ids.\nDo not rename parts between keys or between edit rounds (no walker_head_new / _emerge / _2).\nHead size/shape and build stay unchanging. Moving parts must pose this beat.\nIf this beat is walking or stepping, show a stride: one leg forward, the other back; arms counter-swing.\nPeople about 1/4–1/3 of scene height. Four views must show the same 3D structure.\nKeep the whole scene inside x/y/z [-1,1]. The animation camera is fixed and will not recenter this key.\n\nParts:\n- cabin_box cabin_box (wireframe box: floor, back wall, two side walls, ceiling, anchored). elevator shaft/cabin at back of scene, x [-0.5,0.5], y [0.3,1.0], z [0,0.9]\n- lobby_floor lobby_floor (flat rectangle on ground plane, anchored). y [-1,0.3], x [-0.8,0.8], z=0\n- door_left door_left (vertical rectangle panel in door plane, moving). slides left (-x) to open, back to close; front plane y=0.3\n- door_right door_right (vertical rectangle panel in door plane, moving). slides right (+x) to open, back to close; front plane y=0.3\n- person_head person_head (circle in 3D, moving). same size every key, ~0.09 radius\n- person_torso person_torso (line from neck to hips, moving). same length every key\n- person_arm_l person_arm_l (two-segment line from shoulder, moving). swings in opposition to left leg\n- person_arm_r person_arm_r (two-segment line from shoulder, moving). swings in opposition to right leg\n- person_leg_l person_leg_l (two-segment line from hip to foot, moving). steps, never slides with both feet planted\n- person_leg_r person_leg_r (two-segment line from hip to foot, moving). steps, never slides with both feet planted\n\nThis key pose:\nbeat: doors shut, person waiting in lobby\nnotes: door_left and door_right meet at center x=0 in the door plane y=0.3. Person stands at y=-0.5, x=0, both feet planted on lobby floor, arms relaxed at sides, facing +y toward the elevator.",
+  "strokes": [
+    {
+      "id": "cabin_box",
+      "path": "M -0.5 0.3 0 L 0.5 0.3 0 L 0.5 1 0 L -0.5 1 0 Z M -0.5 0.3 0.9 L 0.5 0.3 0.9 L 0.5 1 0.9 L -0.5 1 0.9 Z M -0.5 0.3 0 L -0.5 0.3 0.9 M 0.5 0.3 0 L 0.5 0.3 0.9 M -0.5 1 0 L -0.5 1 0.9 M 0.5 1 0 L 0.5 1 0.9",
+      "description": "Elevator cabin wireframe box",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cabin"
+    },
+    {
+      "id": "lobby_floor",
+      "path": "M -0.8 -1 0 L 0.8 -1 0 L 0.8 0.3 0 L -0.8 0.3 0 Z",
+      "description": "Lobby floor rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "floor"
+    },
+    {
+      "id": "door_left",
+      "path": "M -0.5 0.3 0 L 0 0.3 0 L 0 0.3 0.8 L -0.5 0.3 0.8 Z",
+      "description": "Left sliding door leaf closed",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "door"
+    },
+    {
+      "id": "door_right",
+      "path": "M 0 0.3 0 L 0.5 0.3 0 L 0.5 0.3 0.8 L 0 0.3 0.8 Z",
+      "description": "Right sliding door leaf closed",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "door"
+    },
+    {
+      "id": "person_head",
+      "path": "M 0.09 -0.5 0.41 C3 0.09 -0.41 0.5 -0.09 -0.41 0.5 -0.09 -0.5 0.41 C3 -0.09 -0.59 0.32 0.09 -0.59 0.32 0.09 -0.5 0.41",
+      "description": "Person head circle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_torso",
+      "path": "M 0 -0.5 0.32 L 0 -0.5 0.14",
+      "description": "Person torso line",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_arm_l",
+      "path": "M 0 -0.5 0.3 L -0.08 -0.5 0.22 L -0.08 -0.5 0.12",
+      "description": "Left arm relaxed at side",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_arm_r",
+      "path": "M 0 -0.5 0.3 L 0.08 -0.5 0.22 L 0.08 -0.5 0.12",
+      "description": "Right arm relaxed at side",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_leg_l",
+      "path": "M 0 -0.5 0.14 L -0.06 -0.5 0.07 L -0.06 -0.5 0",
+      "description": "Left leg planted",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_leg_r",
+      "path": "M 0 -0.5 0.14 L 0.06 -0.5 0.07 L 0.06 -0.5 0",
+      "description": "Right leg planted",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    }
+  ],
+  "metadata": {
+    "format": "path3d_v1",
+    "axes": "+x right, +y depth, +z up"
+  }
+}

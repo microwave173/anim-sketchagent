@@ -1,0 +1,108 @@
+{
+  "prompt": "3D KEY 1/3 named 'left_contact' (beat: left player hits shuttle over net).\nShot: Two stick figures, left player near x=-0.6 and right player near x=+0.6, rally a shuttlecock over a net anchored at x=0. Beat order: left player contacts the shuttle with racket arm fully forward and opposite leg stepping in; the shuttle arcs high over the net while both players take recovery strides; right player contacts and returns it leftward. The shuttle travels left-to-right then right-to-left, always smaller than a head. Head sizes, body builds, limb lengths, net, and court lines never change; only poses and the shuttle position change. Both players show real strides with legs split, never static T-poses.\nStaging: Court ground at z=0 spanning x[-1,1], y[-0.6,0.6]. Net at x=0, from ground to z=0.55, one vertical line with top line. Players about 1/3 scene height (heads near z=0.85). Shuttle arcs peak near z=0.9 over net. Left player faces +x, right player faces -x.\nDraw this ONE pose as a Path3D spatial line sketch. Same named parts on every key.\nInclude every listed part using its EXACT id once. Helper strokes must use '<part_id>_...' ids.\nDo not rename parts between keys or between edit rounds (no walker_head_new / _emerge / _2).\nHead size/shape and build stay unchanging. Moving parts must pose this beat.\nIf this beat is walking or stepping, show a stride: one leg forward, the other back; arms counter-swing.\nPeople about 1/4–1/3 of scene height. Four views must show the same 3D structure.\nKeep the whole scene inside x/y/z [-1,1]. The animation camera is fixed and will not recenter this key.\n\nParts:\n- left_head left_head (circle in 3D, moving). same size every key\n- left_torso left_torso (line from neck to hips, moving). leans into shot at contact\n- left_legs left_legs (two lines hip to feet, moving). real stride: opposite leg forward at contact\n- left_racket_arm left_racket_arm (arm line plus racket oval at end, moving). fully forward at contact, down in ready\n- right_head right_head (circle in 3D, moving). same size every key\n- right_torso right_torso (line from neck to hips, moving). leans into return at contact\n- right_legs right_legs (two lines hip to feet, moving). planted opposite leg at contact\n- right_racket_arm right_racket_arm (arm line plus racket oval at end, moving). forward at contact, down in ready\n- shuttle shuttle (small cone/teardrop of 2-3 lines, moving). smaller than a head; travels over net\n- net net (vertical line at x=0 plus top bar and mesh lines, anchored). unchanging\n- court court (ground rectangle and center line, anchored). ground lines at z=0\n\nThis key pose:\nbeat: left player hits shuttle over net\nnotes: Left player at x=-0.6, torso leaning +x, racket arm fully extended forward/up, right leg stepping into shot, left leg back. Shuttle just leaving racket at (-0.35, 0, 0.7). Right player at x=+0.6 in ready stride, knees bent, racket low.",
+  "strokes": [
+    {
+      "id": "court",
+      "path": "M -1 -0.6 0 L 1 -0.6 0 L 1 0.6 0 L -1 0.6 0 L -1 -0.6 0 M 0 -0.6 0 L 0 0.6 0",
+      "description": "Court ground rectangle and center line",
+      "stroke": "#111111",
+      "stroke_width": 2.0,
+      "opacity": 1.0,
+      "group": "court"
+    },
+    {
+      "id": "net",
+      "path": "M 0 0 0 L 0 0 0.55 M 0 -0.6 0.55 L 0 0.6 0.55 M 0 -0.6 0 L 0 -0.6 0.55 M 0 0.6 0 L 0 0.6 0.55 M 0 -0.6 0.18 L 0 0.6 0.18 M 0 -0.6 0.36 L 0 0.6 0.36",
+      "description": "Net vertical line, top bar, and mesh lines",
+      "stroke": "#111111",
+      "stroke_width": 2.0,
+      "opacity": 1.0,
+      "group": "net"
+    },
+    {
+      "id": "left_head",
+      "path": "M -0.6 0 0.85 C3 -0.55 0 0.9 -0.5 0 0.85 -0.55 0 0.8 C3 -0.6 0 0.75 -0.65 0 0.8 -0.6 0 0.85",
+      "description": "Left player head",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "left_torso",
+      "path": "M -0.6 0 0.8 L -0.5 0 0.45",
+      "description": "Left torso leaning into shot",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "left_legs",
+      "path": "M -0.5 0 0.45 L -0.35 0 0 M -0.5 0 0.45 L -0.7 0 0",
+      "description": "Left legs with right leg stepping forward",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "left_racket_arm",
+      "path": "M -0.6 0 0.8 L -0.35 0 0.7 M -0.35 0 0.7 C3 -0.3 0 0.75 -0.3 0 0.65 -0.35 0 0.7",
+      "description": "Left racket arm fully extended forward with racket oval",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "left_player"
+    },
+    {
+      "id": "right_head",
+      "path": "M 0.6 0 0.85 C3 0.65 0 0.9 0.7 0 0.85 0.65 0 0.8 C3 0.6 0 0.75 0.55 0 0.8 0.6 0 0.85",
+      "description": "Right player head",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "right_torso",
+      "path": "M 0.6 0 0.8 L 0.6 0 0.45",
+      "description": "Right torso in ready crouch",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "right_legs",
+      "path": "M 0.6 0 0.45 L 0.75 0 0 M 0.6 0 0.45 L 0.45 0 0",
+      "description": "Right legs in ready stride",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "right_racket_arm",
+      "path": "M 0.6 0 0.8 L 0.5 0 0.5 M 0.5 0 0.5 C3 0.45 0 0.55 0.45 0 0.45 0.5 0 0.5",
+      "description": "Right racket arm held low in ready",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "right_player"
+    },
+    {
+      "id": "shuttle",
+      "path": "M -0.35 0 0.7 L -0.33 0 0.72 L -0.35 0 0.74",
+      "description": "Shuttle just leaving left racket",
+      "stroke": "#111111",
+      "stroke_width": 2.0,
+      "opacity": 1.0,
+      "group": "shuttle"
+    }
+  ],
+  "metadata": {
+    "format": "path3d_v1",
+    "axes": "+x right, +y depth, +z up"
+  }
+}

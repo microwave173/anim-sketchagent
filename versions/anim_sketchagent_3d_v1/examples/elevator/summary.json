@@ -1,0 +1,253 @@
+{
+  "ok": true,
+  "pipeline": "plan_keys_incremental_inbetweens_oneshot",
+  "models": {
+    "plan_and_oneshot_inbetween": "glm-5.3",
+    "incremental_key_visual_review_and_edit": "deepseek-v4-flash-vision-exp"
+  },
+  "reflection": false,
+  "fixed_world_framing": true,
+  "anchored_part_ids": [
+    "cabin_box",
+    "lobby_floor"
+  ],
+  "canonical_stroke_ids": [
+    "cabin_box",
+    "door_left",
+    "door_right",
+    "lobby_floor",
+    "person_arm_l",
+    "person_arm_r",
+    "person_head",
+    "person_leg_l",
+    "person_leg_r",
+    "person_torso"
+  ],
+  "task_id": "anim3d_elevator",
+  "n_keys": 3,
+  "n_frames": 11,
+  "gif_ms": 80,
+  "action": "An anchored elevator shaft/cabin box sits at the back of a small lobby, with its floor visible and the cabin interior deeper in +y. Two sliding door leaves on the cabin front face start closed, then slide apart along x, then slide shut again. One stick person stands in the lobby at front, feet planted, facing the elevator. When the doors open, the person walks forward in +y with opposing arm and leg swings, crossing the threshold mid-stride (one leg inside the cabin, one still in lobby, opposite arm forward). The person finishes inside the cabin on the elevator floor, deeper in +y, on the opposite stride from the mid-stride key. The doors close behind them. Head size, body build, limb lengths, and the cabin geometry never change; only the door leaves and the person's limbs and position move.",
+  "gaps": [
+    {
+      "after": "doors_closed_lobby",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "doors slide open while person takes first steps toward the elevator; needs a few beats for door travel plus initial stride"
+    },
+    {
+      "after": "doors_open_midstride",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "person completes the walk through the doorway and doors begin closing; contact beat at threshold already captured in the key"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "doors_closed_lobby",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "prior_attempt_error": null,
+      "seconds": 175.32
+    },
+    {
+      "name": "doors_open_midstride",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "prior_attempt_error": null,
+      "seconds": 146.16
+    },
+    {
+      "name": "inside_doors_closing",
+      "ok": true,
+      "status": "max_rounds",
+      "best_revision": "revision_001",
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      },
+      "prior_attempt_error": null,
+      "seconds": 132.81
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:doors_closed_lobby",
+      "strokes": 10,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "id-d",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "id-d",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "id-d",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "id-d",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 6,
+      "kind": "key",
+      "label": "K:doors_open_midstride",
+      "strokes": 10,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "id-i",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "id-i",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "id-i",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "id-i",
+      "strokes": 10,
+      "attempt": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    },
+    {
+      "i": 11,
+      "kind": "key",
+      "label": "K:inside_doors_closing",
+      "strokes": 10,
+      "attempt": 0,
+      "contract": {
+        "ok": true,
+        "stroke_count": 10,
+        "missing_part_ids": [],
+        "canonical_missing": [],
+        "unknown_ids": []
+      }
+    }
+  ],
+  "gif": "examples/elevator/clip.gif",
+  "contact_sheet": "examples/elevator/contact_sheet.png"
+}

@@ -7,7 +7,7 @@ Anim SketchAgent 是一套 pose-to-pose 线稿动画实验仓库，同时保存�
 | 版本 | 关键帧 | 中间帧 | 代表结果 |
 |---|---|---|---|
 | 2D | GLM-5.3 输出 SketchAgent XML；可选 DeepSeek Vision 审稿 | 按稳定 `<id>` 做几何插值 | [篮球 GIF](versions/anim_sketchagent_2d_v1/examples/basketball_scale2/clip.gif) |
-| 3D | incremental Path3D：DeepSeek Vision 看四视图并编辑 | GLM-5.3 one-shot 输出完整 Path3D scene | [篮球 GIF](versions/anim_sketchagent_3d_v1/examples/basketball_smoke/clip.gif) |
+| 3D | incremental Path3D：DeepSeek Vision 看四视图并编辑 | GLM-5.3 one-shot 输出完整 Path3D scene | [电梯](versions/anim_sketchagent_3d_v1/examples/elevator/clip.gif) · [羽毛球](versions/anim_sketchagent_3d_v1/examples/badminton/clip.gif) |
 
 详细设计和冻结说明：
 
@@ -53,11 +53,11 @@ python3 versions/anim_sketchagent_2d_v1/src/glm_anim_keys.py \
 
 ```bash
 python3 versions/anim_sketchagent_3d_v1/src/glm_anim_3d.py \
-  --task basketball --max-rounds 4 \
-  --out outputs/3d_basketball
+  --task badminton --keys 3 --max-rounds 4 \
+  --out outputs/3d_badminton
 ```
 
-3D 版使用语义 part IDs、首关键帧锚点复用和固定世界坐标 framing，避免篮架、地面与镜头逐帧漂移。
+也可用 `--task elevator`。3D 版使用语义 part IDs、禁止换 id、首关键帧锚点复用和固定世界坐标 framing，避免场地、网、轿厢与镜头逐帧漂移。
 
 ## 测试与校验
 

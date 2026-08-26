@@ -1,0 +1,101 @@
+{
+  "prompt": "3D inbetween pose at t=0.400 (smooth ease) of a stick person walking into an elevator as the sliding doors begin closing",
+  "strokes": [
+    {
+      "id": "door_left",
+      "path": "M -0.792 0.3 0 L -0.380 0.3 0 L -0.380 0.3 0.8 L -0.792 0.3 0.8 Z",
+      "description": "Left door leaf sliding closed, interpolated",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "door"
+    },
+    {
+      "id": "door_right",
+      "path": "M 0.380 0.3 0 L 0.792 0.3 0 L 0.792 0.3 0.8 L 0.380 0.3 0.8 Z",
+      "description": "Right door leaf sliding closed, interpolated",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "door"
+    },
+    {
+      "id": "person_head",
+      "path": "M 0.09 0.41 0.41 C3 0.09 0.5 0.5 -0.09 0.5 0.5 -0.09 0.41 0.41 C3 -0.09 0.32 0.32 0.09 0.32 0.32 0.09 0.41 0.41",
+      "description": "Person head circle, same size, moved to y=0.41",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_torso",
+      "path": "M 0 0.41 0.32 L 0 0.41 0.14",
+      "description": "Person torso line, same length",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_arm_l",
+      "path": "M 0 0.41 0.3 L -0.08 0.429 0.22 L -0.08 0.46 0.12",
+      "description": "Left arm mid swing, interpolated",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_arm_r",
+      "path": "M 0 0.41 0.3 L 0.08 0.382 0.22 L 0.08 0.351 0.12",
+      "description": "Right arm mid swing, interpolated",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_leg_l",
+      "path": "M 0 0.41 0.14 L -0.06 0.383 0.07 L -0.06 0.339 0",
+      "description": "Left leg mid stride, interpolated",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "person_leg_r",
+      "path": "M 0 0.41 0.14 L 0.06 0.428 0.07 L 0.06 0.472 0",
+      "description": "Right leg mid stride, interpolated",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "person"
+    },
+    {
+      "id": "cabin_box",
+      "path": "M -0.5 0.3 0 L 0.5 0.3 0 L 0.5 1 0 L -0.5 1 0 Z M -0.5 0.3 0.9 L 0.5 0.3 0.9 L 0.5 1 0.9 L -0.5 1 0.9 Z M -0.5 0.3 0 L -0.5 0.3 0.9 M 0.5 0.3 0 L 0.5 0.3 0.9 M -0.5 1 0 L -0.5 1 0.9 M 0.5 1 0 L 0.5 1 0.9",
+      "description": "Elevator cabin wireframe box",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cabin"
+    },
+    {
+      "id": "lobby_floor",
+      "path": "M -0.8 -1 0 L 0.8 -1 0 L 0.8 0.3 0 L -0.8 0.3 0 Z",
+      "description": "Lobby floor rectangle",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "floor"
+    }
+  ],
+  "metadata": {
+    "t": 0.4,
+    "ease": "smooth",
+    "s": 0.352,
+    "animation_anchors_pinned_from": "first_key"
+  }
+}

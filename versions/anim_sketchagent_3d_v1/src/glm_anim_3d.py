@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3D pose-to-pose: GLM plans keys; incremental Path3D draws keys; one-shot Path3D fills gaps."""
+"""3D pose-to-pose: GLM plans keys; incremental Path3D draws keys; GLM one-shot fills inbetweens."""
 from __future__ import annotations
 
 import argparse
@@ -46,7 +46,7 @@ from prompts import (  # noqa: E402
     MIN_FRAMES,
     MIN_KEYS,
     TASKS,
-    inbetween_prompt,
+    inbetween_oneshot_prompt,
     key_count_bounds,
     key_draw_prompt,
     key_plan_user,
@@ -284,10 +284,29 @@ def draw_key_incremental(prompt: str, out_dir: Path, *, max_rounds: int, width: 
     return loop.run(prompt, width=width, height=height)
 
 
+def load_run_keys(out: Path, plan: dict) -> tuple[dict[str, dict], dict, set[str]]:
+    key_scenes: dict[str, dict] = {}
+    for i, key in enumerate(plan.get("keys") or [], 1):
+        name = str(key.get("name") or "")
+        path = out / "keys" / f"{i:02d}_{name}" / "final" / "scene.json"
+        if not path.exists():
+            raise FileNotFoundError(f"missing accepted key scene: {path}")
+        key_scenes[name] = json.loads(path.read_text(encoding="utf-8"))
+    first_name = str(plan["keys"][0]["name"])
+    anchor = copy.deepcopy(key_scenes[first_name])
+    canonical = {
+        str(item.get("id") or "").strip()
+        for item in anchor.get("strokes") or []
+        if str(item.get("id") or "").strip()
+    }
+    return key_scenes, anchor, canonical
+
+
 def generate_inbetween(
     prompt: str,
     plan: dict,
     anchor_scene: dict,
+    dest: Path,
     *,
     canonical_ids: set[str],
     attempts: int = 2,
@@ -295,6 +314,7 @@ def generate_inbetween(
     last_error: Exception | None = None
     last_raw = ""
     user_content = prompt
+    dest.mkdir(parents=True, exist_ok=True)
     for attempt in range(1, attempts + 1):
         try:
             scene, last_raw = generate_scene(user_content)
@@ -305,14 +325,16 @@ def generate_inbetween(
                 label=f"inbetween attempt {attempt}",
                 canonical_ids=canonical_ids,
             )
+            (dest / f"attempt_{attempt:02d}.raw.txt").write_text(last_raw, encoding="utf-8")
             return Path3DScene.from_dict(value, prompt=plan.get("concept", "")), last_raw, report, attempt
         except Exception as exc:
             last_error = exc
+            (dest / f"attempt_{attempt:02d}.raw.txt").write_text(last_raw or str(exc), encoding="utf-8")
             user_content = (
                 prompt
                 + "\n\nThe previous attempt violated the animation identity contract. "
-                + f"Repair it: {exc}. Include every exact part id and every canonical stroke id; "
-                + "do not add another person. Return one complete scene JSON."
+                + f"Repair it: {exc}. Reuse every exact part id and every canonical stroke id; "
+                + "do not add another person or rename with _new/_emerge/_2. Return one complete Path3D JSON."
             )
     raise ValueError(f"inbetween contract failed after {attempts} attempts: {last_error}") from last_error
 
@@ -324,11 +346,19 @@ def main() -> None:
     ap.add_argument("--frames", type=int, default=None)
     ap.add_argument("--max-rounds", type=int, default=4, help="incremental rounds per key")
     ap.add_argument("--key-attempts", type=int, default=2, help="full incremental retries if a key breaks the id contract")
+    ap.add_argument("--keys-only", action="store_true", help="draw key poses then stop; skip inbetweens and full clip")
+    ap.add_argument(
+        "--from-run",
+        type=Path,
+        default=None,
+        help="reuse an existing keys-only (or completed) run: load plan+keys, draw incremental inbetweens only",
+    )
     ap.add_argument("--gif-ms", type=int, default=None)
     ap.add_argument("--width", type=int, default=512)
     ap.add_argument("--height", type=int, default=512)
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
+    t_wall = time.time()
     task = TASKS[args.task]
     suggested_frames = int(task.get("target_frames") or 12)
     pin_frames = int(args.frames) if args.frames is not None else None
@@ -337,130 +367,203 @@ def main() -> None:
     if n_keys is not None and not lo <= n_keys <= hi:
         raise SystemExit(f"--keys must be {lo}–{hi}")
     gif_ms = int(args.gif_ms if args.gif_ms is not None else task.get("gif_ms", 80))
-
     stamp = time.strftime("%Y%m%d_%H%M%S")
-    out = Path(args.out) if args.out else HERE / "outputs" / f"anim3d_{task['task_id']}_{stamp}"
-    out.mkdir(parents=True, exist_ok=True)
 
-    print(
-        f"== 3d key plan {task['task_id']} n_keys={n_keys or f'auto {lo}–{hi}'} "
-        f"frames={pin_frames or f'auto ~{suggested_frames}'} -> {out} ==",
-        flush=True,
-    )
-    t0 = time.time()
-    plan, plan_raw, plan_err = mint_key_plan(task, n_keys, pin_frames, suggested_frames)
-    (out / "plan.raw.txt").write_text(plan_raw, encoding="utf-8")
-    if plan is None:
-        (out / "summary.json").write_text(json.dumps({"ok": False, "plan_error": plan_err}, indent=2), encoding="utf-8")
-        raise SystemExit(1)
-    (out / "plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out / "action.txt").write_text(plan["action"] + "\n", encoding="utf-8")
-    n_keys = len(plan["keys"])
-    print(
-        f"  plan {round(time.time()-t0, 2)}s {n_keys} keys, {plan['n_frames']} frames "
-        f"{[k.get('name') for k in plan['keys']]} gaps={[g.get('n_inbetween') for g in plan['gaps']]}",
-        flush=True,
-    )
-    print("  action:", flush=True)
-    print(f"    {plan['action']}", flush=True)
-
-    key_scenes: dict[str, dict] = {}
-    key_rows = []
-    anchor_scene: dict | None = None
-    canonical_ids: set[str] | None = None
-    for i, key in enumerate(plan["keys"], 1):
-        name = str(key["name"])
-        key_dir = out / "keys" / f"{i:02d}_{name}"
-        key_dir.mkdir(parents=True, exist_ok=True)
-        prompt = key_draw_prompt(plan, key, i, n_keys)
-        if canonical_ids and anchor_scene:
-            prompt += (
-                "\n\nCROSS-KEY IDENTITY CONTRACT:\n"
-                f"Include every canonical stroke id exactly once: {sorted(canonical_ids)}.\n"
-                "The first key scene below defines identity, proportions, world placement, and anchored geometry. "
-                "Keep the same people and structure while changing only this beat's pose.\n"
-                f"{json.dumps(anchor_scene, ensure_ascii=False)[:24000]}"
-            )
-        print(f"== incremental key {i}/{n_keys} {name} ==", flush=True)
-        t1 = time.time()
-        result = None
-        accepted_scene: dict | None = None
-        contract: dict | None = None
-        last_error = ""
-        accepted_attempt = 0
-        for attempt in range(1, max(1, int(args.key_attempts)) + 1):
-            attempt_dir = key_dir / f"attempt_{attempt:02d}"
-            try:
-                result = draw_key_incremental(
-                    prompt,
-                    attempt_dir,
-                    max_rounds=args.max_rounds,
-                    width=args.width,
-                    height=args.height,
-                )
-                scene_path = attempt_dir / "final" / "scene.json"
-                if not scene_path.exists() or result.status == "failed":
-                    raise ValueError(f"incremental status={result.status}, scene_exists={scene_path.exists()}")
-                value = json.loads(scene_path.read_text(encoding="utf-8"))
-                if anchor_scene is not None:
-                    value = pin_anchored_scene(value, anchor_scene, plan)
-                contract = require_scene_contract(
-                    value,
-                    plan,
-                    label=f"key {name} attempt {attempt}",
-                    canonical_ids=canonical_ids,
-                )
-                accepted_scene = value
-                accepted_attempt = attempt
+    if args.from_run is not None:
+        out = args.from_run if args.from_run.is_absolute() else HERE / args.from_run
+        plan_path = out / "plan.json"
+        if not plan_path.exists():
+            raise SystemExit(f"--from-run missing {plan_path}")
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        task_id = str(plan.get("task_id") or task["task_id"])
+        if task_id in TASKS:
+            task = TASKS[task_id] if task_id in TASKS else task
+        # task_id is anim3d_pillar_peek, TASKS keys are pillar_peek
+        for name, spec in TASKS.items():
+            if spec.get("task_id") == task_id:
+                task = spec
+                gif_ms = int(args.gif_ms if args.gif_ms is not None else task.get("gif_ms", 80))
                 break
-            except Exception as exc:
-                last_error = f"{type(exc).__name__}: {exc}"
-                print(f"  key {name} attempt {attempt} rejected: {last_error}", flush=True)
-        ok = accepted_scene is not None and result is not None
-        if ok and accepted_scene is not None:
-            if anchor_scene is None:
-                anchor_scene = copy.deepcopy(accepted_scene)
-                canonical_ids = {
-                    str(item.get("id") or "").strip()
-                    for item in accepted_scene.get("strokes") or []
-                    if str(item.get("id") or "").strip()
-                }
-            key_scenes[name] = accepted_scene
-            scene = Path3DScene.from_dict(accepted_scene, prompt=plan.get("concept", ""))
-            rec = render_scene(scene, key_dir / "final", width=args.width, height=args.height, normalize=False)
-            (key_dir / "final" / "contract.json").write_text(
-                json.dumps(contract, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
+        n_keys = len(plan.get("keys") or [])
+        key_scenes, anchor_scene, canonical_ids = load_run_keys(out, plan)
+        for name, scene in key_scenes.items():
+            require_scene_contract(scene, plan, label=f"loaded key {name}", canonical_ids=canonical_ids)
+        key_rows = [{"name": k["name"], "ok": True, "loaded": True} for k in plan["keys"]]
         print(
-            f"  key {name} {round(time.time()-t1, 2)}s "
-            f"status={result.status if result else 'failed'} "
-            f"rev={result.best_revision if result else None} "
-            f"rounds={result.rounds_completed if result else 0} attempt={accepted_attempt}",
+            f"== from-run {out} keys={ [k.get('name') for k in plan['keys']] } "
+            f"frames={plan.get('n_frames')} incremental inbetweens ==",
             flush=True,
         )
-        key_rows.append(
-            {
-                "name": name,
-                "ok": ok,
-                "status": result.status if result else "failed",
-                "best_revision": result.best_revision if result else None,
-                "attempt": accepted_attempt,
-                "contract": contract,
-                "prior_attempt_error": last_error or None,
-                "seconds": round(time.time() - t1, 2),
-            }
-        )
-        if not ok:
-            (out / "summary.json").write_text(
-                json.dumps({"ok": False, "error": f"key {name} failed", "key_rows": key_rows}, indent=2),
-                encoding="utf-8",
-            )
-            raise SystemExit(1)
+        print("  action:", flush=True)
+        print(f"    {plan.get('action')}", flush=True)
+    else:
+        out = Path(args.out) if args.out else HERE / "outputs" / f"anim3d_{task['task_id']}_{stamp}"
+        out.mkdir(parents=True, exist_ok=True)
 
-    timeline = expand_timeline(plan["keys"], plan["gaps"])
+        print(
+            f"== 3d key plan {task['task_id']} n_keys={n_keys or f'auto {lo}–{hi}'} "
+            f"frames={pin_frames or f'auto ~{suggested_frames}'} -> {out} ==",
+            flush=True,
+        )
+        t0 = time.time()
+        plan, plan_raw, plan_err = mint_key_plan(task, n_keys, pin_frames, suggested_frames)
+        (out / "plan.raw.txt").write_text(plan_raw, encoding="utf-8")
+        if plan is None:
+            (out / "summary.json").write_text(json.dumps({"ok": False, "plan_error": plan_err}, indent=2), encoding="utf-8")
+            raise SystemExit(1)
+        (out / "plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
+        (out / "action.txt").write_text(plan["action"] + "\n", encoding="utf-8")
+        n_keys = len(plan["keys"])
+        print(
+            f"  plan {round(time.time()-t0, 2)}s {n_keys} keys, {plan['n_frames']} frames "
+            f"{[k.get('name') for k in plan['keys']]} gaps={[g.get('n_inbetween') for g in plan['gaps']]}",
+            flush=True,
+        )
+        print("  action:", flush=True)
+        print(f"    {plan['action']}", flush=True)
+
+        key_scenes = {}
+        key_rows = []
+        anchor_scene = None
+        canonical_ids = None
+        for i, key in enumerate(plan["keys"], 1):
+            name = str(key["name"])
+            key_dir = out / "keys" / f"{i:02d}_{name}"
+            key_dir.mkdir(parents=True, exist_ok=True)
+            prompt = key_draw_prompt(plan, key, i, n_keys)
+            if canonical_ids and anchor_scene:
+                prompt += (
+                    "\n\nCROSS-KEY IDENTITY CONTRACT:\n"
+                    f"Include every canonical stroke id exactly once: {sorted(canonical_ids)}.\n"
+                    "The first key scene below defines identity, proportions, world placement, and anchored geometry. "
+                    "Keep the same people and structure while changing only this beat's pose.\n"
+                    f"{json.dumps(anchor_scene, ensure_ascii=False)[:24000]}"
+                )
+            print(f"== incremental key {i}/{n_keys} {name} ==", flush=True)
+            t1 = time.time()
+            result = None
+            accepted_scene = None
+            contract = None
+            last_error = ""
+            accepted_attempt = 0
+            for attempt in range(1, max(1, int(args.key_attempts)) + 1):
+                attempt_dir = key_dir / f"attempt_{attempt:02d}"
+                try:
+                    result = draw_key_incremental(
+                        prompt,
+                        attempt_dir,
+                        max_rounds=args.max_rounds,
+                        width=args.width,
+                        height=args.height,
+                    )
+                    scene_path = attempt_dir / "final" / "scene.json"
+                    if not scene_path.exists() or result.status == "failed":
+                        raise ValueError(f"incremental status={result.status}, scene_exists={scene_path.exists()}")
+                    value = json.loads(scene_path.read_text(encoding="utf-8"))
+                    if anchor_scene is not None:
+                        value = pin_anchored_scene(value, anchor_scene, plan)
+                    contract = require_scene_contract(
+                        value,
+                        plan,
+                        label=f"key {name} attempt {attempt}",
+                        canonical_ids=canonical_ids,
+                    )
+                    accepted_scene = value
+                    accepted_attempt = attempt
+                    break
+                except Exception as exc:
+                    last_error = f"{type(exc).__name__}: {exc}"
+                    print(f"  key {name} attempt {attempt} rejected: {last_error}", flush=True)
+            ok = accepted_scene is not None and result is not None
+            if ok and accepted_scene is not None:
+                if anchor_scene is None:
+                    anchor_scene = copy.deepcopy(accepted_scene)
+                    canonical_ids = {
+                        str(item.get("id") or "").strip()
+                        for item in accepted_scene.get("strokes") or []
+                        if str(item.get("id") or "").strip()
+                    }
+                key_scenes[name] = accepted_scene
+                scene = Path3DScene.from_dict(accepted_scene, prompt=plan.get("concept", ""))
+                rec = render_scene(scene, key_dir / "final", width=args.width, height=args.height, normalize=False)
+                (key_dir / "final" / "contract.json").write_text(
+                    json.dumps(contract, ensure_ascii=False, indent=2),
+                    encoding="utf-8",
+                )
+            print(
+                f"  key {name} {round(time.time()-t1, 2)}s "
+                f"status={result.status if result else 'failed'} "
+                f"rev={result.best_revision if result else None} "
+                f"rounds={result.rounds_completed if result else 0} attempt={accepted_attempt}",
+                flush=True,
+            )
+            key_rows.append(
+                {
+                    "name": name,
+                    "ok": ok,
+                    "status": result.status if result else "failed",
+                    "best_revision": result.best_revision if result else None,
+                    "attempt": accepted_attempt,
+                    "contract": contract,
+                    "prior_attempt_error": last_error or None,
+                    "seconds": round(time.time() - t1, 2),
+                }
+            )
+            if not ok:
+                (out / "summary.json").write_text(
+                    json.dumps({"ok": False, "error": f"key {name} failed", "key_rows": key_rows}, indent=2),
+                    encoding="utf-8",
+                )
+                raise SystemExit(1)
+
+        if args.keys_only:
+            pngs = []
+            labels = []
+            sheets = []
+            for i, key in enumerate(plan["keys"], 1):
+                name = str(key["name"])
+                key_final = out / "keys" / f"{i:02d}_{name}" / "final" / "views"
+                pngs.append(key_final / "view_perspective.png")
+                labels.append(f"K:{name}"[:12])
+                sheets.append(key_final / "contact_sheet.png")
+            gif = out / "clip.gif"
+            sheet = out / "contact_sheet.png"
+            write_gif(pngs, gif, duration_ms=max(gif_ms, 400))
+            write_contact_sheet(pngs, sheet, labels=labels)
+            summary = {
+                "ok": True,
+                "pipeline": "plan_keys_incremental_only",
+                "keys_only": True,
+                "models": {
+                    "plan": "glm-5.3",
+                    "incremental_visual_review_and_edit": "deepseek-v4-flash-vision-exp",
+                },
+                "id_rename_rule": "ANIM_EDITOR_SYSTEM_PROMPT",
+                "fixed_world_framing": True,
+                "anchored_part_ids": _anchored_ids(plan),
+                "canonical_stroke_ids": sorted(canonical_ids),
+                "task_id": task["task_id"],
+                "n_keys": n_keys,
+                "n_frames": n_keys,
+                "gif_ms": max(gif_ms, 400),
+                "action": plan.get("action"),
+                "key_rows": key_rows,
+                "key_contact_sheets": [str(p) for p in sheets],
+                "gif": str(gif),
+                "contact_sheet": str(sheet),
+                "wall_seconds": round(time.time() - t_wall, 2),
+            }
+            (out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+            print(
+                f"wrote {gif} keys_only n_keys={n_keys} ok=True wall_seconds={summary['wall_seconds']}",
+                flush=True,
+            )
+            return
+
     if anchor_scene is None or canonical_ids is None:
         raise SystemExit("no accepted key scene")
+
+    timeline = expand_timeline(plan["keys"], plan["gaps"])
     frames_dir = out / "frames"
     frames_dir.mkdir(exist_ok=True)
     pngs: list[Path] = []
@@ -483,15 +586,20 @@ def main() -> None:
             rec = render_scene(scene, dest, width=args.width, height=args.height, normalize=False)
             label = f"K:{slot['key_name']}"
         else:
-            print(f"== one-shot inbetween {i} {slot['from']}->{slot['to']} t={slot['t']:.2f} ==", flush=True)
+            print(f"== oneshot inbetween {i} {slot['from']}->{slot['to']} t={slot['t']:.2f} ==", flush=True)
             t1 = time.time()
-            prompt = inbetween_prompt(
+            prompt = inbetween_oneshot_prompt(
                 plan, slot, key_scenes[slot["from"]], key_scenes[slot["to"]]
+            )
+            prompt += (
+                "\n\nCROSS-KEY IDENTITY CONTRACT:\n"
+                f"Include every canonical stroke id exactly once: {sorted(canonical_ids)}.\n"
             )
             scene, raw, contract, generation_attempt = generate_inbetween(
                 prompt,
                 plan,
                 anchor_scene,
+                dest,
                 canonical_ids=canonical_ids,
             )
             (dest / "raw.txt").write_text(raw, encoding="utf-8")
@@ -528,8 +636,8 @@ def main() -> None:
         "ok": True,
         "pipeline": "plan_keys_incremental_inbetweens_oneshot",
         "models": {
-            "plan_and_oneshot": "glm-5.3",
-            "incremental_visual_review_and_edit": "deepseek-v4-flash-vision-exp",
+            "plan_and_oneshot_inbetween": "glm-5.3",
+            "incremental_key_visual_review_and_edit": "deepseek-v4-flash-vision-exp",
         },
         "reflection": False,
         "fixed_world_framing": True,
@@ -545,9 +653,13 @@ def main() -> None:
         "frame_rows": frame_rows,
         "gif": str(gif),
         "contact_sheet": str(sheet),
+        "wall_seconds": round(time.time() - t_wall, 2),
     }
     (out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"wrote {gif} frames={len(timeline)} ok=True", flush=True)
+    print(
+        f"wrote {gif} frames={len(timeline)} ok=True wall_seconds={summary['wall_seconds']}",
+        flush=True,
+    )
 
 
 if __name__ == "__main__":

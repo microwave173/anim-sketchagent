@@ -1,0 +1,112 @@
+{
+  "concept": "a stick figure walking into an elevator as the doors close",
+  "viewpoint": "3D wireframe, four views (front/side/top/perspective)",
+  "action": "An anchored elevator shaft/cabin box sits at the back of a small lobby, with its floor visible and the cabin interior deeper in +y. Two sliding door leaves on the cabin front face start closed, then slide apart along x, then slide shut again. One stick person stands in the lobby at front, feet planted, facing the elevator. When the doors open, the person walks forward in +y with opposing arm and leg swings, crossing the threshold mid-stride (one leg inside the cabin, one still in lobby, opposite arm forward). The person finishes inside the cabin on the elevator floor, deeper in +y, on the opposite stride from the mid-stride key. The doors close behind them. Head size, body build, limb lengths, and the cabin geometry never change; only the door leaves and the person's limbs and position move.",
+  "layout_notes": "Cabin box occupies roughly x [-0.5,0.5], y [0.3,1.0], z [0,0.9]; lobby floor extends y [-1,0.3]. Door leaves slide along x at the cabin front plane y=0.3, spanning z [0,0.8]. Person about 0.5 tall (z 0 to 0.5), starts at y=-0.5, ends at y=0.6 inside cabin. Side view must clearly show threshold crossing at y=0.3.",
+  "parts": [
+    {
+      "id": "cabin_box",
+      "name": "cabin_box",
+      "how": "wireframe box: floor, back wall, two side walls, ceiling",
+      "motion": "anchored",
+      "notes": "elevator shaft/cabin at back of scene, x [-0.5,0.5], y [0.3,1.0], z [0,0.9]"
+    },
+    {
+      "id": "lobby_floor",
+      "name": "lobby_floor",
+      "how": "flat rectangle on ground plane",
+      "motion": "anchored",
+      "notes": "y [-1,0.3], x [-0.8,0.8], z=0"
+    },
+    {
+      "id": "door_left",
+      "name": "door_left",
+      "how": "vertical rectangle panel in door plane",
+      "motion": "moving",
+      "notes": "slides left (-x) to open, back to close; front plane y=0.3"
+    },
+    {
+      "id": "door_right",
+      "name": "door_right",
+      "how": "vertical rectangle panel in door plane",
+      "motion": "moving",
+      "notes": "slides right (+x) to open, back to close; front plane y=0.3"
+    },
+    {
+      "id": "person_head",
+      "name": "person_head",
+      "how": "circle in 3D",
+      "motion": "moving",
+      "notes": "same size every key, ~0.09 radius"
+    },
+    {
+      "id": "person_torso",
+      "name": "person_torso",
+      "how": "line from neck to hips",
+      "motion": "moving",
+      "notes": "same length every key"
+    },
+    {
+      "id": "person_arm_l",
+      "name": "person_arm_l",
+      "how": "two-segment line from shoulder",
+      "motion": "moving",
+      "notes": "swings in opposition to left leg"
+    },
+    {
+      "id": "person_arm_r",
+      "name": "person_arm_r",
+      "how": "two-segment line from shoulder",
+      "motion": "moving",
+      "notes": "swings in opposition to right leg"
+    },
+    {
+      "id": "person_leg_l",
+      "name": "person_leg_l",
+      "how": "two-segment line from hip to foot",
+      "motion": "moving",
+      "notes": "steps, never slides with both feet planted"
+    },
+    {
+      "id": "person_leg_r",
+      "name": "person_leg_r",
+      "how": "two-segment line from hip to foot",
+      "motion": "moving",
+      "notes": "steps, never slides with both feet planted"
+    }
+  ],
+  "keys": [
+    {
+      "name": "doors_closed_lobby",
+      "beat": "doors shut, person waiting in lobby",
+      "notes": "door_left and door_right meet at center x=0 in the door plane y=0.3. Person stands at y=-0.5, x=0, both feet planted on lobby floor, arms relaxed at sides, facing +y toward the elevator."
+    },
+    {
+      "name": "doors_open_midstride",
+      "beat": "doors fully open, person crossing threshold",
+      "notes": "door_left slid to x=-0.45, door_right to x=+0.45, doorway clear. Person mid-stride at y=0.3: right leg forward into the cabin (foot at y=0.5 on cabin floor), left leg back in lobby (foot at y=0.1), left arm swung forward, right arm back, torso leaning slightly forward."
+    },
+    {
+      "name": "inside_doors_closing",
+      "beat": "person inside, doors closing",
+      "notes": "Person fully inside cabin at y=0.6, both feet on cabin floor, on the opposite stride from Key B (left leg now forward, right leg settling), arms mid-swing mirrored. Door leaves sliding back toward center, gap narrowing to about half open."
+    }
+  ],
+  "gaps": [
+    {
+      "after": "doors_closed_lobby",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "doors slide open while person takes first steps toward the elevator; needs a few beats for door travel plus initial stride"
+    },
+    {
+      "after": "doors_open_midstride",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "person completes the walk through the doorway and doors begin closing; contact beat at threshold already captured in the key"
+    }
+  ],
+  "n_frames": 11,
+  "task_id": "anim3d_elevator",
+  "planner": "glm-5.3-pose-to-pose-3d"
+}
