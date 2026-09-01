@@ -13,7 +13,7 @@ from glm_anim_3d import (
     validate_key_plan,
 )
 from glm_ds_roles import ANIM_EDITOR_SYSTEM_PROMPT, GlmDsPlanner
-from prompts import TASKS, key_draw_prompt, key_plan_user
+from prompts import KEY_PLAN_SYSTEM, SUITE, TASKS, key_draw_prompt, key_plan_user, previous_key_context
 
 
 PLAN = {
@@ -43,23 +43,70 @@ def scene(*, hoop_path: str = "M 0.8 0 0 L 0.8 0 0.8") -> dict:
 
 class Anim3DContractTests(unittest.TestCase):
     def test_depth_tasks_are_registered_with_staging(self) -> None:
-        for name in ("pillar_peek", "ball_door", "elevator", "crane_gap", "badminton"):
+        self.assertEqual(len(SUITE), 5)
+        self.assertEqual(SUITE, ("tabledrop", "stairs", "ball_door", "elevator", "fireworks"))
+        for name in SUITE:
             self.assertIn(name, TASKS)
             self.assertTrue(TASKS[name]["staging"])
-        text = key_plan_user(TASKS["pillar_peek"], n_keys=3, pin_frames=12)
-        self.assertIn("arc around the pillar", text)
+        for name in ("tabledrop", "stairs", "soccer", "pillar_peek", "ball_door", "elevator", "crane_gap", "badminton", "fireworks", "catwalk"):
+            self.assertIn(name, TASKS)
+            self.assertTrue(TASKS[name]["staging"])
+        text = key_plan_user(TASKS["tabledrop"], n_keys=3, pin_frames=12)
+        self.assertIn("FAR lip", text)
+        self.assertIn("FLOOR", text)
+        stairs = key_plan_user(TASKS["stairs"], n_keys=3)
+        self.assertIn("MIDDLE tread", stairs)
+        fw = key_plan_user(TASKS["fireworks"], n_keys=3)
+        self.assertIn("Choose any bloom shape", fw)
+        self.assertNotIn("into a spherical star", fw)
         from prompts import inbetween_prompt
         ib = inbetween_prompt(
             {"action": "walk", "layout_notes": "", "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}]},
-            {"from": "k1", "to": "k2", "t": 0.5, "ease": "linear"},
+            {
+                "from": "k1",
+                "to": "k2",
+                "t": 0.5,
+                "ease": "linear",
+                "current_frame": 2,
+                "from_frame": 1,
+                "to_frame": 4,
+                "n_frames": 4,
+            },
             {"strokes": [{"id": "a", "path": "M 0 0 0 L 1 0 0"}]},
             {"strokes": [{"id": "a", "path": "M 0 0 0 L 2 0 0"}]},
         )
         self.assertIn("incremental Path3D", ib)
-        self.assertNotIn("Return one full scene JSON", ib)
+        self.assertIn("FROM is the already-drawn previous frame 1", ib)
+        self.assertIn("TO is the next key, which is frame 4", ib)
+        self.assertIn("draw frame 2", ib)
+        self.assertNotIn("Advance the pose one step", ib)
+        self.assertIn("collision course", ib)
+        self.assertIn("BEFORE the TO key", ib)
         self.assertIn("Pick exactly 3 keys", text)
+        self.assertIn("first key is frame 1", KEY_PLAN_SYSTEM)
+        self.assertIn("last key is the last frame", KEY_PLAN_SYSTEM)
+        self.assertIn("DIRECTOR rewrite", KEY_PLAN_SYSTEM)
+        sys_l = KEY_PLAN_SYSTEM.lower()
+        for leak in (
+            "opposite ends",
+            "hoop",
+            "elevator",
+            "firework",
+            "crane",
+            "badminton",
+            "soccer",
+            "net is one",
+        ):
+            self.assertNotIn(leak, sys_l)
+        prev = previous_key_context(
+            {"strokes": [{"id": "a", "path": "M 0 0 0 L 1 0 0", "description": "a"}]},
+            prev_name="start",
+            key_i=2,
+        )
+        self.assertIn("PREVIOUS KEY 'start'", prev)
+        self.assertIn("M 0 0 0 L 1 0 0", prev)
         self.assertIn("REUSE those exact same IDs", ANIM_EDITOR_SYSTEM_PROMPT)
-        self.assertIn("walker_head_new", ANIM_EDITOR_SYSTEM_PROMPT)
+        self.assertIn("actor_head_new", ANIM_EDITOR_SYSTEM_PROMPT)
         self.assertNotIn("adding new IDs in the same patch", ANIM_EDITOR_SYSTEM_PROMPT)
         draw = key_draw_prompt(
             {"parts": [{"id": "walker_head", "name": "h", "how": "circle", "motion": "moving"}], "action": "x"},
@@ -68,12 +115,39 @@ class Anim3DContractTests(unittest.TestCase):
             3,
         )
         self.assertIn("Do not rename parts between keys", draw)
+        draw_prev = key_draw_prompt(
+            {"parts": [{"id": "walker_head", "name": "h", "how": "circle", "motion": "moving"}], "action": "x"},
+            {"name": "stride", "beat": "walk"},
+            2,
+            3,
+            prev_scene={"strokes": [{"id": "walker_head", "path": "M 0 0 0 L 0 0 0.1", "description": "h"}]},
+            prev_name="start",
+        )
+        self.assertIn("PREVIOUS KEY 'start'", draw_prev)
+        self.assertIn("M 0 0 0 L 0 0 0.1", draw_prev)
+        badminton_plan = key_plan_user(TASKS["badminton"], n_keys=3)
+        self.assertIn("one running step", badminton_plan)
+        self.assertIn("3/5 of the court WIDTH", badminton_plan)
+        draw_badminton = key_draw_prompt(
+            {
+                "parts": [{"id": "left_head", "name": "h", "how": "circle", "motion": "moving"}],
+                "action": "rally",
+                "people_scale": TASKS["badminton"]["people_scale"],
+            },
+            {"name": "left_contact", "beat": "hit"},
+            1,
+            3,
+        )
+        self.assertIn("3/5 of the court WIDTH", draw_badminton)
 
     def test_expand_timeline_uses_planned_gap(self) -> None:
         timeline = expand_timeline(PLAN["keys"], PLAN["gaps"])
         self.assertEqual([item["kind"] for item in timeline], ["key", "inbetween", "inbetween", "key"])
         self.assertAlmostEqual(timeline[1]["t"], 1 / 3)
         self.assertAlmostEqual(timeline[2]["t"], 2 / 3)
+        self.assertEqual(timeline[1]["from_frame"], 1)
+        self.assertEqual(timeline[1]["to_frame"], 4)
+        self.assertEqual(timeline[-1]["i"], timeline[-1]["to_frame"])
 
     def test_validate_plan_keeps_free_length(self) -> None:
         value = validate_key_plan(

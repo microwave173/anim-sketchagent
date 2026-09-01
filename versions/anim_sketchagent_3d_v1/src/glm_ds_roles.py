@@ -1,4 +1,4 @@
-"""Incremental Path3D roles: GLM for text, DeepSeek vision when an image is present."""
+"""Incremental Path3D roles: gpt-5.6-sol for text and four-view review."""
 from __future__ import annotations
 
 import json
@@ -37,7 +37,7 @@ from path3d_json_agents.incremental import (  # noqa: E402
     StructuredPlannerRole,
 )
 from path3d_json_agents.structured_patch import StructuredPath3DPatch  # noqa: E402
-from terra_client import call_deepseek, call_glm, data_url, parse_json_obj  # noqa: E402
+from terra_client import call_sol, data_url, parse_json_obj  # noqa: E402
 
 # Still-sketch Editor prompt says delete old ids and add *new* ids. Animation forbids that.
 ANIM_PLANNER_SYSTEM_PROMPT = BASE_PLANNER_SYSTEM_PROMPT.replace(
@@ -54,9 +54,9 @@ ANIM_EDITOR_SYSTEM_PROMPT = BASE_EDITOR_SYSTEM_PROMPT.replace(
 ) + """
 
 Animation identity (hard):
-- Every plan part id (e.g. walker_head, pillar) must exist as an exact stroke id. Helpers only: "<part_id>_...".
-- Changing pose is the same id with new commands, not walker_head_new.
-- Do not replace a required part with only helpers (shaft_box_front is not shaft_box).
+- Every plan part id (e.g. actor_head, scenery_post) must exist as an exact stroke id. Helpers only: "<part_id>_...".
+- Changing pose is the same id with new commands, not actor_head_new.
+- Do not replace a required part with only helpers (scenery_post_front is not scenery_post).
 - First-key ids are frozen for later keys: include each of them exactly once.
 """
 
@@ -116,10 +116,7 @@ def _call_json(*, system: str, content: str | list[dict[str, Any]], vision: bool
     last_err: Exception | None = None
     for attempt in range(2):
         msgs = _messages(system, content)
-        if vision:
-            last_raw = call_deepseek(msgs, max_tokens=max_tokens, temperature=0.2, timeout=240)
-        else:
-            last_raw = call_glm(msgs, max_tokens=max_tokens, temperature=0.4, timeout=240)
+        last_raw = call_sol(msgs, max_tokens=max_tokens, temperature=0.2 if vision else 0.4, timeout=240)
         try:
             return parse_json_obj(last_raw), last_raw
         except Exception as exc:

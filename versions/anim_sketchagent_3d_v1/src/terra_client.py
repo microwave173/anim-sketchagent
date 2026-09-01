@@ -101,7 +101,16 @@ def call_chat(
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 body = json.loads(resp.read().decode())
             msg = body["choices"][0]["message"]
-            content = msg.get("content") or msg.get("reasoning_content") or ""
+            content = msg.get("content")
+            thinking_on = isinstance(extra, dict) and (extra.get("thinking") or {}).get("type") == "enabled"
+            if not str(content or "").strip():
+                if thinking_on:
+                    finish = (body.get("choices") or [{}])[0].get("finish_reason")
+                    raise ValueError(
+                        f"empty {label} content; thinking likely consumed max_tokens "
+                        f"(finish_reason={finish!r}, max_tokens={max_tokens})"
+                    )
+                content = msg.get("reasoning_content") or ""
             if not str(content).strip():
                 raise ValueError(f"empty {label} content")
             return str(content)
@@ -126,18 +135,49 @@ def call_terra(
     reasoning_effort: str = "medium",
     timeout: int = 180,
     env: dict[str, str] | None = None,
+    model: str | None = None,
+    label: str | None = None,
+    thinking: bool = False,
 ) -> str:
     cfg = env or load_env()
+    chosen = model or cfg.get("MODEL", "gpt-5.6-terra")
+    extra: dict = {"reasoning_effort": reasoning_effort, "reasoning": {"effort": reasoning_effort}}
+    if thinking:
+        extra["thinking"] = {"type": "enabled"}
     return call_chat(
         messages,
         base_url=cfg["BASE_URL"],
         api_key=cfg["OPENAI_API_KEY"],
-        model=cfg.get("MODEL", "gpt-5.6-terra"),
-        extra={"reasoning_effort": reasoning_effort, "reasoning": {"effort": reasoning_effort}},
+        model=chosen,
+        extra=extra,
         max_tokens=max_tokens,
         temperature=temperature,
         timeout=timeout,
-        label="terra",
+        label=label or ("sol" if chosen == "gpt-5.6-sol" else "terra"),
+    )
+
+
+def call_sol(
+    messages: list[dict],
+    *,
+    max_tokens: int = 4000,
+    temperature: float = 0.3,
+    reasoning_effort: str = "medium",
+    timeout: int = 180,
+    env: dict[str, str] | None = None,
+    thinking: bool = False,
+) -> str:
+    """gpt-5.6-sol on the VisionCoder OpenAI-compatible endpoint."""
+    return call_terra(
+        messages,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        reasoning_effort=reasoning_effort,
+        timeout=timeout,
+        env=env,
+        model="gpt-5.6-sol",
+        label="sol",
+        thinking=thinking,
     )
 
 

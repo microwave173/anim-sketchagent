@@ -1,0 +1,118 @@
+{
+  "concept": "a small cat playing with a teaser wand",
+  "action": "A small side-view cat on the left-center of the ground faces +x. A teaser wand handle enters from the upper right, anchored off-stage; a string hangs from its tip with a tiny lure at the bottom. Beat 1: the cat crouches low, hips near the ground, eyes locked on the lure hanging just out of reach in front of it. Beat 2: CONTACT — the cat springs, one front paw stretching up and forward to smack the lure, body extended toward +x and up, lure still attached to the string. Beat 3: the lure is yanked up-right away from the paw, the string swinging with it; the cat follows through in a sit-back stretch, still craning its head up-right after the escaping lure. Only the string and lure travel; the handle stays put.",
+  "people_scale": "The cat stands about 1/5 to 1/4 of the ground-line length in every key, with an unchanging ellipse body, a circle head overlapping the upper-front (+x) of the body, two pointed ears on the crown with apexes above the head center, short tick legs, and a long tail curving up from the rear; the head stays above the body and the same cat size, build, and head size are kept in all keys; the lure is smaller than the cat's head.",
+  "layout_notes": "Ground line anchored near y=-0.7 running across the stage. Cat sits left-center on the ground. Wand handle is a straight line from the upper right corner angled down-left, its tip around upper-center-right; the string hangs from that tip and the lure sits at the string's lower end, dangling at the cat's eye level in front of its nose in key A. The lure's travel path is a short arc up and to the +x/right away from the paw after contact. +x is right, +y is up.",
+  "parts": [
+    {
+      "id": "cat_head",
+      "name": "cat_head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "same size every key; looks +x toward the lure"
+    },
+    {
+      "id": "cat_body",
+      "name": "cat_body",
+      "how": "ellipse",
+      "motion": "moving",
+      "notes": "ellipse; leans toward the lure when striking"
+    },
+    {
+      "id": "ear_front",
+      "name": "ear_front",
+      "how": "triangle",
+      "motion": "moving",
+      "notes": "pointed ear on crown, apex above head center; faces +x"
+    },
+    {
+      "id": "ear_back",
+      "name": "ear_back",
+      "how": "triangle",
+      "motion": "moving",
+      "notes": "pointed ear on crown behind front ear; apex above head center"
+    },
+    {
+      "id": "front_leg",
+      "name": "front_leg",
+      "how": "line",
+      "motion": "moving",
+      "notes": "short tick leg at front (+x) of body; the striking limb, aims up/+x at the lure"
+    },
+    {
+      "id": "back_leg",
+      "name": "back_leg",
+      "how": "line",
+      "motion": "moving",
+      "notes": "short tick leg at rear (-x) of body; planted on ground"
+    },
+    {
+      "id": "tail",
+      "name": "tail",
+      "how": "curve",
+      "motion": "moving",
+      "notes": "curves up from rear (-x) of body; sweeps with the pounce"
+    },
+    {
+      "id": "wand_handle",
+      "name": "wand_handle",
+      "how": "line",
+      "motion": "anchored",
+      "notes": "straight handle from upper right down to its tip; stays put"
+    },
+    {
+      "id": "string",
+      "name": "string",
+      "how": "line",
+      "motion": "moving",
+      "notes": "hangs from handle tip; swings with the lure"
+    },
+    {
+      "id": "lure",
+      "name": "lure",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "tiny circle smaller than cat head; travels up-right after contact"
+    },
+    {
+      "id": "ground",
+      "name": "ground",
+      "how": "line",
+      "motion": "anchored",
+      "notes": "horizontal ground line near y=-0.7"
+    }
+  ],
+  "keys": [
+    {
+      "name": "crouch",
+      "beat": "anticipation crouch",
+      "notes": "Cat crouched low on the ground, hips near the ground line, body compressed and level, head low but above the body, looking +x at the lure. Front leg tucked, back leg folded, tail curving up behind at -x. Lure hangs from the string in front of the cat's nose, not touching; string hangs mostly straight down from the anchored handle tip."
+    },
+    {
+      "name": "contact",
+      "beat": "paw meets the lure",
+      "notes": "CONTACT: cat stretched toward +x and up, hips lifted off the crouch, torso leaning forward-up, head up and forward still looking +x at the lure. Front leg fully extended up and +x, paw tip touching the lure; back leg extended behind, tail swept up and back at -x. Lure still on the string, string taut-angled from the handle tip to the touched lure."
+    },
+    {
+      "name": "follow_through",
+      "beat": "lure yanked away, cat follows through",
+      "notes": "Last frame: lure yanked up and to the +x away from the paw, string swinging in an arc from the handle tip toward the upper right. Cat in follow-through: sitting back on its haunches, torso tilted back slightly toward -x, head craned up and to the +x still tracking the escaped lure, front leg reaching up/+x but missing, tail flopped over behind. Head stays above the body, ears on the crown."
+    }
+  ],
+  "gaps": [
+    {
+      "after": "crouch",
+      "n_inbetween": 4,
+      "ease": "ease_out",
+      "why": "Medium-quick pounce: the cat springs from the crouch and arrives at the lure, a short explosive travel that decelerates slightly into the contact, so 4 inbetweens give the leap readable airtime without dragging."
+    },
+    {
+      "after": "contact",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "Longer interval: the lure whips away on the string while the cat's momentum carries it into the sit-back follow-through, two overlapping motions that need 5 inbetweens so the arc of the string and the cat's settle both read clearly before the final pose."
+    }
+  ],
+  "n_frames": 12,
+  "task_id": "path2d_catwand"
+}

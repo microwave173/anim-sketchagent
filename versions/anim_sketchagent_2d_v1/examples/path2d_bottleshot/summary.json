@@ -1,0 +1,317 @@
+{
+  "ok": true,
+  "pipeline": "plan_oneshot_keys_oneshot_inbetweens",
+  "models": {
+    "plan_and_oneshot_inbetween": "glm-5.3",
+    "keys": "glm-5.3",
+    "key_experience_select": null
+  },
+  "key_reflect": false,
+  "thinking": true,
+  "plan_effort": "high",
+  "draw_effort": "medium",
+  "first_key_effort": "high",
+  "from_run": false,
+  "fewshot": true,
+  "task_id": "path2d_bottleshot",
+  "n_keys": 3,
+  "n_frames": 15,
+  "gif_ms": 80,
+  "action": "Side view, shooter on the LEFT faces +x. Beat 1: the figure leans into the aim, gun gripped with handle at the hand and barrel pointing +x at a bottle hanging from a rope on the RIGHT; the bullet tick sits at the muzzle. Beat 2: CONTACT — the bullet tick has traveled +x across the empty stage and touches the still-intact bottle; the shooter still leans into the aim, muzzle still +x. Beat 3: the bottle bursts — the intact silhouette is replaced by short shard ticks radiating from the burst point, the bullet tick continues past it, the rope hangs empty, and the shooter snaps back in recoil, torso and head tilted back while the gun tilts up but never flips left-right.",
+  "people_scale": "Standing height (feet to head-top) is 1/5–1/4 of the GROUND LINE LENGTH (the horizontal span of the anchored ground stroke), not 1/4 of the canvas. Hip sits halfway from head-top to feet. Head is a circle of unchanging size; the neck meets the bottom of the head, not its center. Torso is a curve from neck to hip. Attached parts share joint coordinates; swinging limbs may use Q/C; straight scenery and props use L.",
+  "layout_notes": "Ground anchored near y=-0.7 spanning most of the stage width. Person stands on the LEFT third, feet on the ground. A hook is anchored high on the RIGHT (near x=0.7, y=0.5); a rope hangs straight down from it; the bottle dangles at the rope's lower end around y=0.0, well right of the person. The bullet travels +x along a near-horizontal line from the muzzle (around the person's chest height, y≈0.1) to the bottle, then continues slightly past it at the burst. The gun is a short L: grip at the hand, long barrel arm aiming +x at the bottle, never mirrored. Empty space between shooter and bottle keeps the bullet's path readable.",
+  "gaps": [
+    {
+      "after": "aim",
+      "n_inbetween": 6,
+      "ease": "linear",
+      "why": "bullet flies straight and steady +x from muzzle to bottle while the shooter holds the aim"
+    },
+    {
+      "after": "contact",
+      "n_inbetween": 6,
+      "ease": "ease_out",
+      "why": "shards burst outward fast then settle as the shooter's torso and head snap back into recoil"
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "aim",
+      "ok": true,
+      "status": "oneshot",
+      "attempt": 1,
+      "seconds": 123.89,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      },
+      "reflect": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "contact",
+      "ok": true,
+      "status": "oneshot",
+      "attempt": 1,
+      "seconds": 22.26,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      },
+      "reflect": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "burst",
+      "ok": true,
+      "status": "oneshot",
+      "attempt": 1,
+      "seconds": 33.55,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      },
+      "reflect": {
+        "enabled": false
+      }
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:aim",
+      "strokes": 12,
+      "attempt": 0,
+      "from_frame": null,
+      "to_frame": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "f1->k8",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 1,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "f2->k8",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 2,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "f3->k8",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 3,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "f4->k8",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 4,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 6,
+      "kind": "inbetween",
+      "label": "f5->k8",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 5,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "f6->k8",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 6,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 8,
+      "kind": "key",
+      "label": "K:contact",
+      "strokes": 12,
+      "attempt": 0,
+      "from_frame": 7,
+      "to_frame": 8,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "f8->k15",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 8,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "f9->k15",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 9,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "f10->k15",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 10,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 12,
+      "kind": "inbetween",
+      "label": "f11->k15",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 11,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 13,
+      "kind": "inbetween",
+      "label": "f12->k15",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 12,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 14,
+      "kind": "inbetween",
+      "label": "f13->k15",
+      "strokes": 12,
+      "attempt": 1,
+      "from_frame": 13,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 15,
+      "kind": "key",
+      "label": "K:burst",
+      "strokes": 12,
+      "attempt": 0,
+      "from_frame": 14,
+      "to_frame": 15,
+      "contract": {
+        "ok": true,
+        "stroke_count": 12,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    }
+  ],
+  "gif": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_bottleshot_15b/clip.gif",
+  "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_bottleshot_15b/contact_sheet.png",
+  "wall_seconds": 453.45
+}

@@ -37,12 +37,21 @@ def main() -> None:
         raise SystemExit(f"no timeline slot i={args.frame}")
     if slot["kind"] != "inbetween":
         raise SystemExit(f"frame {args.frame} is a {slot['kind']}, not an inbetween")
-    prompt = inbetween_oneshot_prompt(plan, slot, key_scenes[slot["from"]], key_scenes[slot["to"]])
+    prev_path = out / "frames" / f"f{int(args.frame) - 1:02d}" / "scene.json"
+    if prev_path.exists():
+        prev = json.loads(prev_path.read_text(encoding="utf-8"))
+    else:
+        prev = key_scenes[slot["from"]]
+    prompt = inbetween_oneshot_prompt(plan, slot, prev, key_scenes[slot["to"]])
     prompt += f"\nInclude every canonical stroke id exactly once: {sorted(canonical)}.\n"
     dest = out / f"oneshot_f{int(args.frame):02d}"
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "prompt.txt").write_text(prompt, encoding="utf-8")
-    print(f"== oneshot inbetween i={slot['i']} {slot['from']}->{slot['to']} t={slot['t']:.2f} -> {dest} ==", flush=True)
+    print(
+        f"== oneshot inbetween frame {slot['i']}/{slot.get('n_frames')} from={slot.get('from_frame')} "
+        f"to_key={slot.get('to_frame')} -> {dest} ==",
+        flush=True,
+    )
     scene, raw = generate_scene(prompt)
     (dest / "raw.txt").write_text(raw, encoding="utf-8")
     value = pin_anchored_scene(scene.to_dict(), anchor, plan)

@@ -1,0 +1,107 @@
+{
+  "prompt": "Inbetween frame 2 of 12: the cat springs from its crouch toward the dangling lure. Hips just starting to lift, body tilting forward-up, front paw leaving the ground and reaching +x, back paw still planted. Lure still hanging on the string just out of reach; wand handle anchored.",
+  "strokes": [
+    {
+      "id": "cat_body",
+      "path": "M -0.183 -0.518 Q -0.193 -0.464 -0.369 -0.451 Q -0.462 -0.469 -0.517 -0.582 Q -0.507 -0.636 -0.331 -0.649 Q -0.238 -0.631 -0.183 -0.518 Z",
+      "description": "same-size ellipse body beginning to tilt forward-up, hips just lifting off the crouch",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "cat_head",
+      "path": "M -0.155 -0.33 Q -0.065 -0.33 -0.065 -0.42 Q -0.065 -0.51 -0.155 -0.51 Q -0.245 -0.51 -0.245 -0.42 Q -0.245 -0.33 -0.155 -0.33 Z",
+      "description": "round head same size, lifted slightly and forward, overlapping upper-front of body, gazing +x at the lure",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "ear_front",
+      "path": "M -0.115 -0.34 L -0.075 -0.25 L -0.185 -0.335",
+      "description": "pointed front ear on crown, apex above head center, facing +x",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "ear_back",
+      "path": "M -0.185 -0.335 L -0.165 -0.24 L -0.245 -0.335",
+      "description": "pointed back ear on crown behind front ear, apex above head center",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "front_leg",
+      "path": "M -0.22 -0.61 Q -0.15 -0.63 -0.05 -0.59",
+      "description": "front leg lifting off the ground, starting to reach forward and up toward the lure",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "back_leg",
+      "path": "M -0.47 -0.62 Q -0.53 -0.66 -0.58 -0.70",
+      "description": "back leg at -x rear of body, paw still planted on the ground, starting to extend behind",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "tail",
+      "path": "M -0.51 -0.58 Q -0.69 -0.54 -0.75 -0.40 Q -0.79 -0.30 -0.69 -0.245",
+      "description": "long tail curving up from the rump, beginning to sweep back with the spring",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "wand_handle",
+      "path": "M 0.95 0.85 L 0.30 0.20",
+      "description": "straight wand handle entering from upper right, tip at upper-center-right, anchored off-stage",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "string",
+      "path": "M 0.30 0.20 Q 0.24 -0.10 0.158 -0.40",
+      "description": "string hanging from the handle tip to the lure, nearly still before contact",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "lure",
+      "path": "M 0.158 -0.40 Q 0.193 -0.40 0.193 -0.435 Q 0.193 -0.47 0.158 -0.47 Q 0.123 -0.47 0.123 -0.435 Q 0.123 -0.40 0.158 -0.40 Z",
+      "description": "tiny round lure smaller than the cat's head, dangling at the string's end just out of reach of the reaching paw",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "part"
+    },
+    {
+      "id": "ground",
+      "path": "M -0.9 -0.7 L 0.9 -0.7",
+      "description": "horizontal ground line near y=-0.7",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "scenery"
+    }
+  ],
+  "metadata": {
+    "format": "path2d_v1"
+  }
+}

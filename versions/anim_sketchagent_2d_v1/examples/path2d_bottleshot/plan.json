@@ -1,0 +1,125 @@
+{
+  "concept": "a stick figure drawing a gun and shooting a hanging bottle",
+  "action": "Side view, shooter on the LEFT faces +x. Beat 1: the figure leans into the aim, gun gripped with handle at the hand and barrel pointing +x at a bottle hanging from a rope on the RIGHT; the bullet tick sits at the muzzle. Beat 2: CONTACT — the bullet tick has traveled +x across the empty stage and touches the still-intact bottle; the shooter still leans into the aim, muzzle still +x. Beat 3: the bottle bursts — the intact silhouette is replaced by short shard ticks radiating from the burst point, the bullet tick continues past it, the rope hangs empty, and the shooter snaps back in recoil, torso and head tilted back while the gun tilts up but never flips left-right.",
+  "people_scale": "Standing height (feet to head-top) is 1/5–1/4 of the GROUND LINE LENGTH (the horizontal span of the anchored ground stroke), not 1/4 of the canvas. Hip sits halfway from head-top to feet. Head is a circle of unchanging size; the neck meets the bottom of the head, not its center. Torso is a curve from neck to hip. Attached parts share joint coordinates; swinging limbs may use Q/C; straight scenery and props use L.",
+  "layout_notes": "Ground anchored near y=-0.7 spanning most of the stage width. Person stands on the LEFT third, feet on the ground. A hook is anchored high on the RIGHT (near x=0.7, y=0.5); a rope hangs straight down from it; the bottle dangles at the rope's lower end around y=0.0, well right of the person. The bullet travels +x along a near-horizontal line from the muzzle (around the person's chest height, y≈0.1) to the bottle, then continues slightly past it at the burst. The gun is a short L: grip at the hand, long barrel arm aiming +x at the bottle, never mirrored. Empty space between shooter and bottle keeps the bullet's path readable.",
+  "parts": [
+    {
+      "id": "person_head",
+      "name": "person_head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "same size throughout; looks +x toward the bottle"
+    },
+    {
+      "id": "person_torso",
+      "name": "person_torso",
+      "how": "curve",
+      "motion": "moving",
+      "notes": "leans +x into the aim, snaps back −x in recoil"
+    },
+    {
+      "id": "arm_gun",
+      "name": "arm_gun",
+      "how": "line",
+      "motion": "moving",
+      "notes": "extended +x holding the gun at the hand"
+    },
+    {
+      "id": "arm_back",
+      "name": "arm_back",
+      "how": "line",
+      "motion": "moving",
+      "notes": "counterweight arm, angled down/back"
+    },
+    {
+      "id": "leg_front",
+      "name": "leg_front",
+      "how": "line",
+      "motion": "moving",
+      "notes": "planted forward toward +x, foot stays on ground"
+    },
+    {
+      "id": "leg_back",
+      "name": "leg_back",
+      "how": "line",
+      "motion": "moving",
+      "notes": "planted back, foot stays on ground"
+    },
+    {
+      "id": "gun",
+      "name": "gun",
+      "how": "L-shape",
+      "motion": "moving",
+      "notes": "grip at hand, long barrel arm aims +x at the bottle; never reversed"
+    },
+    {
+      "id": "bullet",
+      "name": "bullet",
+      "how": "tick",
+      "motion": "moving",
+      "notes": "tiny tick smaller than a head, travels +x from muzzle to bottle and past the burst"
+    },
+    {
+      "id": "bottle",
+      "name": "bottle",
+      "how": "outline",
+      "motion": "moving",
+      "notes": "intact bottle dangling on the rope, then shards radiating from the burst point"
+    },
+    {
+      "id": "rope",
+      "name": "rope",
+      "how": "line",
+      "motion": "moving",
+      "notes": "hangs from the hook down to the bottle; hangs empty after the burst"
+    },
+    {
+      "id": "hook",
+      "name": "hook",
+      "how": "line",
+      "motion": "anchored",
+      "notes": "fixed high anchor on the right"
+    },
+    {
+      "id": "ground",
+      "name": "ground",
+      "how": "line",
+      "motion": "anchored",
+      "notes": "horizontal ground line near y=-0.7 spanning the stage"
+    }
+  ],
+  "keys": [
+    {
+      "name": "aim",
+      "beat": "gun drawn, aiming at the intact bottle",
+      "notes": "Person on the left leans into the aim: head looks +x, torso tilted forward +x, hips over the front foot. Gun arm extended +x, grip at the hand, barrel pointing +x at the bottle. Bullet tick sits at the muzzle. Bottle intact, dangling from the rope on the right. Back arm low, legs planted wide."
+    },
+    {
+      "name": "contact",
+      "beat": "bullet reaches the bottle",
+      "notes": "Shooter still leaning into the aim: head looks +x, torso still tilted +x, gun arm steady, barrel still +x. Bullet tick has traveled +x and touches the intact bottle at the rope's end. Bottle silhouette still whole, rope still taut from the hook. Legs unchanged, feet planted."
+    },
+    {
+      "name": "burst",
+      "beat": "bottle explodes, shooter recoils",
+      "notes": "Final frame: the intact bottle silhouette is gone — several short shard ticks radiate outward from the burst point on the rope line. Bullet tick continues +x just past the burst. Rope hangs empty from the hook. Shooter snapped back: head tilted back −x and up, torso leaning −x, hips shifted back over the rear foot, gun arm raised with barrel tilted up but still pointing +x, never flipped. Feet stay planted."
+    }
+  ],
+  "gaps": [
+    {
+      "after": "aim",
+      "n_inbetween": 6,
+      "ease": "linear",
+      "why": "bullet flies straight and steady +x from muzzle to bottle while the shooter holds the aim"
+    },
+    {
+      "after": "contact",
+      "n_inbetween": 6,
+      "ease": "ease_out",
+      "why": "shards burst outward fast then settle as the shooter's torso and head snap back into recoil"
+    }
+  ],
+  "n_frames": 15,
+  "task_id": "path2d_bottleshot"
+}

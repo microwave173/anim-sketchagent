@@ -1,0 +1,300 @@
+{
+  "ok": true,
+  "pipeline": "plan_oneshot_keys_oneshot_inbetweens",
+  "models": {
+    "plan_and_oneshot_inbetween": "glm-5.3",
+    "keys": "glm-5.3",
+    "key_experience_select": null
+  },
+  "key_reflect": false,
+  "thinking": true,
+  "plan_effort": "high",
+  "draw_effort": "medium",
+  "first_key_effort": "high",
+  "key_effort": "high",
+  "from_run": false,
+  "fewshot": true,
+  "task_id": "path2d_catwand",
+  "n_keys": 3,
+  "n_frames": 12,
+  "gif_ms": 80,
+  "action": "A small side-view cat on the left-center of the ground faces +x. A teaser wand handle enters from the upper right, anchored off-stage; a string hangs from its tip with a tiny lure at the bottom. Beat 1: the cat crouches low, hips near the ground, eyes locked on the lure hanging just out of reach in front of it. Beat 2: CONTACT — the cat springs, one front paw stretching up and forward to smack the lure, body extended toward +x and up, lure still attached to the string. Beat 3: the lure is yanked up-right away from the paw, the string swinging with it; the cat follows through in a sit-back stretch, still craning its head up-right after the escaping lure. Only the string and lure travel; the handle stays put.",
+  "people_scale": "The cat stands about 1/5 to 1/4 of the ground-line length in every key, with an unchanging ellipse body, a circle head overlapping the upper-front (+x) of the body, two pointed ears on the crown with apexes above the head center, short tick legs, and a long tail curving up from the rear; the head stays above the body and the same cat size, build, and head size are kept in all keys; the lure is smaller than the cat's head.",
+  "layout_notes": "Ground line anchored near y=-0.7 running across the stage. Cat sits left-center on the ground. Wand handle is a straight line from the upper right corner angled down-left, its tip around upper-center-right; the string hangs from that tip and the lure sits at the string's lower end, dangling at the cat's eye level in front of its nose in key A. The lure's travel path is a short arc up and to the +x/right away from the paw after contact. +x is right, +y is up.",
+  "gaps": [
+    {
+      "after": "crouch",
+      "n_inbetween": 4,
+      "ease": "ease_out",
+      "why": "Medium-quick pounce: the cat springs from the crouch and arrives at the lure, a short explosive travel that decelerates slightly into the contact, so 4 inbetweens give the leap readable airtime without dragging."
+    },
+    {
+      "after": "contact",
+      "n_inbetween": 5,
+      "ease": "smooth",
+      "why": "Longer interval: the lure whips away on the string while the cat's momentum carries it into the sit-back follow-through, two overlapping motions that need 5 inbetweens so the arc of the string and the cat's settle both read clearly before the final pose."
+    }
+  ],
+  "key_rows": [
+    {
+      "name": "crouch",
+      "ok": true,
+      "loaded": true
+    },
+    {
+      "name": "contact",
+      "ok": true,
+      "loaded": true
+    },
+    {
+      "name": "follow_through",
+      "ok": true,
+      "loaded": true
+    }
+  ],
+  "frame_rows": [
+    {
+      "i": 1,
+      "kind": "key",
+      "label": "K:crouch",
+      "strokes": 11,
+      "attempt": 0,
+      "from_frame": null,
+      "to_frame": 1,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 2,
+      "kind": "inbetween",
+      "label": "f1->k6",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 1,
+      "to_frame": 6,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 3,
+      "kind": "inbetween",
+      "label": "f2->k6",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 2,
+      "to_frame": 6,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 4,
+      "kind": "inbetween",
+      "label": "f3->k6",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 3,
+      "to_frame": 6,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 5,
+      "kind": "inbetween",
+      "label": "f4->k6",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 4,
+      "to_frame": 6,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 6,
+      "kind": "key",
+      "label": "K:contact",
+      "strokes": 11,
+      "attempt": 0,
+      "from_frame": 5,
+      "to_frame": 6,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 7,
+      "kind": "inbetween",
+      "label": "f6->k12",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 6,
+      "to_frame": 12,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 8,
+      "kind": "inbetween",
+      "label": "f7->k12",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 7,
+      "to_frame": 12,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 9,
+      "kind": "inbetween",
+      "label": "f8->k12",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 8,
+      "to_frame": 12,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 10,
+      "kind": "inbetween",
+      "label": "f9->k12",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 9,
+      "to_frame": 12,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 11,
+      "kind": "inbetween",
+      "label": "f10->k12",
+      "strokes": 11,
+      "attempt": 1,
+      "from_frame": 10,
+      "to_frame": 12,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    },
+    {
+      "i": 12,
+      "kind": "key",
+      "label": "K:follow_through",
+      "strokes": 11,
+      "attempt": 0,
+      "from_frame": 11,
+      "to_frame": 12,
+      "contract": {
+        "ok": true,
+        "stroke_count": 11,
+        "missing_part_ids": [],
+        "canonical_missing": []
+      }
+    }
+  ],
+  "gif": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_catwand_idtime_f2/clip.gif",
+  "contact_sheet": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_catwand_idtime_f2/contact_sheet.png",
+  "wall_seconds": 53.36,
+  "last_redraw": {
+    "frame": 3,
+    "frames": [
+      3
+    ],
+    "cascade": false,
+    "note": "Keep the SAME cat height, ellipse-body thickness, head size, and limb length as FROM frame 2. Do not flatten, squash, or fatten the cat. Only advance the pounce pose toward the lure.",
+    "wall_seconds": 53.36,
+    "rows": [
+      {
+        "i": 3,
+        "kind": "inbetween",
+        "label": "f2->k6",
+        "strokes": 11,
+        "attempt": 1,
+        "archived": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_catwand_idtime_f2/frames/f03/history/20260901_193840"
+      }
+    ]
+  },
+  "redraws": [
+    {
+      "frame": 2,
+      "frames": [
+        2
+      ],
+      "cascade": false,
+      "note": "The cat body is flattened into a pancake. Keep the SAME ellipse-body height and thickness as FROM frame 1; do not squash or fatten. Only the pose should start the pounce toward the lure. Head stays a circle above the body, ears on the crown.",
+      "wall_seconds": 81.71,
+      "rows": [
+        {
+          "i": 2,
+          "kind": "inbetween",
+          "label": "f1->k6",
+          "strokes": 11,
+          "attempt": 1,
+          "archived": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_catwand_idtime_f2/frames/f02/history/20260901_192020"
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "frames": [
+        3
+      ],
+      "cascade": false,
+      "note": "Keep the SAME cat height, ellipse-body thickness, head size, and limb length as FROM frame 2. Do not flatten, squash, or fatten the cat. Only advance the pounce pose toward the lure.",
+      "wall_seconds": 53.36,
+      "rows": [
+        {
+          "i": 3,
+          "kind": "inbetween",
+          "label": "f2->k6",
+          "strokes": 11,
+          "attempt": 1,
+          "archived": "/Users/lalala/Desktop/sketch/experiments/anim_2d/outputs/path2d_glm53_catwand_idtime_f2/frames/f03/history/20260901_193840"
+        }
+      ]
+    }
+  ],
+  "rebuild_clip": true
+}

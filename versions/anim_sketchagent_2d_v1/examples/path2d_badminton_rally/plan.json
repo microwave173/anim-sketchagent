@@ -1,0 +1,196 @@
+{
+  "concept": "two stick figures rallying badminton",
+  "action": "Side view of a full-width badminton court. Left player stands at the far left end, facing +x; right player at the far right end, facing −x; a tall net at x=0 divides the court. Beat 1: left player strikes the shuttle at the left end. Beat 2: shuttle arcs high over the net, traveling +x across the long empty middle while both players recover at their ends. Beat 3: right player strikes the shuttle at the right end. Beat 4: shuttle arcs high back over the net traveling −x while both recover. Beat 5: left player meets the returning shuttle with the racket again at the left end — a completed two-way rally. Only the shuttle and the players' limbs move; feet stay planted at their court ends, net and ground stay put.",
+  "people_scale": "1/5–1/4 of ground-line length; hip halfway",
+  "layout_notes": "Ground is a straight horizontal L near y=-0.7 spanning nearly full width; net is one vertical anchored L at x=0, chest/head height. Left player's feet planted near x=-0.85, facing +x; right player's feet planted near x=+0.85, facing −x. Shuttle is smaller than a head and travels a long high arc: launch near x=-0.7, apex high over the net at x=0, descend to right racket near x=+0.7, then mirrored arc back to the left racket. Keep the middle of the court empty so the long flight reads. Rackets: straight L handle from the hand plus a closed oval head (Q loop + Z), oval smaller than a head. +x right, +y up.",
+  "parts": [
+    {
+      "id": "ground",
+      "name": "ground",
+      "how": "straight L line, full width near y=-0.7",
+      "motion": "anchored",
+      "notes": "horizontal court floor"
+    },
+    {
+      "id": "net",
+      "name": "net",
+      "how": "vertical L line at x=0, chest/head height",
+      "motion": "anchored",
+      "notes": "stands on ground at court center"
+    },
+    {
+      "id": "left_head",
+      "name": "left_head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "same size throughout; looks +x toward net"
+    },
+    {
+      "id": "left_torso",
+      "name": "left_torso",
+      "how": "M neck Q hip curve",
+      "motion": "moving",
+      "notes": "neck under head, hip lower; leans +x into hits"
+    },
+    {
+      "id": "left_arm_racket",
+      "name": "left_arm_racket",
+      "how": "two-segment limb, shoulder to hand",
+      "motion": "moving",
+      "notes": "racket arm; aims up and +x on hits"
+    },
+    {
+      "id": "left_arm_free",
+      "name": "left_arm_free",
+      "how": "two-segment limb, shoulder to hand",
+      "motion": "moving",
+      "notes": "balance arm; points −x and slightly down"
+    },
+    {
+      "id": "left_leg_front",
+      "name": "left_leg_front",
+      "how": "two-segment limb, hip to foot",
+      "motion": "moving",
+      "notes": "front leg toward +x; foot planted near x=-0.85"
+    },
+    {
+      "id": "left_leg_back",
+      "name": "left_leg_back",
+      "how": "two-segment limb, hip to foot",
+      "motion": "moving",
+      "notes": "back leg toward −x; foot planted near x=-0.85"
+    },
+    {
+      "id": "left_racket_handle",
+      "name": "left_racket_handle",
+      "how": "straight L from hand",
+      "motion": "moving",
+      "notes": "aims up and +x at contact"
+    },
+    {
+      "id": "left_racket_head",
+      "name": "left_racket_head",
+      "how": "closed oval Q loop + Z at handle end",
+      "motion": "moving",
+      "notes": "oval smaller than a head; faces the shuttle"
+    },
+    {
+      "id": "right_head",
+      "name": "right_head",
+      "how": "circle",
+      "motion": "moving",
+      "notes": "same size throughout; looks −x toward net"
+    },
+    {
+      "id": "right_torso",
+      "name": "right_torso",
+      "how": "M neck Q hip curve",
+      "motion": "moving",
+      "notes": "neck under head, hip lower; leans −x into hits"
+    },
+    {
+      "id": "right_arm_racket",
+      "name": "right_arm_racket",
+      "how": "two-segment limb, shoulder to hand",
+      "motion": "moving",
+      "notes": "racket arm; aims up and −x on hits"
+    },
+    {
+      "id": "right_arm_free",
+      "name": "right_arm_free",
+      "how": "two-segment limb, shoulder to hand",
+      "motion": "moving",
+      "notes": "balance arm; points +x and slightly down"
+    },
+    {
+      "id": "right_leg_front",
+      "name": "right_leg_front",
+      "how": "two-segment limb, hip to foot",
+      "motion": "moving",
+      "notes": "front leg toward −x; foot planted near x=+0.85"
+    },
+    {
+      "id": "right_leg_back",
+      "name": "right_leg_back",
+      "how": "two-segment limb, hip to foot",
+      "motion": "moving",
+      "notes": "back leg toward +x; foot planted near x=+0.85"
+    },
+    {
+      "id": "right_racket_handle",
+      "name": "right_racket_handle",
+      "how": "straight L from hand",
+      "motion": "moving",
+      "notes": "aims up and −x at contact"
+    },
+    {
+      "id": "right_racket_head",
+      "name": "right_racket_head",
+      "how": "closed oval Q loop + Z at handle end",
+      "motion": "moving",
+      "notes": "oval smaller than a head; faces the shuttle"
+    },
+    {
+      "id": "shuttle",
+      "name": "shuttle",
+      "how": "small closed shape with a short skirt, smaller than a head",
+      "motion": "moving",
+      "notes": "travels long arcs over the net both ways"
+    }
+  ],
+  "keys": [
+    {
+      "name": "left_contact_out",
+      "beat": "left player hits the shuttle outbound",
+      "notes": "Left player in a lunging hit pose at the left end: head looks +x, torso leans +x, racket arm extended up and +x so the racket head meets the shuttle just off the left shoulder; free arm trails −x; front leg bent toward +x, back leg extended −x, feet planted. Right player upright at the far right end, head looking −x watching, racket held low ready. Shuttle touching the left racket head."
+    },
+    {
+      "name": "shuttle_over_net_out",
+      "beat": "shuttle flies high over the net going +x",
+      "notes": "Shuttle at its apex high above the net at mid-court, nose pointing +x and slightly down along its flight. Left player recovered to an upright ready stance at the left end: head looks +x, torso near vertical, racket held chest-high aiming +x. Right player crouched into a low ready stance at the right end: head looks −x and up at the shuttle, torso leaning −x, racket arm cocked back and up aiming −x, feet planted."
+    },
+    {
+      "name": "right_contact_return",
+      "beat": "right player returns the shuttle",
+      "notes": "Right player in a lunging hit pose at the right end: head looks −x, torso leans −x, racket arm extended up and −x so the racket head meets the shuttle just off the right shoulder; free arm trails +x; front leg bent toward −x, back leg extended +x, feet planted. Left player upright at the far left end, head looking +x watching, racket held low ready. Shuttle touching the right racket head."
+    },
+    {
+      "name": "shuttle_over_net_back",
+      "beat": "shuttle flies high back over the net going −x",
+      "notes": "Shuttle at its apex high above the net at mid-court, nose pointing −x and slightly down along its flight. Right player recovered to an upright ready stance at the right end: head looks −x, torso near vertical, racket held chest-high aiming −x. Left player crouched into a low ready stance at the left end: head looks +x and up at the incoming shuttle, torso leaning +x, racket arm cocked back and up aiming +x, feet planted."
+    },
+    {
+      "name": "left_contact_return",
+      "beat": "left player meets the returning shuttle — rally complete",
+      "notes": "Left player in a finishing hit pose at the left end: head looks +x, torso leans +x, racket arm extended up and +x with the racket head meeting the returning shuttle just off the left shoulder; free arm trails −x; front leg bent toward +x, back leg extended −x, feet planted. Right player upright at the far right end, head looking −x watching, racket held low ready. Shuttle touching the left racket head — the two-way rally is complete."
+    }
+  ],
+  "gaps": [
+    {
+      "after": "left_contact_out",
+      "n_inbetween": 4,
+      "ease": "ease_out",
+      "why": "shuttle launches fast off the racket then floats up into its long arc toward the net"
+    },
+    {
+      "after": "shuttle_over_net_out",
+      "n_inbetween": 4,
+      "ease": "smooth",
+      "why": "shuttle descends smoothly along the long arc to the right racket while players settle into their poses"
+    },
+    {
+      "after": "right_contact_return",
+      "n_inbetween": 4,
+      "ease": "ease_out",
+      "why": "return launches fast off the right racket then floats up into the mirrored arc back over the net"
+    },
+    {
+      "after": "shuttle_over_net_back",
+      "n_inbetween": 3,
+      "ease": "ease_out",
+      "why": "shuttle descends along the final arc and decelerates into the left racket contact that completes the rally"
+    }
+  ],
+  "n_frames": 20,
+  "task_id": "path2d_badminton"
+}

@@ -1,71 +1,71 @@
-# Anim SketchAgent 2D v1（冻结）
+# Anim SketchAgent 2D（Path2D）
 
-冻结日期：2026-08-26。
+日期：2026-09-01。
 
-这是当前已经可用的 **2D pose-to-pose 动画 SketchAgent**：Planner 只出稀疏关键帧，Drawer 只画那些 key，中间帧按 `<id>` 几何插值。不要在这份快照上继续改 prompt；新实验请复制目录或改 `experiments/grpo_sa_pilot/`。
+当前 2D 入口是 **Path2D pose-to-pose**：Planner 出稀疏 key 与 `gaps[].n_inbetween`，Drawer **oneshot** 画每一张 key，中间帧也是 **oneshot**（不再按 id 几何 lerp，除非显式 `--lerp`）。坐标 `[-1,1]`，`+x` 右、`+y` 上。
 
-源码副本、suite 入口、完整 gold 和代表输出都在本目录中；不再依赖工作目录里的样例文件。运行仍依赖项目根目录的 `third_party/SketchAgent-main/` 与 `.env`。校验：
-
-```bash
-cd versions/anim_sketchagent_2d_v1
-shasum -a 256 -c SHA256SUMS
-```
+早期 SketchAgent XML + lerp 的源码留在 `archive_xml_src/`，gold 与 `examples/basketball_scale2` 等仍是那套输出，只作对照。
 
 ## 方法
 
 ```text
 用户一句 prompt
-  -> GLM-5.3 文本 Planner（无视觉）
-       action 扩写 + keys[] + gaps[]
-  -> GLM-5.3 Drawer 只画 keys（SketchAgent XML，50×50，原点左上）
-  -> 可选：DeepSeek 视觉只审 key（默认可关 --no-reflect）
-  -> 按 <id> lerp 中间帧
-  -> GIF + contact sheet
+  -> 文本 Planner（plan.json：parts / keys / gaps / people_scale）
+  -> oneshot 画 keys（同一套 part id）
+  -> oneshot 画因果中间帧（FROM=上一帧，TO=下一 key）
+  -> clip.gif + contact_sheet.png
 ```
 
-- 关键帧数量 ≥2，由 Planner 决定（`--keys` 可钉死）。
-- 总帧数默认约 12，由 keys + `n_inbetween` 决定（`--frames` 可钉死）。
-- 运动人物身高约画布边长 1/4–1/3；Drawer 不要抄 circle 示例的直径，整个人等比例缩小。
-- 身份（头大小/体型）写 UNCHANGING；手臂、重心、飞行物要动，但只做一件清楚的事。
+- 体型跨帧不变：身高、胖瘦、肢长写进 `people_scale`。
+- `n_inbetween` 是两拍之间的时间，不是凑帧；`why` 要说明快/中/慢。
+- 单帧返工：`--from-run DIR --redraw-frame N`（可选 `--redraw-note`、`--redraw-cascade`）。
+- 只重出预览：`--from-run DIR --rebuild-clip`（不调模型）。
 
-## 模型
+## 运行
 
-| 步骤 | 模型 |
-|---|---|
-| Plan / 画 key | glm-5.3（文本，无视觉） |
-| 审 key（可选） | `deepseek-v4-flash-vision-exp` |
-| 中间帧 | 代码 lerp，不再调模型 |
-
-## 目录
-
-```text
-src/       冻结源码，以及 run_key_suite.py / run_naive_suite.py
-gold/      9 个 pose-to-pose gold clip 与 manifest
-examples/  basketball_scale2 / badminton_rally / saber_free
-```
-
-## 运行（推荐从工作副本）
+从仓库根目录：
 
 ```bash
-cd experiments/grpo_sa_pilot
-python3 glm_anim_keys.py --task basketball --no-reflect --out outputs/glm53_keys_basketball_scale2
-python3 glm_anim_keys.py --task badminton --no-reflect
-python3 glm_anim_keys.py --task saber --no-reflect
+python3 versions/anim_sketchagent_2d_v1/src/glm_anim_2d.py \
+  --task catwand --model glm-5.3 --keys 3 --frames 12 \
+  --plan-effort high --key-effort high --first-key-effort high --draw-effort medium \
+  --out outputs/path2d_catwand
 ```
 
-短 user prompt 任务：`basketball`、`badminton`（一句英文）。更早的长 prompt 任务仍在 `TASKS` 里（kick / saber / …）。
+`--model`：`gpt-5.6-sol`（默认）、`glm-5.3`、`deepseek-v4-flash`。GLM 没有 `medium` thinking，会落到 `low`。
 
-## 当时较好的样例
+```bash
+python3 versions/anim_sketchagent_2d_v1/src/glm_anim_2d.py \
+  --task catwand --model glm-5.3 --from-run outputs/path2d_catwand \
+  --redraw-frame 3 --draw-effort high \
+  --redraw-note "keep FROM height; do not flatten the cat"
+```
+
+```bash
+python3 versions/anim_sketchagent_2d_v1/src/glm_anim_2d.py \
+  --from-run outputs/path2d_catwand --rebuild-clip
+```
+
+评测短任务默认套件：`bounce`、`billiards`、`bottleshot`、`badminton`、`catjump`。另有 `catwand` 等。
+
+## 代表结果
 
 | 任务 | 目录 |
 |---|---|
-| 篮球（比例更接近 1/3） | `examples/basketball_scale2/` |
-| 羽毛球对打 | `examples/badminton_rally/` |
-| 格挡子弹 | `examples/saber_free/` |
-| 早期 gold 套件 | `gold/pose_to_pose/` |
+| 羽毛球对打 | `examples/path2d_badminton_rally/` |
+| 打瓶子 | `examples/path2d_bottleshot/` |
+| 逗猫棒（含 f02/f03 单帧重绘） | `examples/path2d_catwand/` |
 
-看片协议见 `gold/README.md`：身份是否同一人、接触/分离是否发生、锚点是否漂移、节奏是否一边鞭一下爬。
+样例只保留 plan、最终 key、帧 PNG/JSON、GIF / contact sheet。
 
-## 3D 续作
+## 测试
 
-同结构的 3D 版在 `versions/anim_sketchagent_3d_v1/`：key 用逐步 Path3D incremental（无批量反思），中间帧用单次 Path3D one-shot。
+```bash
+cd versions/anim_sketchagent_2d_v1/src
+python3 -m unittest -v test_anim_2d.py
+```
+
+```bash
+cd versions/anim_sketchagent_2d_v1
+shasum -a 256 -c SHA256SUMS
+```

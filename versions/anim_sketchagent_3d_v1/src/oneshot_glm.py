@@ -1,4 +1,4 @@
-"""Single-shot Path3D generation with GLM-5.3 (no vision)."""
+"""Single-shot Path3D generation with gpt-5.6-sol (no separate vision model)."""
 from __future__ import annotations
 
 import sys
@@ -23,15 +23,16 @@ from path3d.generator import SYSTEM_PROMPT  # noqa: E402
 from path3d.parser import parse_path3d  # noqa: E402
 from path3d.renderer import render_scene_views  # noqa: E402
 from path3d.schema import Path3DScene  # noqa: E402
-from terra_client import call_glm, parse_json_obj  # noqa: E402
+from terra_client import call_sol, parse_json_obj  # noqa: E402
 
 
-def generate_scene(user_content: str) -> tuple[Path3DScene, str]:
+def generate_scene(user_content: str, *, extra_system: str = "") -> tuple[Path3DScene, str]:
     last_raw, last_err = "", None
+    system = SYSTEM_PROMPT + (f"\n{extra_system}" if extra_system else "")
     for attempt in range(1, 3):
-        raw = call_glm(
+        raw = call_sol(
             [
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": system},
                 {"role": "user", "content": user_content},
             ],
             max_tokens=5000,

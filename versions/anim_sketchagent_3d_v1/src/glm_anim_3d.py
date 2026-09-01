@@ -47,11 +47,13 @@ from prompts import (  # noqa: E402
     MIN_KEYS,
     TASKS,
     inbetween_oneshot_prompt,
+    INBETWEEN_REASONING,
     key_count_bounds,
     key_draw_prompt,
     key_plan_user,
+    people_scale_line,
 )
-from terra_client import call_glm, parse_json_obj  # noqa: E402
+from terra_client import call_sol, parse_json_obj  # noqa: E402
 
 
 def plan_has_cells(plan: dict) -> bool:
@@ -159,6 +161,20 @@ def expand_timeline(keys: list[dict], gaps: list[dict]) -> list[dict]:
                 }
             )
             idx += 1
+    stamp_frame_span(timeline)
+    return timeline
+
+
+def stamp_frame_span(timeline: list[dict]) -> list[dict]:
+    n_frames = len(timeline)
+    next_key = None
+    for slot in reversed(timeline):
+        if slot.get("kind") == "key":
+            next_key = slot["i"]
+        slot["n_frames"] = n_frames
+        slot["current_frame"] = slot["i"]
+        slot["from_frame"] = slot["i"] - 1 if slot["i"] > 1 else None
+        slot["to_frame"] = next_key
     return timeline
 
 
@@ -213,7 +229,7 @@ def validate_key_plan(plan: dict, n_keys: int | None, task: dict, pin_frames: in
 def mint_key_plan(task: dict, n_keys: int | None, pin_frames: int | None, suggested_frames: int) -> tuple[dict | None, str, str | None]:
     last_raw, last_err = "", None
     for attempt in range(1, 4):
-        raw = call_glm(
+        raw = call_sol(
             [
                 {"role": "system", "content": KEY_PLAN_SYSTEM},
                 {
@@ -223,7 +239,7 @@ def mint_key_plan(task: dict, n_keys: int | None, pin_frames: int | None, sugges
                     ),
                 },
             ],
-            max_tokens=3072,
+            max_tokens=8192,
             temperature=0.4,
             timeout=180,
         )
@@ -231,7 +247,8 @@ def mint_key_plan(task: dict, n_keys: int | None, pin_frames: int | None, sugges
         try:
             plan = validate_key_plan(parse_json_obj(raw), n_keys, task, pin_frames=pin_frames)
             plan["task_id"] = task["task_id"]
-            plan["planner"] = "glm-5.3-pose-to-pose-3d"
+            plan["planner"] = "gpt-5.6-sol-pose-to-pose-3d"
+            plan["people_scale"] = people_scale_line(task)
             return plan, raw, None
         except Exception as e:
             last_err = f"attempt {attempt}: {type(e).__name__}: {e}"
@@ -317,7 +334,7 @@ def generate_inbetween(
     dest.mkdir(parents=True, exist_ok=True)
     for attempt in range(1, attempts + 1):
         try:
-            scene, last_raw = generate_scene(user_content)
+            scene, last_raw = generate_scene(user_content, extra_system=INBETWEEN_REASONING)
             value = pin_anchored_scene(scene.to_dict(), anchor_scene, plan)
             report = require_scene_contract(
                 value,
@@ -341,7 +358,7 @@ def generate_inbetween(
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--task", default="basketball", choices=sorted(TASKS))
+    ap.add_argument("--task", default="tabledrop", choices=sorted(TASKS))
     ap.add_argument("--keys", type=int, default=None)
     ap.add_argument("--frames", type=int, default=None)
     ap.add_argument("--max-rounds", type=int, default=4, help="incremental rounds per key")
@@ -384,6 +401,7 @@ def main() -> None:
                 task = spec
                 gif_ms = int(args.gif_ms if args.gif_ms is not None else task.get("gif_ms", 80))
                 break
+        plan["people_scale"] = people_scale_line(plan) if plan.get("people_scale") else people_scale_line(task)
         n_keys = len(plan.get("keys") or [])
         key_scenes, anchor_scene, canonical_ids = load_run_keys(out, plan)
         for name, scene in key_scenes.items():
@@ -426,19 +444,16 @@ def main() -> None:
         key_rows = []
         anchor_scene = None
         canonical_ids = None
+        prev_scene = None
+        prev_name = ""
         for i, key in enumerate(plan["keys"], 1):
             name = str(key["name"])
             key_dir = out / "keys" / f"{i:02d}_{name}"
             key_dir.mkdir(parents=True, exist_ok=True)
-            prompt = key_draw_prompt(plan, key, i, n_keys)
-            if canonical_ids and anchor_scene:
-                prompt += (
-                    "\n\nCROSS-KEY IDENTITY CONTRACT:\n"
-                    f"Include every canonical stroke id exactly once: {sorted(canonical_ids)}.\n"
-                    "The first key scene below defines identity, proportions, world placement, and anchored geometry. "
-                    "Keep the same people and structure while changing only this beat's pose.\n"
-                    f"{json.dumps(anchor_scene, ensure_ascii=False)[:24000]}"
-                )
+            prompt = key_draw_prompt(
+                plan, key, i, n_keys, prev_scene=prev_scene, prev_name=prev_name
+            )
+            (key_dir / "draw_prompt.txt").write_text(prompt, encoding="utf-8")
             print(f"== incremental key {i}/{n_keys} {name} ==", flush=True)
             t1 = time.time()
             result = None
@@ -484,6 +499,8 @@ def main() -> None:
                         if str(item.get("id") or "").strip()
                     }
                 key_scenes[name] = accepted_scene
+                prev_scene = copy.deepcopy(accepted_scene)
+                prev_name = name
                 scene = Path3DScene.from_dict(accepted_scene, prompt=plan.get("concept", ""))
                 rec = render_scene(scene, key_dir / "final", width=args.width, height=args.height, normalize=False)
                 (key_dir / "final" / "contract.json").write_text(
@@ -535,8 +552,8 @@ def main() -> None:
                 "pipeline": "plan_keys_incremental_only",
                 "keys_only": True,
                 "models": {
-                    "plan": "glm-5.3",
-                    "incremental_visual_review_and_edit": "deepseek-v4-flash-vision-exp",
+                    "plan": "gpt-5.6-sol",
+                    "incremental_visual_review_and_edit": "gpt-5.6-sol",
                 },
                 "id_rename_rule": "ANIM_EDITOR_SYSTEM_PROMPT",
                 "fixed_world_framing": True,
@@ -569,6 +586,8 @@ def main() -> None:
     pngs: list[Path] = []
     labels: list[str] = []
     frame_rows = []
+    drawn: dict[int, dict] = {}
+    n_frames = len(timeline)
     for slot in timeline:
         i = slot["i"]
         dest = frames_dir / f"f{i:02d}"
@@ -585,12 +604,16 @@ def main() -> None:
             )
             rec = render_scene(scene, dest, width=args.width, height=args.height, normalize=False)
             label = f"K:{slot['key_name']}"
+            drawn[i] = copy.deepcopy(scene.to_dict())
         else:
-            print(f"== oneshot inbetween {i} {slot['from']}->{slot['to']} t={slot['t']:.2f} ==", flush=True)
-            t1 = time.time()
-            prompt = inbetween_oneshot_prompt(
-                plan, slot, key_scenes[slot["from"]], key_scenes[slot["to"]]
+            prev = drawn.get(i - 1) or key_scenes[slot["from"]]
+            nxt = key_scenes[slot["to"]]
+            print(
+                f"== oneshot inbetween frame {i}/{n_frames} from={i-1} to_key={slot.get('to_frame')} ({slot['to']}) ==",
+                flush=True,
             )
+            t1 = time.time()
+            prompt = inbetween_oneshot_prompt(plan, slot, prev, nxt)
             prompt += (
                 "\n\nCROSS-KEY IDENTITY CONTRACT:\n"
                 f"Include every canonical stroke id exactly once: {sorted(canonical_ids)}.\n"
@@ -608,7 +631,8 @@ def main() -> None:
                 encoding="utf-8",
             )
             rec = render_scene(scene, dest, width=args.width, height=args.height, normalize=False)
-            label = f"i{slot['from'][:1]}-{slot['to'][:1]}"
+            label = f"f{i-1}->k{slot.get('to_frame')}"
+            drawn[i] = copy.deepcopy(scene.to_dict())
             print(
                 f"  inbetween {round(time.time()-t1, 2)}s strokes={rec['stroke_count']} "
                 f"attempt={generation_attempt}",
@@ -624,6 +648,8 @@ def main() -> None:
                 "label": label,
                 "strokes": rec["stroke_count"],
                 "attempt": generation_attempt,
+                "from_frame": slot.get("from_frame"),
+                "to_frame": slot.get("to_frame"),
                 "contract": contract,
             }
         )
@@ -636,8 +662,8 @@ def main() -> None:
         "ok": True,
         "pipeline": "plan_keys_incremental_inbetweens_oneshot",
         "models": {
-            "plan_and_oneshot_inbetween": "glm-5.3",
-            "incremental_key_visual_review_and_edit": "deepseek-v4-flash-vision-exp",
+            "plan_and_oneshot_inbetween": "gpt-5.6-sol",
+            "incremental_key_visual_review_and_edit": "gpt-5.6-sol",
         },
         "reflection": False,
         "fixed_world_framing": True,

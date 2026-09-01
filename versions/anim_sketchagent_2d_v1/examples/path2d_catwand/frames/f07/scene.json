@@ -1,0 +1,107 @@
+{
+  "prompt": "Inbetween frame 7: the lure just begins yanking up-right on the string as the cat starts its sit-back follow-through.",
+  "strokes": [
+    {
+      "id": "wand_handle",
+      "path": "M 0.95 0.85 L 0.30 0.20",
+      "description": "straight wand handle from upper right, tip at upper-center-right, anchored",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "anchored"
+    },
+    {
+      "id": "string",
+      "path": "M 0.30 0.20 Q 0.28 0.00 0.205 -0.265",
+      "description": "string beginning to swing from the handle tip as the lure is yanked up-right",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "prop"
+    },
+    {
+      "id": "lure",
+      "path": "M 0.20 -0.30 Q 0.235 -0.30 0.235 -0.335 Q 0.235 -0.37 0.20 -0.37 Q 0.165 -0.37 0.165 -0.335 Q 0.165 -0.30 0.20 -0.30 Z",
+      "description": "tiny round lure just starting to whip up and to +x away from the paw",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "prop"
+    },
+    {
+      "id": "cat_body",
+      "path": "M -0.155 -0.410 Q -0.215 -0.345 -0.355 -0.425 Q -0.470 -0.510 -0.440 -0.615 Q -0.370 -0.680 -0.235 -0.592 Q -0.115 -0.510 -0.155 -0.410 Z",
+      "description": "ellipse body beginning to rock back onto haunches, hips lowering, still leaning from the strike",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "cat_head",
+      "path": "M -0.113 -0.255 Q -0.023 -0.255 -0.023 -0.345 Q -0.023 -0.435 -0.113 -0.435 Q -0.203 -0.435 -0.203 -0.345 Q -0.203 -0.255 -0.113 -0.255 Z",
+      "description": "round head same size, overlapping upper-front of body, craned up and +x tracking the escaping lure",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "ear_front",
+      "path": "M -0.07 -0.275 L -0.03 -0.175 L -0.135 -0.26",
+      "description": "pointed front ear on crown, apex above head center, facing +x",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "ear_back",
+      "path": "M -0.135 -0.26 L -0.11 -0.16 L -0.185 -0.27",
+      "description": "pointed back ear on crown behind front ear, apex above head center",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "front_leg",
+      "path": "M -0.195 -0.48 Q -0.04 -0.46 0.10 -0.37",
+      "description": "striking front leg still extended up and +x, paw tip just missing the departing lure",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "back_leg",
+      "path": "M -0.43 -0.59 Q -0.50 -0.64 -0.56 -0.70",
+      "description": "back leg folding under the settling haunches, paw planted on the ground",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "tail",
+      "path": "M -0.445 -0.60 Q -0.65 -0.60 -0.75 -0.48 Q -0.82 -0.37 -0.72 -0.29",
+      "description": "long tail sweeping back and beginning to flop over behind the rocking body",
+      "stroke": "#111111",
+      "stroke_width": 3.0,
+      "opacity": 1.0,
+      "group": "cat"
+    },
+    {
+      "id": "ground",
+      "path": "M -0.9 -0.7 L 0.9 -0.7",
+      "description": "horizontal ground line near y=-0.7",
+      "stroke": "#111111",
+      "stroke_width": 3,
+      "opacity": 1,
+      "group": "scenery"
+    }
+  ],
+  "metadata": {
+    "format": "path2d_v1"
+  }
+}

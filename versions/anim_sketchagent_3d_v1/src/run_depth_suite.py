@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the four depth-event 3D clips sequentially (same budget as basketball smoke)."""
+"""Run the remaining depth-event 3D clips sequentially."""
 from __future__ import annotations
 
 import subprocess
@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-TASKS = ("pillar_peek", "ball_door", "elevator", "crane_gap")
+TASKS = ("tabledrop", "stairs", "ball_door", "elevator")
 
 
 def main() -> None:

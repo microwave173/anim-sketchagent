@@ -67,6 +67,7 @@ python3 versions/anim_sketchagent_3d_v1/src/glm_anim_3d.py \
 - `motion: anchored` 的地面、网、轿厢、柱子等从第一张 key 原样复制。人、球、滑动门是 moving。
 - 最终四视图与 GIF 使用固定世界坐标 `[-1,1]` 和固定相机，关闭逐帧 recenter/normalize。Incremental 内部审稿仍使用原 renderer 的归一化预览。
 - 行走 / 击球要求真跨步（一腿在前、对侧臂），不要滑步 T-pose。
+- 体型（身高、胖瘦、肢长）跨 key 不变；`gaps[].n_inbetween` 表示两拍之间过了多久，不是凑帧。
 
 ## 测试
 
