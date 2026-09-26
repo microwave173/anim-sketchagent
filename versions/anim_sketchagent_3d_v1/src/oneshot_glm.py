@@ -1,4 +1,4 @@
-"""Single-shot Path3D generation with gpt-5.6-sol (no separate vision model)."""
+"""Single-shot Path3D generation with DeepSeek-V4.1-Flash."""
 from __future__ import annotations
 
 import sys
@@ -23,21 +23,26 @@ from path3d.generator import SYSTEM_PROMPT  # noqa: E402
 from path3d.parser import parse_path3d  # noqa: E402
 from path3d.renderer import render_scene_views  # noqa: E402
 from path3d.schema import Path3DScene  # noqa: E402
-from terra_client import call_sol, parse_json_obj  # noqa: E402
+from terra_client import call_deepseek, parse_json_obj  # noqa: E402
 
+
+REASONING_EFFORT_OVERRIDE: str | None = None
 
 def generate_scene(user_content: str, *, extra_system: str = "") -> tuple[Path3DScene, str]:
     last_raw, last_err = "", None
     system = SYSTEM_PROMPT + (f"\n{extra_system}" if extra_system else "")
     for attempt in range(1, 3):
-        raw = call_sol(
+        raw = call_deepseek(
             [
                 {"role": "system", "content": system},
                 {"role": "user", "content": user_content},
             ],
-            max_tokens=5000,
+            max_tokens=65536 if REASONING_EFFORT_OVERRIDE else 8192,
             temperature=0.4,
-            timeout=240,
+            timeout=600,
+            model="deepseek-flash",
+            reasoning_effort=REASONING_EFFORT_OVERRIDE or "high",
+            thinking=bool(REASONING_EFFORT_OVERRIDE) and REASONING_EFFORT_OVERRIDE != "low",
         )
         last_raw = raw
         try:

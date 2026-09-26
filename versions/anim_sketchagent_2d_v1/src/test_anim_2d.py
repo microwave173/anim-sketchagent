@@ -17,9 +17,10 @@ for p in (ROOT, ROOT / "versions" / "path2d_v1", HERE):
     sys.path.insert(0, sp)
 
 from interp import expand_timeline, frames_to_redraw, interpolate_scene, points_to_path, resample
+from glm_anim_2d import normalize_key_plan_timing, validate_key_plan
 from path2d.parser import parse_path2d
 from path2d.schema import Path2DScene
-from prompts import DRAWER_ORIENTATION, INBETWEEN_REASONING, KEY_PLAN_SYSTEM, SUITE, TASKS, inbetween_oneshot_prompt, key_draw_prompt, key_plan_user, previous_key_context
+from prompts import ANIMAL_DRAWING, DRAWER_ORIENTATION, INBETWEEN_REASONING, KEY_PLAN_SYSTEM, SUITE, TASKS, inbetween_oneshot_prompt, key_draw_prompt, key_plan_user, previous_key_context
 
 
 class Path2DTests(unittest.TestCase):
@@ -48,17 +49,22 @@ class Path2DTests(unittest.TestCase):
             "fish",
             "rabbithop",
             "bottleshot",
+            "polevault",
+            "magic_swap",
+            "firework",
         ):
             self.assertIn(name, TASKS)
             user = key_plan_user(TASKS[name], n_keys=3)
             self.assertIn("Key", user)
-            self.assertIn("people_scale", user)
-            self.assertIn("1/5–1/4", user)
+            self.assertIn('"notes"', user)
+            self.assertIn("Existing task constraints (compress into notes)", user)
         self.assertEqual(len(SUITE), 5)
         self.assertEqual(SUITE, ("bounce", "billiards", "bottleshot", "badminton", "catjump"))
         for name in SUITE:
             self.assertIn(name, TASKS)
         bounce_user = key_plan_user(TASKS["bounce"], n_keys=3)
+        self.assertIn("sampled pose, not an automatic pause", bounce_user)
+        self.assertIn("Do not add extra schema fields", bounce_user)
         self.assertIn("SECOND hop", bounce_user)
         self.assertIn("squash", bounce_user.lower())
         pool_user = key_plan_user(TASKS["billiards"], n_keys=3)
@@ -72,16 +78,41 @@ class Path2DTests(unittest.TestCase):
         jump_user = key_plan_user(TASKS["catjump"], n_keys=3)
         self.assertIn("table", jump_user.lower())
         self.assertIn("crown", jump_user.lower())
+        parkour_user = key_plan_user(TASKS["parkour"], n_keys=3)
+        self.assertIn("VAULT", parkour_user)
+        self.assertIn("BOX", parkour_user)
+        baton_user = key_plan_user(TASKS["baton"], n_keys=3)
+        self.assertIn("HANDOFF", baton_user)
+        cut_user = key_plan_user(TASKS["cutrope"], n_keys=3)
+        self.assertIn("rope_hi", cut_user)
+        self.assertIn("SEPARATED", cut_user)
+        dom_user = key_plan_user(TASKS["dominos"], n_keys=5, pin_frames=18)
+        self.assertIn("FIVE keys", dom_user)
+        self.assertIn("d4", dom_user)
+        sw_user = key_plan_user(TASKS["starwars"], n_keys=3)
+        self.assertIn("DEFLECT CONTACT", sw_user)
+        self.assertIn("droid", sw_user.lower())
+        self.assertIn("bolt", sw_user.lower())
+        vault_user = key_plan_user(TASKS["polevault"], n_keys=5, pin_frames=18)
+        self.assertIn("FIVE keys", vault_user)
+        self.assertIn("CLEARANCE/RELEASE", vault_user)
+        magic_user = key_plan_user(TASKS["magic_swap"], n_keys=4, pin_frames=14)
+        self.assertIn("zero-length M", magic_user)
+        self.assertIn("SUDDENLY APPEARED", magic_user)
+        firework_user = key_plan_user(TASKS["firework"], n_keys=4, pin_frames=14)
+        self.assertIn("EXPLOSION", firework_user)
+        self.assertIn("rocket and trail are collapsed", firework_user)
         bare = key_plan_user(TASKS["dogwalk"], n_keys=3, fewshot=False)
         self.assertNotIn("Staging:", bare)
         self.assertNotIn("person_head", bare)
         self.assertNotIn("ellipse", bare.lower())
+        self.assertIn("concept, action, notes", bare)
+        self.assertNotIn("pacing_summary", bare)
         self.assertIn("one-shot", KEY_PLAN_SYSTEM)
         ib = inbetween_oneshot_prompt(
             {
                 "action": "walk",
-                "layout_notes": "",
-                "people_scale": "small",
+                "notes": "small fixed figure",
                 "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
                 "keys": [
                     {"name": "start", "beat": "ready", "notes": "stand"},
@@ -116,8 +147,7 @@ class Path2DTests(unittest.TestCase):
         ib_fix = inbetween_oneshot_prompt(
             {
                 "action": "walk",
-                "layout_notes": "",
-                "people_scale": "small",
+                "notes": "small fixed figure",
                 "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
                 "keys": [
                     {"name": "start", "beat": "ready", "notes": "stand"},
@@ -142,8 +172,7 @@ class Path2DTests(unittest.TestCase):
         kd = key_draw_prompt(
             {
                 "action": "walk",
-                "layout_notes": "side",
-                "people_scale": "small",
+                "notes": "small fixed figure; side view",
                 "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
             },
             {
@@ -156,12 +185,12 @@ class Path2DTests(unittest.TestCase):
             3,
         )
         self.assertIn("upside-down", kd)
+        self.assertIn("zero-length M stroke", kd)
         self.assertNotIn("M -0.47 0.17", kd)
         kd_prev = key_draw_prompt(
             {
                 "action": "walk",
-                "layout_notes": "side",
-                "people_scale": "small",
+                "notes": "small fixed figure; side view",
                 "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
             },
             {"name": "contact", "beat": "hit", "notes": "kick"},
@@ -172,11 +201,34 @@ class Path2DTests(unittest.TestCase):
         )
         self.assertIn("PREVIOUS KEY 'start'", kd_prev)
         self.assertIn("M 0 0 L 0.2 0", kd_prev)
+        kd_anchor = key_draw_prompt(
+            {
+                "action": "walk",
+                "notes": "small fixed figure; side view",
+                "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
+                "keys": [
+                    {"name": "start", "beat": "depart", "notes": "move +x"},
+                    {"name": "middle", "beat": "continue", "notes": "keep +x"},
+                    {"name": "late", "beat": "continue", "notes": "still +x"},
+                    {"name": "end", "beat": "settle", "notes": "land"},
+                ],
+            },
+            {"name": "late", "beat": "continue", "notes": "still +x"},
+            3,
+            4,
+            prev_scene={"strokes": [{"id": "a", "path": "M .2 0 L .4 0", "description": "previous"}]},
+            prev_name="middle",
+            anchor_scene={"strokes": [{"id": "a", "path": "M 0 0 L .2 0", "description": "model sheet"}]},
+            anchor_name="start",
+        )
+        self.assertIn("MOTION NEIGHBORHOOD", kd_anchor)
+        self.assertIn('"next": {"name": "end"', kd_anchor)
+        self.assertIn("IDENTITY ANCHOR 'start'", kd_anchor)
+        self.assertIn("immediate PREVIOUS KEY controls position and motion", kd_anchor)
         kd_exp = key_draw_prompt(
             {
                 "action": "walk",
-                "layout_notes": "side",
-                "people_scale": "small",
+                "notes": "small fixed figure; side view",
                 "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
             },
             {"name": "contact", "beat": "hit", "notes": "kick"},
@@ -197,8 +249,7 @@ class Path2DTests(unittest.TestCase):
         kd_exp_blind = key_draw_prompt(
             {
                 "action": "walk",
-                "layout_notes": "side",
-                "people_scale": "small",
+                "notes": "small fixed figure; side view",
                 "parts": [{"id": "a", "name": "a", "how": "line", "motion": "moving"}],
             },
             {"name": "contact", "beat": "hit", "notes": "kick"},
@@ -224,12 +275,18 @@ class Path2DTests(unittest.TestCase):
         self.assertIn("GROUND STROKE LENGTH", DRAWER_ORIENTATION)
         self.assertIn("emitting end", DRAWER_ORIENTATION)
         self.assertIn("relative placement", DRAWER_ORIENTATION.lower())
-        self.assertIn("GROUND LINE LENGTH", KEY_PLAN_SYSTEM)
+        self.assertIn("one concise notes field", KEY_PLAN_SYSTEM)
         self.assertIn("ORIENTATION", KEY_PLAN_SYSTEM)
         self.assertIn("UNCHANGING", KEY_PLAN_SYSTEM)
         self.assertIn("how much TIME", KEY_PLAN_SYSTEM)
         self.assertIn("stocky-vs-slim", DRAWER_ORIENTATION)
+        self.assertIn("ONLY that one round Q loop", DRAWER_ORIENTATION)
+        self.assertIn("ponytail", DRAWER_ORIENTATION)
+        self.assertIn("no hair/ponytail", key_plan_user(TASKS["kick"], n_keys=3))
         self.assertIn("planned duration", INBETWEEN_REASONING)
+        self.assertIn("passing pose", INBETWEEN_REASONING)
+        self.assertIn("ice-skate", DRAWER_ORIENTATION)
+        self.assertIn("SWAP the stride", KEY_PLAN_SYSTEM)
         self.assertIn("LEFT END", TASKS["badminton"]["staging"])
         self.assertIn("oval", TASKS["badminton"]["staging"].lower())
         self.assertIn("TWO-WAY", TASKS["badminton"]["staging"])
@@ -262,7 +319,21 @@ class Path2DTests(unittest.TestCase):
             key_i=2,
         ))
         self.assertIn("Open centerlines", DRAWER_ORIENTATION)
+        self.assertIn("Animals are NOT stick figures", DRAWER_ORIENTATION)
+        self.assertIn(ANIMAL_DRAWING, DRAWER_ORIENTATION)
+        self.assertIn(ANIMAL_DRAWING, KEY_PLAN_SYSTEM)
+        self.assertIn("short vertical tick", KEY_PLAN_SYSTEM)
+        self.assertIn("Legs default SHORT", KEY_PLAN_SYSTEM)
+        self.assertIn("does NOT shorten the tail", KEY_PLAN_SYSTEM)
+        self.assertIn("#111111", DRAWER_ORIENTATION)
+        self.assertIn("stroke_width 3", DRAWER_ORIENTATION)
+        self.assertIn("single pen stroke", DRAWER_ORIENTATION)
+        self.assertIn("OBVIOUSLY readable", KEY_PLAN_SYSTEM)
         self.assertIn("pose notes only", KEY_PLAN_SYSTEM)
+        self.assertIn("Relative placement", KEY_PLAN_SYSTEM)
+        self.assertIn("ON TOP of the head", KEY_PLAN_SYSTEM)
+        self.assertIn("relative seat", KEY_PLAN_SYSTEM)
+        self.assertIn("ON TOP of the head", key_plan_user(TASKS["catwalk"], n_keys=3))
         prev = previous_key_context(
             {"strokes": [{"id": "a", "path": "M 0 0 L 0.1 0", "description": "a"}]},
             prev_name="start",
@@ -283,6 +354,32 @@ class Path2DTests(unittest.TestCase):
         self.assertIn("L", mid["strokes"][0]["path"])
         self.assertGreater(len(resample([(0.0, 0.0), (1.0, 0.0)], 5)), 2)
         self.assertTrue(points_to_path([(0.0, 0.0), (1.0, 0.0)]).startswith("M"))
+
+    def test_planner_schema_and_timing_normalization(self) -> None:
+        user = key_plan_user(TASKS["kick"], n_keys=7, pin_frames=60)
+        self.assertIn('"notes"', user)
+        self.assertNotIn("pacing_summary", user)
+        malformed = {
+            "action": "A readable multi-stage action moves across the stage and reaches a clear completed consequence.",
+            "notes": "Fixed small figure; clear left-to-right travel lane.",
+            "parts": [{"id": "p", "name": "p", "how": "line", "motion": "moving"}],
+            "keys": [{"name": f"k{i}"} for i in range(7)],
+            "gaps": [
+                {"after": "k0", "n_inbetween": 2, "ease": "smooth", "why": "start"},
+                {"after": "k1", "n_inbetween": 4, "ease": "linear", "why": "travel"},
+            ],
+        }
+        fixed = normalize_key_plan_timing(malformed, n_keys=7, pin_frames=60, frame_duration_ms=100)
+        self.assertEqual(len(fixed["gaps"]), 6)
+        self.assertEqual(sum(g["n_inbetween"] for g in fixed["gaps"]), 53)
+        self.assertTrue(all(1 <= g["n_inbetween"] <= 10 for g in fixed["gaps"]))
+        self.assertEqual([g["after"] for g in fixed["gaps"]], [f"k{i}" for i in range(6)])
+
+        legacy = {**malformed, "notes": "x " * 250, "keys": malformed["keys"][:3]}
+        legacy = normalize_key_plan_timing(legacy, n_keys=3, pin_frames=20, frame_duration_ms=100)
+        value = validate_key_plan(legacy, 3, {"part_range": (1, 2)}, pin_frames=20)
+        self.assertLessEqual(len(value["notes"]), 180)
+        self.assertNotIn("pacing_summary", value)
 
     def test_timeline(self) -> None:
         tl = expand_timeline([{"name": "a"}, {"name": "b"}], [{"n_inbetween": 2, "ease": "linear"}])

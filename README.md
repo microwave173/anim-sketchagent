@@ -1,13 +1,15 @@
 # Anim SketchAgent
 
-Anim SketchAgent 是一套 pose-to-pose 线稿动画实验仓库，同时保存可复现的 2D 与 3D 入口。
+Anim SketchAgent 是一套 pose-to-pose 线稿动画实验仓库，同时保存可复现的 2D 与 3D 入口。当前提示词把事件写成严格的因果顺序，并以观众能否从线稿中直接辨认主体、动作、接触和状态变化作为画面约束。
 
 ## 两个版本
 
 | 版本 | 关键帧 | 中间帧 | 代表结果 |
 |---|---|---|---|
 | 2D Path2D | oneshot Path2D scene | oneshot 因果中间帧（可选 `--lerp`） | [羽毛球](versions/anim_sketchagent_2d_v1/examples/path2d_badminton_rally/clip.gif) · [打瓶子](versions/anim_sketchagent_2d_v1/examples/path2d_bottleshot/clip.gif) · [逗猫](versions/anim_sketchagent_2d_v1/examples/path2d_catwand/clip.gif) |
-| 3D Path3D | incremental Path3D | GLM one-shot 完整 Path3D scene | [电梯](versions/anim_sketchagent_3d_v1/examples/elevator/clip.gif) · [羽毛球](versions/anim_sketchagent_3d_v1/examples/badminton/clip.gif) |
+| 3D Path3D | incremental 或 oneshot Path3D | DeepSeek one-shot 完整 Path3D scene | [电梯](versions/anim_sketchagent_3d_v1/examples/elevator/clip.gif) · [羽毛球](versions/anim_sketchagent_3d_v1/examples/badminton/clip.gif) |
+
+当前版本还包括跨 key 的 identity anchor、相邻 motion neighborhood、按真实播放时长分配动作密度，以及 3D 动画专用的原子 pose replacement。Planner schema 保持精简：这些约束写入已有的 `action`、key `notes` 和 gap `why`，不增加连续性专用字段。
 
 详细说明：
 
@@ -28,6 +30,7 @@ versions/
   v1.4/                         3D revision/patch 基础设施
 sketch_agent/                   共享模型配置
 third_party/SketchAgent-main/   旧 XML 渲染所需的最小第三方文件
+tools/                          长动画包装器：放宽帧数并按 key-to-key gap 整段生成
 ```
 
 ## 安装
@@ -70,11 +73,30 @@ python3 versions/anim_sketchagent_3d_v1/src/glm_anim_3d.py \
 
 也可用 `--task elevator`。
 
+## 新版 Complex：每个 gap 一次生成
+
+当前大规模实验先生成 plan 与所有 key，再让模型在一次响应中生成一个 key-to-key 区间的全部中间帧。这样同一区间内的帧共享完整上下文，也减少 API 调用次数。
+
+2D 示例：
+
+```bash
+python3 tools/run_native.py --dim 2 --task bounce \
+  --prompt "A person pulls a fire alarm; the sprinkler activates and puts out a fire." \
+  --frames 24 --keys-only --model deepseek-flash \
+  --plan-effort high --draw-effort high --key-effort high --first-key-effort high \
+  --out outputs/alarm_2d
+python3 tools/run_gap_complex.py --dim 2 \
+  --prompt "A person pulls a fire alarm; the sprinkler activates and puts out a fire." \
+  --run outputs/alarm_2d --reasoning-effort high
+```
+
+3D 将第一条命令换成 `--dim 3 --task tabledrop --key-mode oneshot --reasoning-effort high`，第二条命令使用 `--dim 3`。`run_gap_complex.py` 会输出 perspective 主 GIF；3D 同时输出四个命名视角。
+
 ## 测试与校验
 
 ```bash
 (cd versions/anim_sketchagent_2d_v1/src && python3 -m unittest -v test_anim_2d.py)
-(cd versions/anim_sketchagent_3d_v1/src && python3 -m unittest -v test_anim_3d.py)
+(cd versions/anim_sketchagent_3d_v1/src && python3 -m unittest -v test_anim_3d.py test_animation_incremental.py test_reasoning_override.py)
 
 (cd versions/anim_sketchagent_2d_v1 && shasum -a 256 -c SHA256SUMS)
 (cd versions/anim_sketchagent_3d_v1 && shasum -a 256 -c SHA256SUMS)

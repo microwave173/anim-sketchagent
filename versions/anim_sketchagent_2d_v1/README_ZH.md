@@ -1,6 +1,6 @@
 # Anim SketchAgent 2D（Path2D）
 
-日期：2026-09-01。
+日期：2026-09-26。
 
 当前 2D 入口是 **Path2D pose-to-pose**：Planner 出稀疏 key 与 `gaps[].n_inbetween`，Drawer **oneshot** 画每一张 key，中间帧也是 **oneshot**（不再按 id 几何 lerp，除非显式 `--lerp`）。坐标 `[-1,1]`，`+x` 右、`+y` 上。
 
@@ -10,13 +10,18 @@
 
 ```text
 用户一句 prompt
-  -> 文本 Planner（plan.json：parts / keys / gaps / people_scale）
+  -> 文本 Planner（plan.json：action / notes / parts / keys / gaps）
   -> oneshot 画 keys（同一套 part id）
   -> oneshot 画因果中间帧（FROM=上一帧，TO=下一 key）
   -> clip.gif + contact_sheet.png
 ```
 
-- 体型跨帧不变：身高、胖瘦、肢长写进 `people_scale`。
+根目录的 `tools/run_gap_complex.py` 提供当前实验所用的 gap one-shot 模式：一个 API 响应生成一对相邻 key 之间的全部中间帧，并同时参考前一 key、后一 key 和第一张 identity anchor。
+
+- `notes` 只保存简短的固定体型、布局、运动通道和关键连接；动作顺序写在 `action` 与 key `notes` 中。
+- 原因必须先可见完成，结果才能开始；例如先触发报警器，再启动喷淋，水接触火焰后火焰才能消失。
+- 画面以观众识别为目标：关键动作使用清楚的轮廓、间距、接触和状态差异，不依赖 prompt 解释。
+- 第一张 key 是身份锚点；后续 key 从相邻 pose 延续位移、朝向、主导肢体、持物状态和角色比例。
 - `n_inbetween` 是两拍之间的时间，不是凑帧；`why` 要说明快/中/慢。
 - 单帧返工：`--from-run DIR --redraw-frame N`（可选 `--redraw-note`、`--redraw-cascade`）。
 - 只重出预览：`--from-run DIR --rebuild-clip`（不调模型）。
@@ -32,7 +37,7 @@ python3 versions/anim_sketchagent_2d_v1/src/glm_anim_2d.py \
   --out outputs/path2d_catwand
 ```
 
-`--model`：`gpt-5.6-sol`（默认）、`glm-5.3`、`deepseek-v4-flash`。GLM 没有 `medium` thinking，会落到 `low`。
+`--model`：`gpt-5.6-sol`（默认）、`deepseek-flash`（DeepSeek-V4.1-Flash）、`deepseek-v4-flash`、`glm-5.3`。GLM 没有 `medium` thinking，会落到 `low`。
 
 ```bash
 python3 versions/anim_sketchagent_2d_v1/src/glm_anim_2d.py \

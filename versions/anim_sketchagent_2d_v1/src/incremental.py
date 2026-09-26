@@ -15,6 +15,9 @@ from path2d.parser import parse_path2d
 from path2d.renderer import render_scene
 from path2d.schema import Path2DScene, Path2DStroke
 
+INK_COLOR = "#111111"
+INK_WIDTH = 3.0
+
 
 def write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -145,7 +148,7 @@ def apply_path2d_patch(
         if sid not in strokes:
             raise ValueError(f"update unknown id {sid!r}")
         parse_path2d(str(item.get("path") or ""))
-        strokes[sid] = {**strokes[sid], **item, "id": sid}
+        strokes[sid] = {**strokes[sid], **item, "id": sid, "stroke": INK_COLOR, "stroke_width": INK_WIDTH}
     for item in patch.add_strokes:
         sid = str(item.get("id") or "").strip()
         parse_path2d(str(item.get("path") or ""))
@@ -153,8 +156,8 @@ def apply_path2d_patch(
             "id": sid,
             "path": item["path"],
             "description": item.get("description") or sid,
-            "stroke": item.get("stroke", "#111111"),
-            "stroke_width": item.get("stroke_width", 3.0),
+            "stroke": INK_COLOR,
+            "stroke_width": INK_WIDTH,
             "opacity": item.get("opacity", 1.0),
             "group": item.get("group", sid),
         }

@@ -8,6 +8,7 @@ import json
 import re
 import sys
 import time
+from types import SimpleNamespace
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -35,25 +36,31 @@ if str(HERE) in sys.path:
     sys.path.remove(str(HERE))
 sys.path.insert(0, str(HERE))
 
+import glm_ds_roles
+import oneshot_glm
+
+REASONING_EFFORT = "high"
+
 from glm_ds_roles import GlmDsEditor, GlmDsPlanner  # noqa: E402
 from oneshot_glm import generate_scene, render_scene  # noqa: E402
 from path3d.schema import Path3DScene  # noqa: E402
-from path3d_json_agents.incremental import StructuredIncrementalPath3DLoop  # noqa: E402
+from animation_incremental import AnimationIncrementalLoop  # noqa: E402
 from prompts import (  # noqa: E402
     KEY_PLAN_SYSTEM,
     MAX_FRAMES,
     MAX_KEYS,
+    MAX_PARTS,
     MIN_FRAMES,
     MIN_KEYS,
+    MIN_PARTS,
     TASKS,
     inbetween_oneshot_prompt,
     INBETWEEN_REASONING,
     key_count_bounds,
     key_draw_prompt,
     key_plan_user,
-    people_scale_line,
 )
-from terra_client import call_sol, parse_json_obj  # noqa: E402
+from terra_client import call_deepseek, parse_json_obj  # noqa: E402
 
 
 def plan_has_cells(plan: dict) -> bool:
@@ -178,6 +185,22 @@ def stamp_frame_span(timeline: list[dict]) -> list[dict]:
     return timeline
 
 
+def _brief_notes(text: str, limit: int = 180) -> str:
+    text = " ".join(text.split())
+    if len(text) <= limit:
+        return text
+    clauses = [item.strip(" ,;:.") for item in re.split(r"\s*;\s*|(?<=[.!?])\s+", text) if item.strip()]
+    kept: list[str] = []
+    for clause in clauses:
+        candidate = "; ".join([*kept, clause]) + "."
+        if len(candidate) > limit:
+            break
+        kept.append(clause)
+    if kept:
+        return "; ".join(kept) + "."
+    return text[: limit - 1].rsplit(" ", 1)[0].rstrip(" ,;:") + "."
+
+
 def validate_key_plan(plan: dict, n_keys: int | None, task: dict, pin_frames: int | None = None) -> dict:
     if plan_has_cells(plan):
         raise ValueError("plan contains grid cells")
@@ -192,7 +215,7 @@ def validate_key_plan(plan: dict, n_keys: int | None, task: dict, pin_frames: in
     if not isinstance(gaps, list) or len(gaps) != n_keys - 1:
         raise ValueError(f"need exactly {n_keys - 1} gaps")
     parts = plan.get("parts") or []
-    plo, phi = task.get("part_range", (6, 20))
+    plo, phi = task.get("part_range", (MIN_PARTS, MAX_PARTS))
     if not isinstance(parts, list) or not (int(plo) <= len(parts) <= int(phi)):
         raise ValueError(f"need {plo}–{phi} parts")
     for i, g in enumerate(gaps):
@@ -207,48 +230,136 @@ def validate_key_plan(plan: dict, n_keys: int | None, task: dict, pin_frames: in
     keys[-1].setdefault("name", "end")
     n_frames = n_keys + sum(int(g["n_inbetween"]) for g in gaps)
     if pin_frames:
-        need = int(pin_frames) - n_keys
-        last = need - sum(int(g["n_inbetween"]) for g in gaps[:-1])
-        if not 1 <= last <= 10:
-            raise ValueError(f"cannot fit {pin_frames} frames")
-        gaps[-1]["n_inbetween"] = last
+        if n_frames != int(pin_frames):
+            raise ValueError(
+                f"keys + all n_inbetween must equal {pin_frames}; got {n_frames}. "
+                "Redistribute every gap deliberately; do not rely on an automatic last-gap correction."
+            )
         n_frames = int(pin_frames)
     if not MIN_FRAMES <= n_frames <= MAX_FRAMES:
         raise ValueError(f"clip length {n_frames} not in {MIN_FRAMES}–{MAX_FRAMES}")
     action = str(plan.get("action") or "").strip()
     if len(action) < 40:
         raise ValueError("need a detailed action rewrite")
+    notes = _brief_notes(str(
+        plan.get("notes")
+        or " ".join(
+            value
+            for value in (
+                str(plan.get("people_scale") or "").strip(),
+                str(plan.get("layout_notes") or "").strip(),
+            )
+            if value
+        )
+    ))
+    if not notes:
+        raise ValueError("need concise notes with fixed identity or essential layout constraints")
     plan["parts"] = parts
     plan["keys"] = keys
     plan["gaps"] = gaps
     plan["n_frames"] = n_frames
     plan["action"] = action
+    plan["notes"] = notes
+    plan.pop("people_scale", None)
+    plan.pop("layout_notes", None)
+    plan.pop("pacing_summary", None)
     return plan
 
 
-def mint_key_plan(task: dict, n_keys: int | None, pin_frames: int | None, suggested_frames: int) -> tuple[dict | None, str, str | None]:
+def normalize_key_plan_timing(
+    plan: dict,
+    n_keys: int | None,
+    pin_frames: int | None,
+    frame_duration_ms: int,
+) -> dict:
+    """Make low-thinking planner timing exact without changing its story beats."""
+    if not pin_frames or not n_keys:
+        return plan
+    keys = plan.get("keys")
+    if not isinstance(keys, list) or len(keys) != int(n_keys):
+        return plan
+    gap_count = int(n_keys) - 1
+    target = int(pin_frames) - int(n_keys)
+    if gap_count <= 0 or not gap_count <= target <= gap_count * 10:
+        return plan
+    old_gaps = plan.get("gaps") if isinstance(plan.get("gaps"), list) else []
+    by_after = {
+        str(item.get("after") or ""): item
+        for item in old_gaps
+        if isinstance(item, dict) and str(item.get("after") or "")
+    }
+    sources: list[dict] = []
+    weights: list[int] = []
+    for index, key in enumerate(keys[:-1]):
+        name = str(key.get("name") or f"key_{index + 1}")
+        positional = old_gaps[index] if index < len(old_gaps) and isinstance(old_gaps[index], dict) else {}
+        source = dict(by_after.get(name) or positional)
+        sources.append(source)
+        try:
+            weight = int(source.get("n_inbetween", 1))
+        except (TypeError, ValueError):
+            weight = 1
+        weights.append(max(1, min(10, weight)))
+    allocation = [1] * gap_count
+    for _ in range(target - gap_count):
+        candidates = [i for i, value in enumerate(allocation) if value < 10]
+        chosen = max(candidates, key=lambda i: (weights[i] / allocation[i], weights[i], -i))
+        allocation[chosen] += 1
+    normalized = []
+    for index, (key, source, count) in enumerate(zip(keys[:-1], sources, allocation)):
+        seconds = count * int(frame_duration_ms) / 1000.0
+        original_why = str(source.get("why") or "visible progression to the next key").strip()
+        normalized.append({
+            "after": str(key.get("name") or f"key_{index + 1}"),
+            "n_inbetween": count,
+            "ease": str(source.get("ease") or "smooth"),
+            "why": f"{seconds:.1f}s after deterministic timing normalization; {original_why}",
+        })
+    plan["gaps"] = normalized
+    return plan
+
+
+def mint_key_plan(
+    task: dict,
+    n_keys: int | None,
+    pin_frames: int | None,
+    suggested_frames: int,
+    frame_duration_ms: int = 80,
+) -> tuple[dict | None, str, str | None]:
     last_raw, last_err = "", None
     for attempt in range(1, 4):
-        raw = call_sol(
+        raw = call_deepseek(
             [
                 {"role": "system", "content": KEY_PLAN_SYSTEM},
                 {
                     "role": "user",
                     "content": key_plan_user(
-                        task, n_keys, suggested_frames=suggested_frames, pin_frames=pin_frames
+                        task,
+                        n_keys,
+                        suggested_frames=suggested_frames,
+                        pin_frames=pin_frames,
+                        frame_duration_ms=frame_duration_ms,
                     ),
                 },
             ],
-            max_tokens=8192,
+            max_tokens=65536 if glm_ds_roles.REASONING_EFFORT_OVERRIDE else 24000,
             temperature=0.4,
-            timeout=180,
+            timeout=600 if glm_ds_roles.REASONING_EFFORT_OVERRIDE else 180,
+            model="deepseek-flash",
+            reasoning_effort=REASONING_EFFORT,
+            thinking=REASONING_EFFORT != "low",
         )
         last_raw = raw
         try:
-            plan = validate_key_plan(parse_json_obj(raw), n_keys, task, pin_frames=pin_frames)
+            candidate = parse_json_obj(raw)
+            candidate = normalize_key_plan_timing(
+                candidate, n_keys, pin_frames, frame_duration_ms
+            )
+            plan = validate_key_plan(candidate, n_keys, task, pin_frames=pin_frames)
             plan["task_id"] = task["task_id"]
-            plan["planner"] = "gpt-5.6-sol-pose-to-pose-3d"
-            plan["people_scale"] = people_scale_line(task)
+            plan["planner"] = "deepseek-flash-pose-to-pose-3d"
+            plan["frame_duration_ms"] = int(frame_duration_ms)
+            plan["duration_seconds"] = round(plan["n_frames"] * int(frame_duration_ms) / 1000.0, 3)
             return plan, raw, None
         except Exception as e:
             last_err = f"attempt {attempt}: {type(e).__name__}: {e}"
@@ -269,8 +380,11 @@ def label_frame(im: Image.Image, text: str) -> Image.Image:
     return rgb
 
 
-def write_gif(paths: list[Path], out: Path, duration_ms: int = 80) -> None:
-    frames = [label_frame(Image.open(p), f"f{i+1}") for i, p in enumerate(paths)]
+def write_gif(paths: list[Path], out: Path, duration_ms: int = 80, labels: list[str] | None = None) -> None:
+    frames = [
+        label_frame(Image.open(p), labels[i] if labels and i < len(labels) else f"f{i+1}")
+        for i, p in enumerate(paths)
+    ]
     frames[0].save(out, save_all=True, append_images=frames[1:], duration=duration_ms, loop=0)
 
 
@@ -290,7 +404,7 @@ def write_contact_sheet(paths: list[Path], out: Path, labels: list[str] | None =
 
 
 def draw_key_incremental(prompt: str, out_dir: Path, *, max_rounds: int, width: int, height: int):
-    loop = StructuredIncrementalPath3DLoop(
+    loop = AnimationIncrementalLoop(
         output_dir=out_dir,
         planner=GlmDsPlanner(),
         editor=GlmDsEditor(),
@@ -361,6 +475,7 @@ def main() -> None:
     ap.add_argument("--task", default="tabledrop", choices=sorted(TASKS))
     ap.add_argument("--keys", type=int, default=None)
     ap.add_argument("--frames", type=int, default=None)
+    ap.add_argument("--key-mode", choices=("incremental", "oneshot"), default="incremental", help="Draw keys using visual revision loop or one complete scene generation")
     ap.add_argument("--max-rounds", type=int, default=4, help="incremental rounds per key")
     ap.add_argument("--key-attempts", type=int, default=2, help="full incremental retries if a key breaks the id contract")
     ap.add_argument("--keys-only", action="store_true", help="draw key poses then stop; skip inbetweens and full clip")
@@ -374,9 +489,31 @@ def main() -> None:
     ap.add_argument("--width", type=int, default=512)
     ap.add_argument("--height", type=int, default=512)
     ap.add_argument("--out", default=None)
+    ap.add_argument(
+        "--prompt",
+        default=None,
+        help="Override the task user request. Drops task-specific staging and scale hints so the planner restages from this sentence only.",
+    )
+    ap.add_argument(
+        "--plan",
+        default=None,
+        help="Load an existing plan.json instead of minting a new plan",
+    )
+    ap.add_argument("--reasoning-effort", choices=("low", "high", "max"), default=None, help="Enable thinking at this effort for every DeepSeek role; omitted preserves defaults.")
     args = ap.parse_args()
+    global REASONING_EFFORT
+    if args.reasoning_effort:
+        REASONING_EFFORT = args.reasoning_effort
+        glm_ds_roles.REASONING_EFFORT_OVERRIDE = args.reasoning_effort
+        oneshot_glm.REASONING_EFFORT_OVERRIDE = args.reasoning_effort
     t_wall = time.time()
-    task = TASKS[args.task]
+    task = dict(TASKS[args.task])
+    if args.prompt:
+        task["prompt"] = str(args.prompt)
+        task["concept"] = str(args.prompt)
+        task.pop("staging", None)
+        task.pop("people_scale", None)
+        task["part_range"] = (MIN_PARTS, MAX_PARTS)
     suggested_frames = int(task.get("target_frames") or 12)
     pin_frames = int(args.frames) if args.frames is not None else None
     lo, hi = key_count_bounds(pin_frames)
@@ -401,7 +538,6 @@ def main() -> None:
                 task = spec
                 gif_ms = int(args.gif_ms if args.gif_ms is not None else task.get("gif_ms", 80))
                 break
-        plan["people_scale"] = people_scale_line(plan) if plan.get("people_scale") else people_scale_line(task)
         n_keys = len(plan.get("keys") or [])
         key_scenes, anchor_scene, canonical_ids = load_run_keys(out, plan)
         for name, scene in key_scenes.items():
@@ -424,7 +560,22 @@ def main() -> None:
             flush=True,
         )
         t0 = time.time()
-        plan, plan_raw, plan_err = mint_key_plan(task, n_keys, pin_frames, suggested_frames)
+        if args.plan:
+            source = Path(args.plan)
+            if not source.is_absolute():
+                source = HERE / source
+            plan_raw = source.read_text(encoding="utf-8")
+            try:
+                plan = validate_key_plan(parse_json_obj(plan_raw), n_keys, task, pin_frames=pin_frames)
+                plan["task_id"] = str(plan.get("task_id") or task["task_id"])
+                plan_err = None
+            except Exception as exc:
+                plan, plan_err = None, f"{type(exc).__name__}: {exc}"
+            print(f"  loaded plan {source}", flush=True)
+        else:
+            plan, plan_raw, plan_err = mint_key_plan(
+                task, n_keys, pin_frames, suggested_frames, frame_duration_ms=gif_ms
+            )
         (out / "plan.raw.txt").write_text(plan_raw, encoding="utf-8")
         if plan is None:
             (out / "summary.json").write_text(json.dumps({"ok": False, "plan_error": plan_err}, indent=2), encoding="utf-8")
@@ -451,10 +602,55 @@ def main() -> None:
             key_dir = out / "keys" / f"{i:02d}_{name}"
             key_dir.mkdir(parents=True, exist_ok=True)
             prompt = key_draw_prompt(
-                plan, key, i, n_keys, prev_scene=prev_scene, prev_name=prev_name
+                plan,
+                key,
+                i,
+                n_keys,
+                prev_scene=prev_scene,
+                prev_name=prev_name,
+                anchor_scene=anchor_scene,
+                anchor_name=str(plan["keys"][0].get("name") or "first"),
             )
             (key_dir / "draw_prompt.txt").write_text(prompt, encoding="utf-8")
-            print(f"== incremental key {i}/{n_keys} {name} ==", flush=True)
+            existing_scene_path = key_dir / "final" / "scene.json"
+            if existing_scene_path.exists():
+                try:
+                    accepted_scene = json.loads(existing_scene_path.read_text(encoding="utf-8"))
+                    if anchor_scene is not None:
+                        accepted_scene = pin_anchored_scene(accepted_scene, anchor_scene, plan)
+                    contract = require_scene_contract(
+                        accepted_scene,
+                        plan,
+                        label=f"reused key {name}",
+                        canonical_ids=canonical_ids,
+                    )
+                    if anchor_scene is None:
+                        anchor_scene = copy.deepcopy(accepted_scene)
+                        canonical_ids = {
+                            str(item.get("id") or "").strip()
+                            for item in accepted_scene.get("strokes") or []
+                            if str(item.get("id") or "").strip()
+                        }
+                    key_scenes[name] = accepted_scene
+                    prev_scene = copy.deepcopy(accepted_scene)
+                    prev_name = name
+                    key_rows.append({
+                        "name": name,
+                        "ok": True,
+                        "status": "reused_existing_final",
+                        "best_revision": None,
+                        "attempt": 0,
+                        "contract": contract,
+                        "key_mode": args.key_mode,
+                        "prior_attempt_error": None,
+                        "seconds": 0.0,
+                        "reused": True,
+                    })
+                    print(f"== reuse key {i}/{n_keys} {name} from {existing_scene_path} ==", flush=True)
+                    continue
+                except Exception as exc:
+                    print(f"  existing key {name} rejected; regenerate: {exc}", flush=True)
+            print(f"== {args.key_mode} key {i}/{n_keys} {name} ==", flush=True)
             t1 = time.time()
             result = None
             accepted_scene = None
@@ -464,17 +660,24 @@ def main() -> None:
             for attempt in range(1, max(1, int(args.key_attempts)) + 1):
                 attempt_dir = key_dir / f"attempt_{attempt:02d}"
                 try:
-                    result = draw_key_incremental(
-                        prompt,
-                        attempt_dir,
-                        max_rounds=args.max_rounds,
-                        width=args.width,
-                        height=args.height,
-                    )
-                    scene_path = attempt_dir / "final" / "scene.json"
-                    if not scene_path.exists() or result.status == "failed":
-                        raise ValueError(f"incremental status={result.status}, scene_exists={scene_path.exists()}")
-                    value = json.loads(scene_path.read_text(encoding="utf-8"))
+                    if args.key_mode == "oneshot":
+                        attempt_dir.mkdir(parents=True, exist_ok=True)
+                        scene, raw = generate_scene(prompt)
+                        (attempt_dir / "raw.txt").write_text(raw, encoding="utf-8")
+                        value = scene.to_dict()
+                        result = SimpleNamespace(status="complete", best_revision=None, rounds_completed=1)
+                    else:
+                        result = draw_key_incremental(
+                            prompt,
+                            attempt_dir,
+                            max_rounds=args.max_rounds,
+                            width=args.width,
+                            height=args.height,
+                        )
+                        scene_path = attempt_dir / "final" / "scene.json"
+                        if not scene_path.exists() or result.status == "failed":
+                            raise ValueError(f"incremental status={result.status}, scene_exists={scene_path.exists()}")
+                        value = json.loads(scene_path.read_text(encoding="utf-8"))
                     if anchor_scene is not None:
                         value = pin_anchored_scene(value, anchor_scene, plan)
                     contract = require_scene_contract(
@@ -522,6 +725,7 @@ def main() -> None:
                     "best_revision": result.best_revision if result else None,
                     "attempt": accepted_attempt,
                     "contract": contract,
+                    "key_mode": args.key_mode,
                     "prior_attempt_error": last_error or None,
                     "seconds": round(time.time() - t1, 2),
                 }
@@ -552,8 +756,8 @@ def main() -> None:
                 "pipeline": "plan_keys_incremental_only",
                 "keys_only": True,
                 "models": {
-                    "plan": "gpt-5.6-sol",
-                    "incremental_visual_review_and_edit": "gpt-5.6-sol",
+                    "plan": "deepseek-flash",
+                    "incremental_visual_review_and_edit": "deepseek-flash",
                 },
                 "id_rename_rule": "ANIM_EDITOR_SYSTEM_PROMPT",
                 "fixed_world_framing": True,
@@ -589,6 +793,7 @@ def main() -> None:
     drawn: dict[int, dict] = {}
     n_frames = len(timeline)
     for slot in timeline:
+        slot_started = time.time()
         i = slot["i"]
         dest = frames_dir / f"f{i:02d}"
         dest.mkdir(exist_ok=True)
@@ -650,6 +855,7 @@ def main() -> None:
                 "attempt": generation_attempt,
                 "from_frame": slot.get("from_frame"),
                 "to_frame": slot.get("to_frame"),
+                "stage_seconds": round(time.time() - slot_started, 2),
                 "contract": contract,
             }
         )
@@ -662,8 +868,8 @@ def main() -> None:
         "ok": True,
         "pipeline": "plan_keys_incremental_inbetweens_oneshot",
         "models": {
-            "plan_and_oneshot_inbetween": "gpt-5.6-sol",
-            "incremental_key_visual_review_and_edit": "gpt-5.6-sol",
+            "plan_and_oneshot_inbetween": "deepseek-flash",
+            "incremental_key_visual_review_and_edit": "deepseek-flash",
         },
         "reflection": False,
         "fixed_world_framing": True,

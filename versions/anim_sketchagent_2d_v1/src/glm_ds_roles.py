@@ -18,9 +18,10 @@ for p in (ROOT, ROOT / "versions" / "path2d_v1", PILOT, HERE):
         sys.path.remove(sp)
     sys.path.insert(0, sp)
 
-from terra_client import call_sol, data_url, parse_json_obj  # noqa: E402
+from terra_client import call_deepseek, data_url, parse_json_obj  # noqa: E402
 
 from incremental import Path2DPatch, Path2DPatchParseError, PlannerReview  # noqa: E402
+from prompts import ANIMAL_DRAWING, INK_STYLE  # noqa: E402
 
 
 ANIM_PLANNER_SYSTEM_PROMPT = """You are the visual director of an incremental 2D stick-figure sketch.
@@ -34,7 +35,8 @@ World: +x right, +y up. Larger y is sky; ground is near y=-0.7. Ears and head-to
 Return only the requested JSON object."""
 
 
-ANIM_EDITOR_SYSTEM_PROMPT = """You are a 2D stick-figure sketch artist editing one Path2D line drawing.
+ANIM_EDITOR_SYSTEM_PROMPT = (
+    """You are a 2D stick-figure sketch artist editing one Path2D line drawing.
 
 Output rules:
 1. Return one JSON patch with delete_stroke_ids, add_strokes, update_strokes, and summary.
@@ -44,9 +46,14 @@ Output rules:
 
 Geometry rules:
 1. Standing height 1/5–1/4 of the ground-line length. Hip halfway from head-top to feet.
-2. Q/C for swinging/bent limbs, spines, tails, hanging lines, round heads. Straight L for ground, poles, posts, flat edges, and rigid shafts. Do not Q a vertical post or the ground. Heads MUST be round Q loops (four or more Q, then Z). Do not draw heads as polygons of L.
-3. Connectivity: every attached pair shares the exact joint (x,y). Head/arms meet the neck; legs meet the hip (neck higher y, hip lower y); ears on the crown; tail at the rump; held props at the hand. No floating parts.
-4. Follow the director's objective, but decide the geometry yourself.
+2. Q/C for swinging/bent limbs, spines, tails, hanging lines, round heads. Straight L for ground, poles, posts, flat edges, and rigid shafts. Do not Q a vertical post or the ground. People heads MUST be round Q loops (four or more Q, then Z). Do not draw people heads as polygons of L.
+3. Connectivity: every attached pair shares the exact joint (x,y). Head/arms meet the neck; legs meet the hip (neck higher y, hip lower y); held props at the hand. No floating parts.
+4. """
+    + ANIMAL_DRAWING
+    + " "
+    + INK_STYLE
+    + """
+5. Follow the director's objective, but decide the geometry yourself.
 
 Animation identity (hard):
 - Every plan part id must exist as an exact stroke id. Helpers only: "<part_id>_...".
@@ -56,6 +63,7 @@ Animation identity (hard):
 Return only:
 {"delete_stroke_ids":[],"update_strokes":[{"id":"existing_id","path":"M ...","description":"...","group":"..."}],"add_strokes":[{"id":"...","path":"M ...","description":"...","stroke":"#111111","stroke_width":3,"opacity":1,"group":"..."}],"summary":"..."}
 Never return SVG tags or 3D xyz / Q3 / C3."""
+)
 
 
 def _chat_content(content: str | list[dict[str, Any]]) -> str | list[dict[str, Any]]:
@@ -114,11 +122,12 @@ def _call_json(*, system: str, content: str | list[dict[str, Any]], vision: bool
     last_err: Exception | None = None
     for attempt in range(2):
         msgs = _messages(system, content)
-        last_raw = call_sol(
+        last_raw = call_deepseek(
             msgs,
             max_tokens=max_tokens,
             temperature=0.2 if vision else 0.4,
             timeout=300,
+            model="deepseek-flash",
             reasoning_effort="high" if not vision else "low",
             thinking=True,
         )

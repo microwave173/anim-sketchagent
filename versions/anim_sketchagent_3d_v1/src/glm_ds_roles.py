@@ -1,4 +1,4 @@
-"""Incremental Path3D roles: gpt-5.6-sol for text and four-view review."""
+"""Incremental Path3D roles: DeepSeek-V4.1-Flash for text and four-view review."""
 from __future__ import annotations
 
 import json
@@ -37,7 +37,8 @@ from path3d_json_agents.incremental import (  # noqa: E402
     StructuredPlannerRole,
 )
 from path3d_json_agents.structured_patch import StructuredPath3DPatch  # noqa: E402
-from terra_client import call_sol, data_url, parse_json_obj  # noqa: E402
+from terra_client import call_deepseek, data_url, parse_json_obj  # noqa: E402
+from prompts import ANIMAL_DRAWING, INK_STYLE  # noqa: E402
 
 # Still-sketch Editor prompt says delete old ids and add *new* ids. Animation forbids that.
 ANIM_PLANNER_SYSTEM_PROMPT = BASE_PLANNER_SYSTEM_PROMPT.replace(
@@ -58,6 +59,17 @@ Animation identity (hard):
 - Changing pose is the same id with new commands, not actor_head_new.
 - Do not replace a required part with only helpers (scenery_post_front is not scenery_post).
 - First-key ids are frozen for later keys: include each of them exactly once.
+
+Exact command schemas (hard):
+- M or L: {"command":"M","point":[x,y,z]} or {"command":"L","point":[x,y,z]}.
+- Q3 is quadratic and has ONE control point named "control":
+  {"command":"Q3","control":[x,y,z],"end":[x,y,z]}.
+  Never put control_1 or control_2 in Q3. If two control points are needed, use C3.
+- C3 is cubic: {"command":"C3","control_1":[x,y,z],"control_2":[x,y,z],"end":[x,y,z]}.
+- Z: {"command":"Z"} only.
+- These field names are literal; do not add style, point, or other fields to a curve command.
+
+Animals (hard): """ + ANIMAL_DRAWING + " " + INK_STYLE + """
 """
 
 
@@ -111,12 +123,31 @@ def _validate_directive(value: dict[str, Any]) -> None:
         raise ValueError("planner instruction has unsupported fields: " + ", ".join(unexpected))
 
 
+# Explicit experiment override; None preserves the original per-role defaults.
+REASONING_EFFORT_OVERRIDE: str | None = None
+
+SPATIAL_VOLUME_CONSTRAINT = 'Spatial volume (hard): Solid spherical bodies must be genuine spatial wireframes, using at least three mutually perpendicular great-circle contours under their existing part id, not a flat circular billboard. Solid boxes/slabs must have depth and connected front/back edges. Front, side and top must all reveal volume. Do not force all curves into one depth plane. For an explosion, fragments travel in x, y and z; a destroyed spherical body must collapse into the explosion core rather than remain as an intact sphere. Any anchored emitter stays rigid and stationary. This describes shape and motion requirements, not supplied coordinates.'
+ANIM_PLANNER_SYSTEM_PROMPT += "\n" + SPATIAL_VOLUME_CONSTRAINT
+ANIM_EDITOR_SYSTEM_PROMPT += "\n" + SPATIAL_VOLUME_CONSTRAINT
+
+RIGID_CHAIN_CONTACT_CONSTRAINT = 'For a chain of tipping rigid tiles: each tile rotates about its ORIGINAL bottom-right floor-level edge, preserving height, thickness and depth. No pivot may slide or rise in the settled pose. The earlier left tile rests ON TOP OF the later tile to its right; the last rightmost tile rests directly on the floor. Thus the final row is a low overlapping shingle, earlier tiles slightly inclined with their tips supported by the next tile, all pivots still on the floor. Never draw a staircase of flat tiles with progressively lifted bases. Each downstream tile remains upright until the upstream neighbor actually contacts it. Check this support order in the director rewrite, every key and all four views.'
+ANIM_PLANNER_SYSTEM_PROMPT += "\n" + RIGID_CHAIN_CONTACT_CONSTRAINT
+ANIM_EDITOR_SYSTEM_PROMPT += "\n" + RIGID_CHAIN_CONTACT_CONSTRAINT
+
 def _call_json(*, system: str, content: str | list[dict[str, Any]], vision: bool, max_tokens: int) -> tuple[dict[str, Any], str]:
     last_raw = ""
     last_err: Exception | None = None
     for attempt in range(2):
         msgs = _messages(system, content)
-        last_raw = call_sol(msgs, max_tokens=max_tokens, temperature=0.2 if vision else 0.4, timeout=240)
+        last_raw = call_deepseek(
+            msgs,
+            max_tokens=max(max_tokens, 65536) if REASONING_EFFORT_OVERRIDE else max_tokens,
+            temperature=0.2 if vision else 0.4,
+            timeout=600,
+            model="deepseek-flash",
+            reasoning_effort=REASONING_EFFORT_OVERRIDE or ("high" if not vision else "low"),
+            thinking=(REASONING_EFFORT_OVERRIDE != "low") if REASONING_EFFORT_OVERRIDE else not vision,
+        )
         try:
             return parse_json_obj(last_raw), last_raw
         except Exception as exc:
@@ -138,7 +169,7 @@ class GlmDsPlanner(StructuredPlannerRole):
                 "Keep it visual and high-level."
             ),
             vision=False,
-            max_tokens=900,
+            max_tokens=4096,
         )
         return value
 
@@ -171,7 +202,7 @@ class GlmDsPlanner(StructuredPlannerRole):
                 system=ANIM_PLANNER_SYSTEM_PROMPT,
                 content=content,
                 vision=True,
-                max_tokens=2600,
+                max_tokens=8192,
             )
             try:
                 _validate_directive(value)
@@ -231,7 +262,7 @@ class GlmDsPlanner(StructuredPlannerRole):
                 ]
             )
         value, _ = _call_json(
-            system=ANIM_PLANNER_SYSTEM_PROMPT, content=content, vision=True, max_tokens=900
+            system=ANIM_PLANNER_SYSTEM_PROMPT, content=content, vision=True, max_tokens=4096
         )
         selected = str(value.get("best_revision", ""))
         if selected not in valid:
@@ -255,7 +286,7 @@ The contact sheet is front, side, top, perspective. Interpret the target and dec
             {"type": "input_image", "image_url": image_url(Path(kwargs["current_contact_sheet"]))},
         ]
         value, raw = _call_json(
-            system=ANIM_EDITOR_SYSTEM_PROMPT, content=content, vision=True, max_tokens=8000
+            system=ANIM_EDITOR_SYSTEM_PROMPT, content=content, vision=True, max_tokens=16000
         )
         try:
             return StructuredPath3DPatch.from_dict(value), raw

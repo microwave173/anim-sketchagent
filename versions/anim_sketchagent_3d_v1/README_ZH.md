@@ -1,6 +1,6 @@
 # 3D Anim SketchAgent
 
-日期：2026-08-27。
+日期：2026-09-26。
 
 把冻结的 2D pose-to-pose 动画改成 3D：整体仍是 **plan + draw keys + fill gaps**，画法换成 Path3D。
 
@@ -10,17 +10,27 @@
 
 | 步骤 | 2D | 3D |
 |---|---|---|
-| Plan | GLM-5.3 文本，无视觉 | 同样，GLM-5.3 文本 |
-| 关键帧 | GLM 一次画一张 SketchAgent XML | **逐步** Path3D incremental（Planner 看四视图、Editor 打 patch）。这是 `path3d_incremental_base_v1`，**没有** `reflection` 那种多样本批量重画 |
-| 中间帧 | 按 `<id>` 几何 lerp | **单次** Path3D one-shot：一次输出整个物体（`path3d_v1` 的生成协议，走 GLM） |
-| 视觉 | 可选 DeepSeek 审 key | incremental 里凡带 contact sheet 的调用用 DeepSeek 视觉；纯文本用 GLM |
+| Plan | 可选文本模型 | DeepSeek 文本规划，支持 thinking effort |
+| 关键帧 | Path2D oneshot | Path3D incremental 或 `--key-mode oneshot` |
+| 中间帧 | Path2D one-shot scene | Path3D one-shot 完整 scene |
+| 视觉 | 可选视觉审 key | incremental 模式使用四视图审稿；oneshot 模式直接画完整 key |
 
-one-shot 只给中间帧，避免每帧再跑 7–9 轮 incremental。动画 Editor 的 system prompt 禁止换 id（不能删旧 id 再造 `_new` / `_emerge`）。
+中间帧 one-shot 避免每帧再跑多轮 incremental。动画专用 document 允许用同一个 id 做原子 pose replacement，但仍禁止同时保留旧几何或改名为 `_new` / `_emerge`。
+
+根目录的 `tools/run_gap_complex.py` 还提供当前实验使用的 gap one-shot 模式：一次响应生成相邻 key 之间的全部中间帧，并利用两侧 motion neighborhood 约束进入和离开 key 时的运动方向。
+
+当前 Planner 和 Drawer 还执行以下约束：
+
+- 原因、结果、消失和新对象出现遵循严格先后关系。
+- 关键动作必须在 perspective 中立即可读，并在正交视图保持可辨认的空间结构。
+- 第一张 key 作为 3D identity anchor，固定体型、部件尺寸、深度结构与连接方式。
+- 相邻 key 的普通 `beat/notes` 提供 motion neighborhood，不增加 planner schema 字段。
+- 按总帧数与 GIF 播放时间分配动作密度，避免准备动作或静止 pose 占据大部分动画。
 
 ## 模型
 
-- 无图：`glm-5.3`（Zhipu）
-- 有图（四视图审稿、选历史最佳、Editor 看 contact sheet）：`deepseek-v4-flash-vision-exp`
+- 当前规划、关键帧、中间帧与视觉修订均可通过 OpenAI-compatible DeepSeek endpoint 调用；`--reasoning-effort low|high|max` 控制 thinking。
+- 仍保留 GLM/Zhipu 与其他兼容端点所需的 client 配置。
 
 ## 调用成本
 
@@ -73,7 +83,7 @@ python3 versions/anim_sketchagent_3d_v1/src/glm_anim_3d.py \
 
 ```bash
 cd versions/anim_sketchagent_3d_v1/src
-python3 -m unittest -v test_anim_3d.py
+python3 -m unittest -v test_anim_3d.py test_animation_incremental.py test_reasoning_override.py
 python3 -m compileall -q .
 ```
 
