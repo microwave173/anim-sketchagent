@@ -1,0 +1,35 @@
+{
+  "python": "3.12.3",
+  "unit_tests_passed": 12,
+  "deployment_root": "/root/autodl-tmp/anim-sketchagent",
+  "smoke_runs": [
+    {
+      "dim": 2,
+      "exit_code": 0,
+      "seconds": 68.522,
+      "api_calls": 4,
+      "frames": 6,
+      "thinking": "low",
+      "gif_exists": true,
+      "output": "/root/autodl-tmp/anim-sketchagent/outputs/deploy_smoke_2d"
+    },
+    {
+      "dim": 3,
+      "exit_code": 0,
+      "seconds": 103.219,
+      "api_calls": 4,
+      "frames": 6,
+      "thinking": "low",
+      "gif_exists": true,
+      "output": "/root/autodl-tmp/anim-sketchagent/outputs/deploy_smoke_3d"
+    }
+  ],
+  "ok": true,
+  "dependencies": {
+    "numpy": "2.5.3",
+    "pillow": "12.3.0",
+    "python-dotenv": "1.2.3"
+  },
+  "verified_at": "2026-09-28T02:45:08.624025+08:00",
+  "disk_usage": "118M"
+}

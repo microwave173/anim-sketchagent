@@ -9,3 +9,9 @@ __pycache__/
 outputs/
 dist/
 build/
+
+old_key.txt
+new_key.txt
+*.tar.gz
+
+.venv-light/
