@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -39,6 +40,12 @@ class Provider:
         self.model = self.config.get("DEEPSEEK_MODEL", "deepseek-flash")
         self.effort, self.timeout, self.calls = effort, timeout, []
         self.max_tokens = max_tokens
+        self._reasoning, self._reasoning_lock = {}, threading.RLock()
+
+    def pop_reasoning(self, stage: str) -> str:
+        """Return and release reasoning text from the most recent successful call for a stage."""
+        with self._reasoning_lock:
+            return self._reasoning.pop(stage, "")
 
     def call(self, stage: str, system: str, user: str, max_tokens: int | None = 393216) -> str:
         payload = {"model": self.model, "messages": [{"role": "system", "content": system},
@@ -63,8 +70,11 @@ class Provider:
                 choice = body["choices"][0]
                 message = choice["message"]
                 content = message.get("content") or ""
+                reasoning = message.get("reasoning_content") or ""
+                with self._reasoning_lock:
+                    self._reasoning[stage] = reasoning
                 row.update(ok=True, usage=body.get("usage"), finish_reason=choice.get("finish_reason"),
-                           output_chars=len(content), reasoning_chars=len(message.get("reasoning_content") or ""))
+                           output_chars=len(content), reasoning_chars=len(reasoning))
                 if choice.get("finish_reason") == "length":
                     raise OutputLimitError(f"Incomplete model output: finish_reason=length, chars={len(content)}", content)
                 if not content.strip():

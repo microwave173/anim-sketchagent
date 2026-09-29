@@ -1,7 +1,7 @@
 {
   "raster_size": 320,
-  "stroke_width": 4,
+  "stroke_width": 3,
   "resize": "bicubic",
-  "description": "Design on a 320px native canvas; render with 4x supersampling, downsample with Lanczos, then enlarge smoothly with bicubic. 4px native strokes become 8px at 640px output. Geometry unchanged.",
+  "description": "Design on a 320px native canvas; render with 4x supersampling, downsample with Lanczos, then enlarge smoothly with bicubic. 3px native strokes become 6px at 640px output. Geometry unchanged.",
   "antialias_scale": 4
 }

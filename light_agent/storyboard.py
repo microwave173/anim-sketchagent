@@ -4,6 +4,62 @@ from __future__ import annotations
 import re
 
 
+def parse_storyboard_value(value: dict, frames: int) -> dict:
+    """Validate the structured storyboard emitted by the joint plan/key stage."""
+    if not isinstance(value, dict):
+        raise ValueError("storyboard must be an object")
+    action = value.get("action")
+    notes = value.get("notes")
+    beats_value = value.get("beats")
+    if not isinstance(action, str) or not action.strip():
+        raise ValueError("storyboard.action must be a nonempty string")
+    if (not isinstance(notes, list) or not notes or
+            not all(isinstance(note, str) and note.strip() for note in notes)):
+        raise ValueError("storyboard.notes must be a nonempty string array")
+    if not isinstance(beats_value, list) or not beats_value:
+        raise ValueError("storyboard.beats must be a nonempty array")
+    beats = []
+    cursor = 1
+    for value in beats_value:
+        if not isinstance(value, dict):
+            raise ValueError("each storyboard beat must be an object")
+        start, end = value.get("start"), value.get("end")
+        event, exit_state = value.get("event"), value.get("exit")
+        # Models often describe motion intervals with the preceding key shared by
+        # both beats (1-9, 9-18). Internally each rendered frame belongs to one
+        # beat, so normalize that equivalent boundary notation to 1-9, 10-18.
+        if beats and type(start) is int and start == cursor - 1:
+            start = cursor
+        if (type(start) is not int or type(end) is not int or start != cursor or
+                end < start or end > frames):
+            raise ValueError(f"non-contiguous or invalid beat range: {start}-{end}")
+        if not all(isinstance(text, str) and text.strip() for text in (event, exit_state)):
+            raise ValueError("beat event and exit must be nonempty strings")
+        beats.append({"start": start, "end": end, "event": event.strip(),
+                      "exit": exit_state.strip()})
+        cursor = end + 1
+    if cursor != frames + 1:
+        raise ValueError(f"storyboard must cover frames 1-{frames}, ends at {cursor - 1}")
+    return {"action": action.strip(), "notes": [note.strip() for note in notes],
+            "beats": beats, "key_indices": sorted({1, *[beat["end"] for beat in beats]})}
+
+
+def storyboard_markdown(story: dict) -> str:
+    """Render either parsed storyboard representation as the human-readable artifact."""
+    notes = story["notes"]
+    if isinstance(notes, str):
+        notes_text = notes
+    else:
+        notes_text = "\n".join(f"- {note}" for note in notes)
+    rows = ["| frames | event | exit |", "|---|---|---|"]
+    for beat in story["beats"]:
+        clean = lambda text: str(text).replace("|", "\\|").replace("\n", " ")
+        rows.append(f'| {beat["start"]}-{beat["end"]} | {clean(beat["event"])} | {clean(beat["exit"])} |')
+    rows_text = "\n".join(rows)
+    return (f'## Action\n\n{story["action"]}\n\n## Notes\n\n{notes_text}\n\n'
+            f'## Beats\n\n{rows_text}\n')
+
+
 def parse_storyboard(text: str, frames: int) -> dict:
     blocks = {}
     matches = list(re.finditer(r"^## (Action|Notes|Beats)\s*$", text, re.M))
@@ -39,6 +95,8 @@ def parse_storyboard(text: str, frames: int) -> dict:
 
 
 def gaps(story: dict) -> list[dict]:
+    if "intervals" in story:
+        return story["intervals"]
     indices = story["key_indices"]
     return [{"from": a, "to": b, "indices": list(range(a + 1, b)),
              "beat": next(beat for beat in story["beats"] if beat["end"] == b)}

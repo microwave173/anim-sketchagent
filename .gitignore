@@ -7,8 +7,14 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 outputs/
+backups/
 dist/
 build/
+*.log
+
+DEPLOYMENT_INFO.json
+/casually_note.md
+/challenge_contribution_analyze.md
 
 old_key.txt
 new_key.txt
