@@ -1,0 +1,937 @@
+{
+  "storyboard": {
+    "action": "The cat noses a wedge of cheese to the base of an upright box, then shoves its muzzle under the box's edge and heaves the box up until its raised corner rests on the cheese. The cat pads left, leaps onto a low stump and crouches there, watching. A mouse pops out of its hole, sniffs the cheese, and drags it away; robbed of its prop the box starts to topple, and the cat springs off the stump. The box slams down over the cat, leaving only its hindquarters and tail sticking out, while the mouse scurries back into its hole with the cheese.",
+    "notes": [
+      "Both animals stay strictly quadrupedal: they push, nose, drag and pounce with head, mouth, paws and body weight only.",
+      "Fixed side view on a single ground line: box trap centre-right, stump and mouse hole lower left, open ground between them.",
+      "Cat: outline quadruped with pointed ears, whiskers and a long curling tail; Mouse: small compact quadruped with large round ears, pointed nose and a long thin tail.",
+      "The box is propped only by the cheese wedge, so pulling the cheese must visibly precede the box toppling."
+    ],
+    "beats": [
+      {
+        "start": 1,
+        "end": 8,
+        "event": "The cat lowers its head and noses the cheese wedge forward until it sits against the base of the box's left edge.",
+        "exit": "The cheese is tucked at the box's left edge with the cat's muzzle on it; the box is still flat on the ground and the cat's weight is on its front paws."
+      },
+      {
+        "start": 9,
+        "end": 18,
+        "event": "The cat shoves its muzzle under the box's left edge and heaves; the box tilts up on its right edge and settles with its raised corner resting on the cheese wedge.",
+        "exit": "The box stands propped at an angle on the cheese and the cat has pulled its head clear and stepped back, looking at the set trap."
+      },
+      {
+        "start": 19,
+        "end": 28,
+        "event": "The cat pads left, springs onto the stump and flattens itself into a crouch on top, watching the trap.",
+        "exit": "The cat is crouched low on the stump at the far left, head forward and eyes on the propped box."
+      },
+      {
+        "start": 29,
+        "end": 38,
+        "event": "The mouse pops out of its hole, scampers right along the ground and stops with its nose at the cheese, sniffing it.",
+        "exit": "The mouse stands at the cheese with its nose against it, tail out behind; the cat stays frozen on the stump."
+      },
+      {
+        "start": 39,
+        "end": 46,
+        "event": "The mouse grips the cheese in its teeth and drags it left out of the trap; robbed of its prop the box starts to topple, and the cat springs off the stump in a long leap toward the trap.",
+        "exit": "The cheese is dragged well clear, the box is tipping over on its right corner, and the cat is airborne mid-leap above the ground."
+      },
+      {
+        "start": 47,
+        "end": 54,
+        "event": "The cat lands where the trap was and the box slams flat down over it; the mouse keeps running left with the cheese.",
+        "exit": "The box lies flat with the cat trapped underneath and only its hind legs and tail sticking out at the left; the mouse is clear to the left with the cheese in its mouth."
+      },
+      {
+        "start": 55,
+        "end": 60,
+        "event": "The cat struggles under the box while the mouse carries the cheese to its hole and dives in.",
+        "exit": "The box stays flat on the cat with its tail thrashing at the left, and the mouse reaches the hole with the cheese."
+      }
+    ],
+    "key_indices": [
+      1,
+      8,
+      18,
+      28,
+      38,
+      46,
+      54,
+      60
+    ]
+  },
+  "frames": [
+    {
+      "i": 1,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M -0.14 -0.62 L 0.34 -0.62 L 0.34 -0.10 L -0.14 -0.10 Z",
+          "description": "box lying flat on the ground"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.38 -0.62 L -0.24 -0.62 L -0.24 -0.42 L -0.38 -0.50 Z",
+          "description": "cheese wedge standing on the ground"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.309 -0.52 C -0.309 -0.506 -0.281 -0.506 -0.281 -0.52 C -0.281 -0.534 -0.309 -0.534 -0.309 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_body",
+          "d": "M -0.280 -0.425 C -0.261 -0.387 -0.280 -0.346 -0.325 -0.346 C -0.362 -0.346 -0.385 -0.372 -0.415 -0.376 C -0.475 -0.380 -0.535 -0.372 -0.576 -0.402 C -0.610 -0.429 -0.618 -0.477 -0.599 -0.511 C -0.588 -0.534 -0.550 -0.541 -0.505 -0.541 C -0.460 -0.541 -0.415 -0.537 -0.385 -0.522 C -0.351 -0.507 -0.336 -0.489 -0.329 -0.470 C -0.317 -0.447 -0.302 -0.432 -0.280 -0.425 Z",
+          "description": "cat head and body contour, head lowered toward the bait"
+        },
+        {
+          "id": "cat_ear_front",
+          "d": "M -0.385 -0.369 L -0.389 -0.320 L -0.344 -0.354",
+          "description": "cat front ear"
+        },
+        {
+          "id": "cat_ear_back",
+          "d": "M -0.340 -0.354 L -0.329 -0.309 L -0.291 -0.361",
+          "description": "cat back ear"
+        },
+        {
+          "id": "cat_eye",
+          "d": "M -0.351 -0.402 C -0.351 -0.393 -0.329 -0.393 -0.329 -0.402 C -0.329 -0.411 -0.351 -0.411 -0.351 -0.402 Z",
+          "description": "cat eye"
+        },
+        {
+          "id": "cat_whisker_front",
+          "d": "M -0.284 -0.440 L -0.227 -0.432",
+          "description": "cat front whisker"
+        },
+        {
+          "id": "cat_whisker_back",
+          "d": "M -0.284 -0.451 L -0.235 -0.462",
+          "description": "cat back whisker"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.603 -0.455 C -0.685 -0.395 -0.693 -0.320 -0.640 -0.275",
+          "description": "cat tail curling up"
+        },
+        {
+          "id": "cat_leg_front_near",
+          "d": "M -0.377 -0.519 C -0.362 -0.552 -0.359 -0.586 -0.347 -0.616 L -0.329 -0.616",
+          "description": "cat near front leg and paw"
+        },
+        {
+          "id": "cat_leg_front_far",
+          "d": "M -0.407 -0.522 C -0.400 -0.552 -0.404 -0.582 -0.396 -0.616 L -0.381 -0.616",
+          "description": "cat far front leg and paw"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.569 -0.500 C -0.603 -0.530 -0.618 -0.567 -0.618 -0.605 L -0.599 -0.616",
+          "description": "cat near hind leg and paw"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.546 -0.507 C -0.573 -0.537 -0.584 -0.575 -0.584 -0.609 L -0.569 -0.616",
+          "description": "cat far hind leg and paw"
+        }
+      ]
+    },
+    {
+      "i": 8,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M -0.14 -0.62 L 0.34 -0.62 L 0.34 -0.10 L -0.14 -0.10 Z",
+          "description": "box still lying flat on the ground"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.28 -0.62 L -0.14 -0.62 L -0.14 -0.42 L -0.28 -0.50 Z",
+          "description": "cheese wedged at the base of the box's left edge"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.209 -0.52 C -0.209 -0.506 -0.181 -0.506 -0.181 -0.52 C -0.181 -0.534 -0.209 -0.534 -0.209 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_body",
+          "d": "M -0.300 -0.500 C -0.278 -0.462 -0.290 -0.420 -0.330 -0.412 C -0.365 -0.405 -0.395 -0.430 -0.425 -0.438 C -0.480 -0.450 -0.535 -0.448 -0.570 -0.478 C -0.600 -0.505 -0.608 -0.545 -0.590 -0.572 C -0.578 -0.588 -0.545 -0.595 -0.505 -0.595 C -0.465 -0.595 -0.425 -0.590 -0.398 -0.578 C -0.368 -0.565 -0.352 -0.545 -0.340 -0.525 C -0.328 -0.508 -0.315 -0.500 -0.300 -0.500 Z",
+          "description": "cat crouched forward, muzzle pushing the cheese"
+        },
+        {
+          "id": "cat_ear_front",
+          "d": "M -0.342 -0.418 L -0.350 -0.372 L -0.308 -0.400",
+          "description": "cat front ear"
+        },
+        {
+          "id": "cat_ear_back",
+          "d": "M -0.300 -0.405 L -0.292 -0.360 L -0.255 -0.395",
+          "description": "cat back ear"
+        },
+        {
+          "id": "cat_eye",
+          "d": "M -0.327 -0.455 C -0.327 -0.446 -0.309 -0.446 -0.309 -0.455 C -0.309 -0.464 -0.327 -0.464 -0.327 -0.455 Z",
+          "description": "cat eye"
+        },
+        {
+          "id": "cat_whisker_front",
+          "d": "M -0.305 -0.478 L -0.255 -0.470",
+          "description": "cat front whisker"
+        },
+        {
+          "id": "cat_whisker_back",
+          "d": "M -0.305 -0.488 L -0.260 -0.498",
+          "description": "cat back whisker"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.575 -0.478 C -0.650 -0.420 -0.660 -0.350 -0.615 -0.310",
+          "description": "cat tail up behind"
+        },
+        {
+          "id": "cat_leg_front_near",
+          "d": "M -0.345 -0.575 C -0.360 -0.590 -0.368 -0.600 -0.372 -0.612 L -0.352 -0.616",
+          "description": "cat near front leg braced"
+        },
+        {
+          "id": "cat_leg_front_far",
+          "d": "M -0.395 -0.585 C -0.410 -0.598 -0.418 -0.605 -0.422 -0.615 L -0.402 -0.618",
+          "description": "cat far front leg braced"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.578 -0.560 C -0.610 -0.580 -0.625 -0.598 -0.630 -0.615 L -0.610 -0.618",
+          "description": "cat near hind leg braced"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.540 -0.570 C -0.570 -0.590 -0.585 -0.602 -0.590 -0.615 L -0.570 -0.618",
+          "description": "cat far hind leg braced"
+        }
+      ]
+    },
+    {
+      "i": 18,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M 0.34 -0.62 L -0.095 -0.417 L 0.125 0.054 L 0.56 -0.149 Z",
+          "description": "box propped up on its right corner"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.235 -0.62 L -0.095 -0.62 L -0.095 -0.42 L -0.235 -0.50 Z",
+          "description": "cheese wedge propping the raised corner of the box"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.164 -0.52 C -0.164 -0.506 -0.136 -0.506 -0.136 -0.52 C -0.136 -0.534 -0.164 -0.534 -0.164 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_body",
+          "d": "M -0.220 -0.425 C -0.201 -0.387 -0.220 -0.346 -0.265 -0.346 C -0.302 -0.346 -0.325 -0.372 -0.355 -0.376 C -0.415 -0.380 -0.475 -0.372 -0.516 -0.402 C -0.550 -0.429 -0.558 -0.477 -0.539 -0.511 C -0.528 -0.534 -0.490 -0.541 -0.445 -0.541 C -0.400 -0.541 -0.355 -0.537 -0.325 -0.522 C -0.291 -0.507 -0.276 -0.489 -0.269 -0.470 C -0.257 -0.447 -0.242 -0.432 -0.220 -0.425 Z",
+          "description": "cat standing back, head clear of the box"
+        },
+        {
+          "id": "cat_ear_front",
+          "d": "M -0.325 -0.369 L -0.329 -0.320 L -0.284 -0.354",
+          "description": "cat front ear"
+        },
+        {
+          "id": "cat_ear_back",
+          "d": "M -0.280 -0.354 L -0.269 -0.309 L -0.231 -0.361",
+          "description": "cat back ear"
+        },
+        {
+          "id": "cat_eye",
+          "d": "M -0.291 -0.402 C -0.291 -0.393 -0.269 -0.393 -0.269 -0.402 C -0.269 -0.411 -0.291 -0.411 -0.291 -0.402 Z",
+          "description": "cat eye"
+        },
+        {
+          "id": "cat_whisker_front",
+          "d": "M -0.224 -0.440 L -0.167 -0.432",
+          "description": "cat front whisker"
+        },
+        {
+          "id": "cat_whisker_back",
+          "d": "M -0.224 -0.451 L -0.175 -0.462",
+          "description": "cat back whisker"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.543 -0.455 C -0.625 -0.395 -0.633 -0.320 -0.580 -0.275",
+          "description": "cat tail curling up"
+        },
+        {
+          "id": "cat_leg_front_near",
+          "d": "M -0.317 -0.519 C -0.302 -0.552 -0.299 -0.586 -0.287 -0.616 L -0.269 -0.616",
+          "description": "cat near front leg planted"
+        },
+        {
+          "id": "cat_leg_front_far",
+          "d": "M -0.347 -0.522 C -0.340 -0.552 -0.344 -0.582 -0.336 -0.616 L -0.321 -0.616",
+          "description": "cat far front leg planted"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.509 -0.500 C -0.543 -0.530 -0.558 -0.567 -0.558 -0.605 L -0.539 -0.616",
+          "description": "cat near hind leg planted"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.486 -0.507 C -0.513 -0.537 -0.524 -0.575 -0.524 -0.609 L -0.509 -0.616",
+          "description": "cat far hind leg planted"
+        }
+      ]
+    },
+    {
+      "i": 28,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M 0.34 -0.62 L -0.095 -0.417 L 0.125 0.054 L 0.56 -0.149 Z",
+          "description": "box propped up on its right corner"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.235 -0.62 L -0.095 -0.62 L -0.095 -0.42 L -0.235 -0.50 Z",
+          "description": "cheese wedge propping the box"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.164 -0.52 C -0.164 -0.506 -0.136 -0.506 -0.136 -0.52 C -0.136 -0.534 -0.164 -0.534 -0.164 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_body",
+          "d": "M -0.670 -0.270 C -0.650 -0.235 -0.670 -0.205 -0.705 -0.205 C -0.740 -0.205 -0.760 -0.235 -0.790 -0.245 C -0.850 -0.260 -0.910 -0.265 -0.945 -0.295 C -0.980 -0.325 -0.990 -0.365 -0.970 -0.395 C -0.955 -0.415 -0.915 -0.425 -0.870 -0.420 C -0.820 -0.412 -0.770 -0.395 -0.740 -0.375 C -0.710 -0.355 -0.690 -0.320 -0.680 -0.295 C -0.674 -0.280 -0.672 -0.275 -0.670 -0.270 Z",
+          "description": "cat crouched on top of the stump"
+        },
+        {
+          "id": "cat_ear_front",
+          "d": "M -0.735 -0.215 L -0.742 -0.172 L -0.702 -0.200",
+          "description": "cat front ear"
+        },
+        {
+          "id": "cat_ear_back",
+          "d": "M -0.700 -0.200 L -0.692 -0.158 L -0.658 -0.190",
+          "description": "cat back ear"
+        },
+        {
+          "id": "cat_eye",
+          "d": "M -0.719 -0.280 C -0.719 -0.271 -0.701 -0.271 -0.701 -0.280 C -0.701 -0.289 -0.719 -0.289 -0.719 -0.280 Z",
+          "description": "cat eye watching the trap"
+        },
+        {
+          "id": "cat_whisker_front",
+          "d": "M -0.680 -0.295 L -0.635 -0.285",
+          "description": "cat front whisker"
+        },
+        {
+          "id": "cat_whisker_back",
+          "d": "M -0.680 -0.310 L -0.640 -0.320",
+          "description": "cat back whisker"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.945 -0.290 C -0.985 -0.230 -0.990 -0.170 -0.955 -0.140",
+          "description": "cat tail curled up behind"
+        },
+        {
+          "id": "cat_leg_front_near",
+          "d": "M -0.745 -0.390 C -0.740 -0.400 -0.735 -0.410 -0.730 -0.420",
+          "description": "cat front paw on the stump"
+        },
+        {
+          "id": "cat_leg_front_far",
+          "d": "M -0.775 -0.395 C -0.775 -0.405 -0.775 -0.412 -0.775 -0.420",
+          "description": "cat far front paw on the stump"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.880 -0.405 C -0.890 -0.412 -0.895 -0.416 -0.900 -0.420",
+          "description": "cat near hind paw on the stump"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.850 -0.405 C -0.855 -0.412 -0.858 -0.416 -0.860 -0.420",
+          "description": "cat far hind paw on the stump"
+        }
+      ]
+    },
+    {
+      "i": 38,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M 0.34 -0.62 L -0.095 -0.417 L 0.125 0.054 L 0.56 -0.149 Z",
+          "description": "box propped up on its right corner"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.235 -0.62 L -0.095 -0.62 L -0.095 -0.42 L -0.235 -0.50 Z",
+          "description": "cheese wedge propping the box"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.164 -0.52 C -0.164 -0.506 -0.136 -0.506 -0.136 -0.52 C -0.136 -0.534 -0.164 -0.534 -0.164 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_body",
+          "d": "M -0.670 -0.270 C -0.650 -0.235 -0.670 -0.205 -0.705 -0.205 C -0.740 -0.205 -0.760 -0.235 -0.790 -0.245 C -0.850 -0.260 -0.910 -0.265 -0.945 -0.295 C -0.980 -0.325 -0.990 -0.365 -0.970 -0.395 C -0.955 -0.415 -0.915 -0.425 -0.870 -0.420 C -0.820 -0.412 -0.770 -0.395 -0.740 -0.375 C -0.710 -0.355 -0.690 -0.320 -0.680 -0.295 C -0.674 -0.280 -0.672 -0.275 -0.670 -0.270 Z",
+          "description": "cat crouched on the stump, tense"
+        },
+        {
+          "id": "cat_ear_front",
+          "d": "M -0.735 -0.215 L -0.742 -0.172 L -0.702 -0.200",
+          "description": "cat front ear"
+        },
+        {
+          "id": "cat_ear_back",
+          "d": "M -0.700 -0.200 L -0.692 -0.158 L -0.658 -0.190",
+          "description": "cat back ear"
+        },
+        {
+          "id": "cat_eye",
+          "d": "M -0.719 -0.280 C -0.719 -0.271 -0.701 -0.271 -0.701 -0.280 C -0.701 -0.289 -0.719 -0.289 -0.719 -0.280 Z",
+          "description": "cat eye locked on the mouse"
+        },
+        {
+          "id": "cat_whisker_front",
+          "d": "M -0.680 -0.295 L -0.635 -0.285",
+          "description": "cat front whisker"
+        },
+        {
+          "id": "cat_whisker_back",
+          "d": "M -0.680 -0.310 L -0.640 -0.320",
+          "description": "cat back whisker"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.945 -0.290 C -0.985 -0.230 -0.990 -0.170 -0.955 -0.140",
+          "description": "cat tail curled up behind"
+        },
+        {
+          "id": "cat_leg_front_near",
+          "d": "M -0.745 -0.390 C -0.740 -0.400 -0.735 -0.410 -0.730 -0.420",
+          "description": "cat front paw on the stump"
+        },
+        {
+          "id": "cat_leg_front_far",
+          "d": "M -0.775 -0.395 C -0.775 -0.405 -0.775 -0.412 -0.775 -0.420",
+          "description": "cat far front paw on the stump"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.880 -0.405 C -0.890 -0.412 -0.895 -0.416 -0.900 -0.420",
+          "description": "cat near hind paw on the stump"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.850 -0.405 C -0.855 -0.412 -0.858 -0.416 -0.860 -0.420",
+          "description": "cat far hind paw on the stump"
+        },
+        {
+          "id": "mouse_body",
+          "d": "M -0.256 -0.536 C -0.252 -0.516 -0.264 -0.496 -0.292 -0.492 C -0.328 -0.488 -0.368 -0.488 -0.400 -0.496 C -0.440 -0.504 -0.460 -0.524 -0.456 -0.552 C -0.452 -0.576 -0.424 -0.584 -0.392 -0.580 C -0.360 -0.576 -0.320 -0.572 -0.292 -0.560 C -0.272 -0.552 -0.260 -0.544 -0.256 -0.536 Z",
+          "description": "mouse body and head at the cheese"
+        },
+        {
+          "id": "mouse_ear_front",
+          "d": "M -0.304 -0.496 C -0.316 -0.456 -0.284 -0.448 -0.276 -0.492",
+          "description": "mouse front ear"
+        },
+        {
+          "id": "mouse_ear_back",
+          "d": "M -0.356 -0.492 C -0.376 -0.452 -0.340 -0.444 -0.328 -0.488",
+          "description": "mouse back ear"
+        },
+        {
+          "id": "mouse_eye",
+          "d": "M -0.286 -0.520 C -0.286 -0.513 -0.274 -0.513 -0.274 -0.520 C -0.274 -0.527 -0.286 -0.527 -0.286 -0.520 Z",
+          "description": "mouse eye"
+        },
+        {
+          "id": "mouse_whisker_front",
+          "d": "M -0.260 -0.528 L -0.220 -0.520",
+          "description": "mouse front whisker"
+        },
+        {
+          "id": "mouse_whisker_back",
+          "d": "M -0.260 -0.540 L -0.224 -0.548",
+          "description": "mouse back whisker"
+        },
+        {
+          "id": "mouse_tail",
+          "d": "M -0.456 -0.548 C -0.528 -0.540 -0.576 -0.560 -0.608 -0.580",
+          "description": "mouse long thin tail"
+        },
+        {
+          "id": "mouse_leg_front_near",
+          "d": "M -0.300 -0.568 C -0.292 -0.584 -0.292 -0.600 -0.288 -0.616 L -0.276 -0.616",
+          "description": "mouse near front leg"
+        },
+        {
+          "id": "mouse_leg_front_far",
+          "d": "M -0.320 -0.572 C -0.316 -0.588 -0.320 -0.604 -0.316 -0.616 L -0.304 -0.616",
+          "description": "mouse far front leg"
+        },
+        {
+          "id": "mouse_leg_hind_near",
+          "d": "M -0.428 -0.568 C -0.440 -0.584 -0.444 -0.600 -0.444 -0.616 L -0.432 -0.616",
+          "description": "mouse near hind leg"
+        },
+        {
+          "id": "mouse_leg_hind_far",
+          "d": "M -0.408 -0.572 C -0.416 -0.588 -0.420 -0.604 -0.420 -0.616 L -0.408 -0.616",
+          "description": "mouse far hind leg"
+        }
+      ]
+    },
+    {
+      "i": 46,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M 0.34 -0.62 L -0.117 -0.472 L 0.044 0.022 L 0.501 -0.126 Z",
+          "description": "box tipping over as its prop is pulled away"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.42 -0.62 L -0.28 -0.62 L -0.28 -0.42 L -0.42 -0.50 Z",
+          "description": "cheese dragged out to the left"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.349 -0.52 C -0.349 -0.506 -0.321 -0.506 -0.321 -0.52 C -0.321 -0.534 -0.349 -0.534 -0.349 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "mouse_body",
+          "d": "M -0.416 -0.536 C -0.412 -0.516 -0.424 -0.496 -0.452 -0.492 C -0.488 -0.488 -0.528 -0.488 -0.560 -0.496 C -0.600 -0.504 -0.620 -0.524 -0.616 -0.552 C -0.612 -0.576 -0.584 -0.584 -0.552 -0.580 C -0.520 -0.576 -0.480 -0.572 -0.452 -0.560 C -0.432 -0.552 -0.420 -0.544 -0.416 -0.536 Z",
+          "description": "mouse backing away with the cheese in its teeth"
+        },
+        {
+          "id": "mouse_ear_front",
+          "d": "M -0.464 -0.496 C -0.476 -0.456 -0.444 -0.448 -0.436 -0.492",
+          "description": "mouse front ear"
+        },
+        {
+          "id": "mouse_ear_back",
+          "d": "M -0.516 -0.492 C -0.536 -0.452 -0.500 -0.444 -0.488 -0.488",
+          "description": "mouse back ear"
+        },
+        {
+          "id": "mouse_eye",
+          "d": "M -0.446 -0.520 C -0.446 -0.513 -0.434 -0.513 -0.434 -0.520 C -0.434 -0.527 -0.446 -0.527 -0.446 -0.520 Z",
+          "description": "mouse eye"
+        },
+        {
+          "id": "mouse_whisker_front",
+          "d": "M -0.420 -0.528 L -0.380 -0.520",
+          "description": "mouse front whisker"
+        },
+        {
+          "id": "mouse_whisker_back",
+          "d": "M -0.420 -0.540 L -0.384 -0.548",
+          "description": "mouse back whisker"
+        },
+        {
+          "id": "mouse_tail",
+          "d": "M -0.616 -0.548 C -0.680 -0.520 -0.720 -0.500 -0.750 -0.480",
+          "description": "mouse tail lifted clear of the hole"
+        },
+        {
+          "id": "mouse_leg_front_near",
+          "d": "M -0.460 -0.568 C -0.452 -0.584 -0.452 -0.600 -0.448 -0.616 L -0.436 -0.616",
+          "description": "mouse near front leg"
+        },
+        {
+          "id": "mouse_leg_front_far",
+          "d": "M -0.480 -0.572 C -0.476 -0.588 -0.480 -0.604 -0.476 -0.616 L -0.464 -0.616",
+          "description": "mouse far front leg"
+        },
+        {
+          "id": "mouse_leg_hind_near",
+          "d": "M -0.588 -0.568 C -0.600 -0.584 -0.604 -0.600 -0.604 -0.616 L -0.592 -0.616",
+          "description": "mouse near hind leg"
+        },
+        {
+          "id": "mouse_leg_hind_far",
+          "d": "M -0.568 -0.572 C -0.576 -0.588 -0.580 -0.604 -0.580 -0.616 L -0.568 -0.616",
+          "description": "mouse far hind leg"
+        },
+        {
+          "id": "cat_body",
+          "d": "M -0.540 -0.145 C -0.521 -0.107 -0.540 -0.066 -0.585 -0.066 C -0.622 -0.066 -0.645 -0.092 -0.675 -0.096 C -0.735 -0.100 -0.795 -0.092 -0.836 -0.122 C -0.870 -0.149 -0.878 -0.197 -0.859 -0.231 C -0.848 -0.254 -0.810 -0.261 -0.765 -0.261 C -0.720 -0.261 -0.675 -0.257 -0.645 -0.242 C -0.611 -0.227 -0.596 -0.209 -0.589 -0.190 C -0.577 -0.167 -0.562 -0.152 -0.540 -0.145 Z",
+          "description": "cat stretched out in mid-leap"
+        },
+        {
+          "id": "cat_ear_front",
+          "d": "M -0.645 -0.089 L -0.649 -0.040 L -0.604 -0.074",
+          "description": "cat front ear"
+        },
+        {
+          "id": "cat_ear_back",
+          "d": "M -0.600 -0.074 L -0.589 -0.029 L -0.551 -0.081",
+          "description": "cat back ear"
+        },
+        {
+          "id": "cat_eye",
+          "d": "M -0.611 -0.122 C -0.611 -0.113 -0.589 -0.113 -0.589 -0.122 C -0.589 -0.131 -0.611 -0.131 -0.611 -0.122 Z",
+          "description": "cat eye"
+        },
+        {
+          "id": "cat_whisker_front",
+          "d": "M -0.544 -0.160 L -0.487 -0.152",
+          "description": "cat front whisker"
+        },
+        {
+          "id": "cat_whisker_back",
+          "d": "M -0.544 -0.171 L -0.495 -0.182",
+          "description": "cat back whisker"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.863 -0.175 C -0.940 -0.150 -0.975 -0.115 -0.975 -0.080",
+          "description": "cat tail streaming behind"
+        },
+        {
+          "id": "cat_leg_front_near",
+          "d": "M -0.637 -0.239 C -0.610 -0.255 -0.590 -0.285 -0.575 -0.315 L -0.555 -0.325",
+          "description": "cat near front leg reaching forward"
+        },
+        {
+          "id": "cat_leg_front_far",
+          "d": "M -0.667 -0.242 C -0.640 -0.258 -0.622 -0.288 -0.610 -0.318 L -0.590 -0.328",
+          "description": "cat far front leg reaching forward"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.829 -0.220 C -0.865 -0.245 -0.885 -0.270 -0.895 -0.295 L -0.875 -0.305",
+          "description": "cat near hind leg trailing"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.806 -0.227 C -0.840 -0.252 -0.858 -0.275 -0.868 -0.298 L -0.848 -0.308",
+          "description": "cat far hind leg trailing"
+        }
+      ]
+    },
+    {
+      "i": 54,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M -0.14 -0.62 L 0.34 -0.62 L 0.34 -0.10 L -0.14 -0.10 Z",
+          "description": "box fallen flat over the cat"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.48 -0.62 L -0.34 -0.62 L -0.34 -0.42 L -0.48 -0.50 Z",
+          "description": "cheese held in the mouse's mouth"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.409 -0.52 C -0.409 -0.506 -0.381 -0.506 -0.381 -0.52 C -0.381 -0.534 -0.409 -0.534 -0.409 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_rear",
+          "d": "M -0.140 -0.470 C -0.185 -0.490 -0.220 -0.515 -0.245 -0.545",
+          "description": "cat rump still sticking out from under the box"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.245 -0.560 C -0.270 -0.578 -0.285 -0.595 -0.288 -0.612 L -0.268 -0.618",
+          "description": "cat near hind leg kicking outside the box"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.210 -0.565 C -0.235 -0.582 -0.248 -0.596 -0.252 -0.612 L -0.232 -0.618",
+          "description": "cat far hind leg kicking outside the box"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.250 -0.540 C -0.290 -0.480 -0.300 -0.420 -0.270 -0.380",
+          "description": "cat tail flicking up in surprise"
+        },
+        {
+          "id": "mouse_body",
+          "d": "M -0.476 -0.536 C -0.472 -0.516 -0.484 -0.496 -0.512 -0.492 C -0.548 -0.488 -0.588 -0.488 -0.620 -0.496 C -0.660 -0.504 -0.680 -0.524 -0.676 -0.552 C -0.672 -0.576 -0.644 -0.584 -0.612 -0.580 C -0.580 -0.576 -0.540 -0.572 -0.512 -0.560 C -0.492 -0.552 -0.480 -0.544 -0.476 -0.536 Z",
+          "description": "mouse running left with the cheese"
+        },
+        {
+          "id": "mouse_ear_front",
+          "d": "M -0.524 -0.496 C -0.536 -0.456 -0.504 -0.448 -0.496 -0.492",
+          "description": "mouse front ear"
+        },
+        {
+          "id": "mouse_ear_back",
+          "d": "M -0.576 -0.492 C -0.596 -0.452 -0.560 -0.444 -0.548 -0.488",
+          "description": "mouse back ear"
+        },
+        {
+          "id": "mouse_eye",
+          "d": "M -0.506 -0.520 C -0.506 -0.513 -0.494 -0.513 -0.494 -0.520 C -0.494 -0.527 -0.506 -0.527 -0.506 -0.520 Z",
+          "description": "mouse eye"
+        },
+        {
+          "id": "mouse_whisker_front",
+          "d": "M -0.480 -0.528 L -0.440 -0.520",
+          "description": "mouse front whisker"
+        },
+        {
+          "id": "mouse_whisker_back",
+          "d": "M -0.480 -0.540 L -0.444 -0.548",
+          "description": "mouse back whisker"
+        },
+        {
+          "id": "mouse_tail",
+          "d": "M -0.676 -0.548 C -0.735 -0.520 -0.775 -0.500 -0.805 -0.480",
+          "description": "mouse tail streaming behind"
+        },
+        {
+          "id": "mouse_leg_front_near",
+          "d": "M -0.520 -0.568 C -0.512 -0.584 -0.512 -0.600 -0.508 -0.616 L -0.496 -0.616",
+          "description": "mouse near front leg"
+        },
+        {
+          "id": "mouse_leg_front_far",
+          "d": "M -0.540 -0.572 C -0.536 -0.588 -0.540 -0.604 -0.536 -0.616 L -0.524 -0.616",
+          "description": "mouse far front leg"
+        },
+        {
+          "id": "mouse_leg_hind_near",
+          "d": "M -0.648 -0.568 C -0.660 -0.584 -0.664 -0.600 -0.664 -0.616 L -0.652 -0.616",
+          "description": "mouse near hind leg"
+        },
+        {
+          "id": "mouse_leg_hind_far",
+          "d": "M -0.628 -0.572 C -0.636 -0.588 -0.640 -0.604 -0.640 -0.616 L -0.628 -0.616",
+          "description": "mouse far hind leg"
+        }
+      ]
+    },
+    {
+      "i": 60,
+      "strokes": [
+        {
+          "id": "ground",
+          "d": "M -1 -0.62 L 1 -0.62",
+          "description": "ground line"
+        },
+        {
+          "id": "stump",
+          "d": "M -0.99 -0.62 L -0.99 -0.46 C -0.99 -0.43 -0.97 -0.42 -0.94 -0.42 L -0.81 -0.42 C -0.78 -0.42 -0.76 -0.44 -0.76 -0.47 L -0.76 -0.62 Z",
+          "description": "low stump at far left"
+        },
+        {
+          "id": "mouse_hole",
+          "d": "M -0.78 -0.62 C -0.78 -0.565 -0.75 -0.545 -0.73 -0.545 C -0.71 -0.545 -0.68 -0.565 -0.68 -0.62",
+          "description": "arch of the mouse hole"
+        },
+        {
+          "id": "trap_box",
+          "d": "M -0.14 -0.62 L 0.34 -0.62 L 0.34 -0.10 L -0.14 -0.10 Z",
+          "description": "box still flat over the trapped cat"
+        },
+        {
+          "id": "bait_cheese",
+          "d": "M -0.66 -0.62 L -0.52 -0.62 L -0.52 -0.42 L -0.66 -0.50 Z",
+          "description": "cheese carried to the mouse hole"
+        },
+        {
+          "id": "cheese_hole",
+          "d": "M -0.589 -0.52 C -0.589 -0.506 -0.561 -0.506 -0.561 -0.52 C -0.561 -0.534 -0.589 -0.534 -0.589 -0.52 Z",
+          "description": "round hole in the cheese"
+        },
+        {
+          "id": "cat_rear",
+          "d": "M -0.140 -0.470 C -0.185 -0.490 -0.220 -0.515 -0.245 -0.545",
+          "description": "cat rump still trapped outside the box"
+        },
+        {
+          "id": "cat_leg_hind_near",
+          "d": "M -0.245 -0.560 C -0.270 -0.578 -0.285 -0.595 -0.288 -0.612 L -0.268 -0.618",
+          "description": "cat near hind leg scrabbling outside the box"
+        },
+        {
+          "id": "cat_leg_hind_far",
+          "d": "M -0.210 -0.565 C -0.235 -0.582 -0.248 -0.596 -0.252 -0.612 L -0.232 -0.618",
+          "description": "cat far hind leg scrabbling outside the box"
+        },
+        {
+          "id": "cat_tail",
+          "d": "M -0.250 -0.540 C -0.300 -0.500 -0.320 -0.450 -0.290 -0.400",
+          "description": "cat tail thrashing above the box edge"
+        },
+        {
+          "id": "mouse_body",
+          "d": "M -0.634 -0.536 C -0.638 -0.516 -0.626 -0.496 -0.598 -0.492 C -0.562 -0.488 -0.522 -0.488 -0.490 -0.496 C -0.450 -0.504 -0.430 -0.524 -0.434 -0.552 C -0.438 -0.576 -0.466 -0.584 -0.498 -0.580 C -0.530 -0.576 -0.570 -0.572 -0.598 -0.560 C -0.618 -0.552 -0.630 -0.544 -0.634 -0.536 Z",
+          "description": "mouse turned toward its hole"
+        },
+        {
+          "id": "mouse_ear_front",
+          "d": "M -0.586 -0.496 C -0.574 -0.456 -0.606 -0.448 -0.614 -0.492",
+          "description": "mouse front ear"
+        },
+        {
+          "id": "mouse_ear_back",
+          "d": "M -0.534 -0.492 C -0.514 -0.452 -0.550 -0.444 -0.562 -0.488",
+          "description": "mouse back ear"
+        },
+        {
+          "id": "mouse_eye",
+          "d": "M -0.604 -0.520 C -0.604 -0.513 -0.616 -0.513 -0.616 -0.520 C -0.616 -0.527 -0.604 -0.527 -0.604 -0.520 Z",
+          "description": "mouse eye"
+        },
+        {
+          "id": "mouse_whisker_front",
+          "d": "M -0.630 -0.528 L -0.670 -0.520",
+          "description": "mouse front whisker"
+        },
+        {
+          "id": "mouse_whisker_back",
+          "d": "M -0.630 -0.540 L -0.666 -0.548",
+          "description": "mouse back whisker"
+        },
+        {
+          "id": "mouse_tail",
+          "d": "M -0.434 -0.548 C -0.375 -0.520 -0.335 -0.500 -0.305 -0.480",
+          "description": "mouse tail out behind"
+        },
+        {
+          "id": "mouse_leg_front_near",
+          "d": "M -0.590 -0.568 C -0.598 -0.584 -0.598 -0.600 -0.602 -0.616 L -0.614 -0.616",
+          "description": "mouse near front leg"
+        },
+        {
+          "id": "mouse_leg_front_far",
+          "d": "M -0.570 -0.572 C -0.574 -0.588 -0.570 -0.604 -0.574 -0.616 L -0.586 -0.616",
+          "description": "mouse far front leg"
+        },
+        {
+          "id": "mouse_leg_hind_near",
+          "d": "M -0.462 -0.568 C -0.450 -0.584 -0.446 -0.600 -0.446 -0.616 L -0.458 -0.616",
+          "description": "mouse near hind leg"
+        },
+        {
+          "id": "mouse_leg_hind_far",
+          "d": "M -0.482 -0.572 C -0.474 -0.588 -0.470 -0.604 -0.470 -0.616 L -0.482 -0.616",
+          "description": "mouse far hind leg"
+        }
+      ]
+    }
+  ]
+}

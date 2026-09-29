@@ -2,13 +2,15 @@
 
 Anim SketchAgent 是一套 pose-to-pose 线稿动画实验仓库，同时保存可复现的 2D 与 3D 入口。当前提示词把事件写成严格的因果顺序，并以观众能否从线稿中直接辨认主体、动作、接触和状态变化作为画面约束。
 
+当前发布版本：**v2.1.0 — JointPlanKey**。变更摘要见 [CHANGELOG](CHANGELOG.md)，完整研究演进见 [研究与优化历程](docs/RESEARCH_HISTORY_ZH.md)，代表性结果见 [60 帧猫鼠示例](examples/jointplankey_cat_mouse_60f/README.md)。
+
 
 ## Agent 版本并存
 
 - **Classic V1**：原有复杂 agent，源码及示例保留在 `versions/anim_sketchagent_2d_v1`、`versions/anim_sketchagent_3d_v1`。
-- **Light V2（最新）**：`light_agent/`，Markdown 规划 → 全部关键帧一次生成 → gap 并发批量生成。支持 2D/3D，当前 2D 使用 320px 设计目标、粗线火柴人和抗锯齿平滑放大；机器人采用机械造型。
+- **Light V2（最新）**：`light_agent/`，一次请求联合生成结构化 storyboard 与全部 sparse keys → gap 并发批量生成。联合 reasoning 可以在构造 key pose 时同步修正故事与空间调度；旧 Markdown/JSON 两阶段 planner 保留为实验回退。支持 2D/3D，当前 2D 使用 320px 设计目标和抗锯齿平滑放大；机器人采用机械造型。
 
-[新版使用与服务器部署文档](docs/LIGHT_V2_USAGE_ZH.md)。只运行新版可安装 `requirements-light.txt`。
+[文档索引](docs/README.md)汇总当前实现、研究观察、架构决策和历史实验；[新版使用与服务器部署文档](docs/LIGHT_V2_USAGE_ZH.md)记录具体运行方法。只运行新版可安装 `requirements-light.txt`。
 
 ## Classic V1 的两个维度
 

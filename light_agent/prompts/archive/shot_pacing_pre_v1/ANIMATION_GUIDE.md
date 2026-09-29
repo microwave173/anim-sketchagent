@@ -12,8 +12,6 @@ Humans and robots have different visual construction. Human stick-figure rules n
 
 Keep each continuing object's ID, size, proportions, and characteristic shape. A changed pose is the same object. Preserve attachment joints: hands meet held props, limbs meet their body, and supports meet their fixtures. Use the identity reference for appearance and the preceding frames for current pose and position. Fixed scenery and the camera stay fixed unless the request calls for a change.
 
-Preserve the storyboard's camera plan. A new story beat does not imply a new shot. Keep the same framing, scale and viewpoint across consecutive beats that belong to one shot, allowing the action to develop inside the composition. Avoid rapid alternation among wide, medium and close views. For clips up to six seconds, favor one continuous view and never exceed the small shot budget stated by the planner. If the storyboard specifies a hard cut at an exact frame, show the old composition through the preceding frame and the new composition starting immediately at the cut frame; do not morph, zoom or interpolate between the two views. Camera motion within a continuous shot should be slow enough to read and must not replace the main character action.
-
 ## Drawing style
 
 Use clean black linework on white. Every stroke has the same color, width and full opacity throughout the animation. Favor a few purposeful, readable strokes over realistic anatomy, mechanical detail, shading, hatching or decorative clutter. Use curved paths for organic bends, round forms and swinging limbs; use straight paths for ground, posts, flat edges and rigid shafts. Do not build an organic pose entirely from straight polygon segments.
@@ -21,8 +19,6 @@ Use clean black linework on white. Every stroke has the same color, width and fu
 People stay stick figures: one round head drawn with smooth closed curves, not a polygon, teardrop or long oval. By default omit hair, hats, faces and marks beside the head. Attach the neck to the bottom of the head, not its center. Draw the torso as a single open curve from neck to hip; arms attach at the neck and legs at the hip. Limbs are single open strokes, never filled silhouettes, tubes or double outlines. Keep head size and body build consistent while the entire body leans, crouches and follows through with the action.
 
 Animals are cute, lively children's sketches, not stick figures or realistic anatomical studies. Use a closed oval or bean-shaped body and a simple closed head. Short-neck animals have touching or overlapping head and body shapes without an added neck. For long-neck animals, prefer one continuous body-neck-head outline without construction seams. Legs are short single open strokes attached to the body, with the appropriate number for the species. Keep a characteristic tail clearly readable; short legs do not require a short tail. Show species-defining features such as ears, muzzle or beak, wings and tail, plus a small eye tick inside the head. Ears project from the crown rather than tracing the skull. Do not leave a stick skeleton or unnecessary inner construction ovals inside the animal.
-
-Animals retain species-typical posture, anatomy and locomotion unless the user explicitly requests anthropomorphic acting. Keep quadrupeds on four legs and let them manipulate objects naturally with the mouth, paws, head or body weight. Do not make an animal stand upright, walk like a human, use forelegs as human arms or hands, or copy human gestures by default.
 
 Props use the fewest strokes that make their type recognizable and keep the important contact visible. For 3D, preserve genuine depth and consistent attachments while retaining the same simple sketch construction; use the supplied world axes. Explicit user appearance requests and edits override these defaults.
 
@@ -35,8 +31,6 @@ Objects may appear, transform, or disappear when the story calls for it. Keep th
 ## Spend time on action
 
 Match the supplied duration. Preparation is brief; give travel, the main event, and its consequence enough visible time. A fast impact need not have the same duration as a long approach. Holds should help the audience register meaning, not fill unused frames. Do not repeat a neutral pose across a large part of the clip.
-
-Match story scope to time as well as distributing frames. Do not compress a long chain of optional actions into a short clip. When the duration is short, simplify the action while retaining the user's required causal arc. Give the initial situation and final result enough screen time to be recognized at normal playback speed.
 
 ## Animate connected parts
 

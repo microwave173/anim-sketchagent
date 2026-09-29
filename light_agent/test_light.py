@@ -6,11 +6,15 @@ import tempfile
 import threading
 import unittest
 import urllib.error
+import xml.etree.ElementTree as ET
 from unittest.mock import patch
 
+from PIL import Image
+
 from pipeline import run
-from scene import validate_batch, static_anchor, pin_static
-from storyboard import parse_storyboard, gaps
+from scene import validate_batch, static_anchor, pin_static, protocol, public_frames
+from render import export
+from storyboard import parse_storyboard, parse_storyboard_value, storyboard_markdown, gaps
 from provider import Provider, OutputLimitError
 
 STORY = """## Action
@@ -44,14 +48,54 @@ class LightTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 parse_storyboard(bad, 6)
 
-    def test_validation_rejects_duplicate_ids_out_of_bounds_and_wrong_indices(self):
-        duplicate = frame(1)
-        duplicate["strokes"].append(duplicate["strokes"][0])
+    def test_structured_storyboard_normalizes_shared_key_boundaries(self):
+        story = parse_storyboard_value({
+            "action": "A short action.",
+            "notes": ["Fixed camera."],
+            "beats": [
+                {"start": 1, "end": 3, "event": "First", "exit": "First exit"},
+                {"start": 3, "end": 6, "event": "Second", "exit": "Final exit"},
+            ],
+        }, 6)
+        self.assertEqual([(beat["start"], beat["end"]) for beat in story["beats"]],
+                         [(1, 3), (4, 6)])
+        self.assertEqual(story["key_indices"], [1, 3, 6])
+
+    def test_validation_rejects_invalid_paths_and_wrong_indices_but_allows_clipping(self):
+        invalid = frame(1)
+        invalid["strokes"][0]["path"] = "M nope"
         outside = frame(1)
         outside["strokes"][0]["path"] = "M -2 0 L 0 0"
-        for raw in [duplicate, outside, frame(2)]:
+        for raw in [invalid, frame(2)]:
             with self.assertRaises(ValueError):
                 validate_batch({"frames": [raw]}, [1], 2, "test")
+        self.assertEqual(list(validate_batch({"frames": [outside]}, [1], 2, "test")), [1])
+
+    def test_2d_uses_svg_d_semantics_and_enforces_one_black_style(self):
+        raw = {"frames": [{"i": 1, "strokes": [{"id": "actor_head",
+            "d": "M -0.2 0 C -0.2 0.2 0.2 0.2 0.2 0 C 0.2 -0.2 -0.2 -0.2 -0.2 0 Z",
+            "description": "circular head", "stroke": "red", "stroke_width": 99}]}]}
+        frames = validate_batch(raw, [1], 2, "test")
+        stroke = frames[1]["strokes"][0]
+        self.assertEqual((stroke["stroke"], stroke["stroke_width"], stroke["opacity"]),
+                         ("#000000", 4.0, 1.0))
+        external = public_frames(frames, 2)[0]["strokes"][0]
+        self.assertEqual(set(external), {"id", "d", "description"})
+        self.assertIn("standard SVG", protocol(2))
+        self.assertIn("stable semantic id", protocol(2))
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            export(frames, out, 2, 120, 320, "test prompt")
+            for path in (out / "animation.svg", out / "frames_svg/frame_0001.svg"):
+                tree = ET.parse(path)
+                root = tree.getroot()
+                self.assertEqual(root.tag, "{http://www.w3.org/2000/svg}svg")
+                element = root.find(".//{http://www.w3.org/2000/svg}path")
+                self.assertEqual(element.attrib["data-part-id"], "actor_head")
+                self.assertEqual(element.attrib["data-description"], "circular head")
+            svg = (out / "frames_svg/frame_0001.svg").read_text()
+            self.assertIn('stroke="#000000"', svg)
+            self.assertNotIn("red", svg)
 
     def test_pin_only_fixed_scenery_does_not_resurrect_fire(self):
         keys = validate_batch({"frames": [frame(1), frame(6, False)]}, [1, 6], 2, "test")
@@ -63,7 +107,23 @@ class LightTests(unittest.TestCase):
 
     def test_3d_uses_same_envelope_and_validates_real_3d_syntax(self):
         raw = {"frames": [{"i": 1, "strokes": [{"id": "curve", "description": "curve", "path": "M 0 0 0 Q3 0.1 0.2 0.3 0.4 0.5 0.6"}]}]}
-        self.assertEqual(list(validate_batch(raw, [1], 3, "test")), [1])
+        frames = validate_batch(raw, [1], 3, "test")
+        self.assertEqual(list(frames), [1])
+        stroke = frames[1]["strokes"][0]
+        self.assertEqual((stroke["stroke"], stroke["stroke_width"], stroke["opacity"]),
+                         ("#000000", 4.0, 1.0))
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            export(frames, out, 3, 120, 640, "3D projection test")
+            self.assertEqual(Image.open(out / "clip.gif").size, (640, 640))
+            for path in (out / "animation.svg", out / "frames_svg/frame_0001.svg"):
+                root = ET.parse(path).getroot()
+                element = root.find(".//{http://www.w3.org/2000/svg}path")
+                self.assertEqual(element.attrib["data-part-id"], "curve")
+                self.assertEqual(element.attrib["data-description"], "curve")
+            svg = (out / "frames_svg/frame_0001.svg").read_text()
+            self.assertIn('stroke="#000000"', svg)
+            self.assertIn('stroke-width="6"', svg)
 
     def test_provider_does_not_retry_output_truncation(self):
         class Response:
@@ -124,11 +184,11 @@ class LightTests(unittest.TestCase):
                 return json.dumps({"frames":[frame(i,i<5) for i in indices]})
         with tempfile.TemporaryDirectory() as tmp,patch("pipeline.export"):
             provider=FakeProvider();out=Path(tmp)
-            run("alarm",2,6,120,out,provider)
+            run("alarm",2,6,120,out,provider,plan_format="storyboard")
             self.assertEqual([c["stage"] for c in provider.calls][:2],["plan","keys"])
             self.assertCountEqual([c["stage"] for c in provider.calls][2:],["gap_01","gap_02","gap_02_a","gap_02_b"])
             self.assertTrue((out/"checkpoints/gap_02.json").exists())
-            resumed=FakeProvider();run("alarm",2,6,120,out,resumed)
+            resumed=FakeProvider();run("alarm",2,6,120,out,resumed,plan_format="storyboard")
             self.assertEqual(resumed.calls,[])
             value=json.loads((out/"animation.json").read_text())
             self.assertEqual([f["i"] for f in value["frames"]],list(range(1,7)))
@@ -147,7 +207,7 @@ class LightTests(unittest.TestCase):
                 return json.dumps({"static_ids": [], "frames": [spatial_frame(i) for i in indices]})
         with tempfile.TemporaryDirectory() as tmp, patch("pipeline.export"):
             provider = FakeProvider()
-            run("spatial", 3, 6, 120, Path(tmp), provider, gap_workers=2)
+            run("spatial", 3, 6, 120, Path(tmp), provider, gap_workers=2, plan_format="storyboard")
             for stage in ("plan", "keys", "gap_01", "gap_02"):
                 self.assertIn("Genuine spatial sketch construction", provider.systems[stage])
                 self.assertIn("planar billboards", provider.systems[stage])
@@ -164,21 +224,20 @@ class LightTests(unittest.TestCase):
                 if stage == "plan": return STORY
                 if stage == "keys":
                     return json.dumps({"static_ids": ["floor"], "frames": [frame(1), frame(3), frame(6, False)]})
-                self.contexts[stage] = json.loads(user.split("\nContext:\n", 1)[1])
+                self.contexts[stage] = json.loads(user.split("\nBoundary keyframes:\n", 1)[1])
                 self.barrier.wait(timeout=3)
                 return json.dumps({"frames": [frame(2)] if stage == "gap_01" else [frame(4), frame(5, False)]})
         with tempfile.TemporaryDirectory() as tmp, patch("pipeline.export"):
             provider = FakeProvider()
             out = Path(tmp)
-            run("alarm", 2, 6, 120, out, provider, gap_workers=2)
+            run("alarm", 2, 6, 120, out, provider, gap_workers=2, plan_format="storyboard")
             context = provider.contexts["gap_02"]
-            self.assertEqual(context["previous_key"]["i"], 1)
             self.assertEqual((context["from"]["i"], context["to"]["i"]), (3, 6))
-            self.assertNotIn("previous_frame", context)
+            self.assertEqual(set(context), {"from", "to"})
             value = json.loads((out / "animation.json").read_text())
             self.assertEqual([f["i"] for f in value["frames"]], list(range(1, 7)))
             resumed = FakeProvider()
-            run("alarm", 2, 6, 120, out, resumed, gap_workers=1)
+            run("alarm", 2, 6, 120, out, resumed, gap_workers=1, plan_format="storyboard")
             self.assertEqual(resumed.calls, [])
 
     def test_pipeline_batches_keys_preserves_missing_objects_and_resumes(self):
@@ -199,13 +258,13 @@ class LightTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp, patch("pipeline.export"):
             out = Path(tmp)
             provider = FakeProvider()
-            run("alarm", 2, 6, 120, out, provider)
+            run("alarm", 2, 6, 120, out, provider, plan_format="storyboard")
             self.assertEqual([c["stage"] for c in provider.calls][:2], ["plan", "keys"])
             self.assertCountEqual([c["stage"] for c in provider.calls][2:], ["gap_01", "gap_02"])
             animation = json.loads((out / "animation.json").read_text())
             self.assertEqual([f["i"] for f in animation["frames"]], list(range(1,7)))
             self.assertNotIn("fire", {s["id"] for s in animation["frames"][-1]["strokes"]})
-            self.assertIn("no predefined parts inventory", provider.key_prompt)
+            self.assertIn("Assigned sparse samples", provider.key_prompt)
             self.assertIn("single-line stick figures", provider.systems["plan"])
             self.assertIn("Actual drawing target: 320x320 pixels", provider.systems["plan"])
             for stage in ("keys", "gap_01", "gap_02"):
@@ -215,7 +274,45 @@ class LightTests(unittest.TestCase):
                 self.assertIn("Human stick-figure rules never apply to robots", provider.systems[stage])
                 self.assertNotIn("People stay stick figures:", provider.systems[stage])
             resumed = FakeProvider()
-            run("alarm", 2, 6, 120, out, resumed)
+            run("alarm", 2, 6, 120, out, resumed, plan_format="storyboard")
+            self.assertEqual(resumed.calls, [])
+
+    def test_joint_stage_emits_storyboard_and_keys_then_resumes(self):
+        joint = {
+            "storyboard": {
+                "action": "The alarm triggers water that extinguishes fire.",
+                "notes": ["Fixed floor and continuous camera."],
+                "beats": [
+                    {"start": 1, "end": 3, "event": "Pull alarm",
+                     "exit": "Alarm down, fire burning"},
+                    {"start": 4, "end": 6, "event": "Water reaches fire",
+                     "exit": "Fire gone"},
+                ],
+            },
+            "frames": [frame(1), frame(3), frame(6, False)],
+        }
+        class FakeProvider:
+            model, base, effort, max_tokens = "fake", "test://fake", "high", 393216
+            def __init__(self): self.calls = []; self.systems = {}
+            def call(self, stage, system, user, max_tokens):
+                self.calls.append({"stage": stage}); self.systems[stage] = system
+                if stage == "joint_plan_keys": return json.dumps(joint)
+                return json.dumps({"frames": [frame(2)] if stage == "gap_01"
+                                   else [frame(4), frame(5, False)]})
+        with tempfile.TemporaryDirectory() as tmp, patch("pipeline.export"):
+            out = Path(tmp)
+            provider = FakeProvider()
+            run("alarm", 2, 6, 120, out, provider, gap_workers=2)
+            self.assertEqual(provider.calls[0]["stage"], "joint_plan_keys")
+            self.assertCountEqual([call["stage"] for call in provider.calls[1:]],
+                                  ["gap_01", "gap_02"])
+            self.assertIn("revise the storyboard", provider.systems["joint_plan_keys"])
+            saved = json.loads((out / "joint_plan_keys.json").read_text())
+            self.assertEqual(saved["storyboard"]["key_indices"], [1, 3, 6])
+            self.assertEqual([value["i"] for value in saved["frames"]], [1, 3, 6])
+            self.assertIn("## Beats", (out / "storyboard.md").read_text())
+            resumed = FakeProvider()
+            run("alarm", 2, 6, 120, out, resumed, gap_workers=1)
             self.assertEqual(resumed.calls, [])
 
 

@@ -4,7 +4,9 @@
 
 本仓库并列保留两个 agent：Classic V1 位于 `versions/anim_sketchagent_2d_v1` / `versions/anim_sketchagent_3d_v1`，其代码和已有示例不改动；Light V2 位于 `light_agent/`，作为当前推荐入口。二者共用 Path2D/Path3D 格式库，不共用规划或绘画流程。
 
-Light V2 所有片长统一使用：一次 Markdown 分镜规划 → 一次全部关键帧生成 → 各关键帧区间批量生成并发执行 → 结构校验及渲染。不要求 parts 表，不逐帧进行多轮绘画。默认最多六个 gap 并发；截断时区间拆批，拆批内部顺序执行。约定包括因果先后、主体身份、固定场景、可辨认接触和事件时序，但结构通过不保证视觉或物理正确。
+Light V2 默认使用：一次请求联合生成结构化 storyboard 与全部 sparse keyframes → 各关键帧区间批量并发生成 → 结构校验及渲染。联合阶段允许模型在真正构造 key pose 时修改尚未提交的故事，避免第二次请求被已经冻结但不可画的 storyboard 限制。旧 Markdown/JSON 两阶段规划可通过 `--plan-format storyboard` 或 `--plan-format json` 继续运行，用于消融和回退。
+
+不要求 parts 表，不逐帧进行多轮绘画。默认最多六个 gap 并发；截断时区间拆批，拆批内部顺序执行。约定包括因果先后、主体身份、固定场景、可辨认接触和事件时序，但结构通过不保证视觉或物理正确。联合 JSON 是模型与程序的机器接口；每次运行仍导出可读的 `storyboard.md`。
 
 2D 默认人物为圆头单线火柴人，动物简洁可爱；机器人用机械头、机壳与机械肢体。当前原生设计目标 320×320、原生线宽 4px，经 4 倍超采样、Lanczos 抗锯齿与双三次放大；640px 输出线宽约 8px。输出小于 320px 时使用较小原生画布。3D 使用真实空间坐标与有深度的物体，默认只渲染 perspective。风格位于 `light_agent/prompts/STYLE_2D.md`，渲染配置位于 `PRESENTATION_2D.json`，空间规则位于 `SPATIAL_3D.md`。
 
@@ -33,6 +35,8 @@ cp .env.example .env
   --out outputs/sprinkler_2d
 ```
 
+`--plan-format joint` 是默认值。联合模式额外输出 `joint_plan_keys.json`，其中 storyboard beat ends 与 sparse key indices 已经过一致性校验。
+
 改 `--dim 3`，并使用新的 `--out outputs/sprinkler_3d` 即可生成 3D。帧数支持 40、60、120 等；内容和时长应相匹配。24 帧 × 120ms = 2.88 秒；120 帧 = 14.4 秒。并发可用 `--gap-workers 1` 降为串行；`--debug` 保存实际提示词。
 
 相同命令、相同输出目录可以恢复成功阶段。任务、维度、帧数等变更须使用新目录；提示词源码改变会使对应 checkpoint 失效。恢复耗时保留在 `previous_sessions`，不要仅取最后一次请求时间作为完整实验耗时。
@@ -42,6 +46,7 @@ cp .env.example .env
 每次运行目录包含：
 
 - `storyboard.md`：模型规划及时间表。
+- `joint_plan_keys.json`：联合阶段的结构化 storyboard 与 sparse keyframes。
 - `animation.json`：完整逐帧路径；`clip.gif`、`contact_sheet.jpg`、`index.html`：展示产物。
 - `metrics.json`：总墙钟、分阶段、每次 API 请求耗时与 usage、错误、恢复记录；`gap_wall_seconds` 为并发区间阶段实际墙钟。
 - `request.json`：不含密钥的运行参数；`checkpoints/`：恢复数据与压缩响应；`presentation.json`：2D 实际渲染配置。

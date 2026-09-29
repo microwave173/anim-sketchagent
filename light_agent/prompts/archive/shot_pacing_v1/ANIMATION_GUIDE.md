@@ -22,8 +22,6 @@ People stay stick figures: one round head drawn with smooth closed curves, not a
 
 Animals are cute, lively children's sketches, not stick figures or realistic anatomical studies. Use a closed oval or bean-shaped body and a simple closed head. Short-neck animals have touching or overlapping head and body shapes without an added neck. For long-neck animals, prefer one continuous body-neck-head outline without construction seams. Legs are short single open strokes attached to the body, with the appropriate number for the species. Keep a characteristic tail clearly readable; short legs do not require a short tail. Show species-defining features such as ears, muzzle or beak, wings and tail, plus a small eye tick inside the head. Ears project from the crown rather than tracing the skull. Do not leave a stick skeleton or unnecessary inner construction ovals inside the animal.
 
-Animals retain species-typical posture, anatomy and locomotion unless the user explicitly requests anthropomorphic acting. Keep quadrupeds on four legs and let them manipulate objects naturally with the mouth, paws, head or body weight. Do not make an animal stand upright, walk like a human, use forelegs as human arms or hands, or copy human gestures by default.
-
 Props use the fewest strokes that make their type recognizable and keep the important contact visible. For 3D, preserve genuine depth and consistent attachments while retaining the same simple sketch construction; use the supplied world axes. Explicit user appearance requests and edits override these defaults.
 
 ## Show causes before consequences
